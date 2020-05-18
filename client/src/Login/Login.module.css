@@ -1,0 +1,40 @@
+.BGImage{
+  background: url('../assets/ttn.jpg') no-repeat;
+  height: 100vh;
+  filter: blur(5px);
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.LoginBox{
+  display: flex;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: white;
+  opacity: 0.85;
+  width: 30vw;
+  align-items: center;
+}
+
+
+.LoginText{
+  font-weight: bold;
+  color: darkslategray;
+  padding: 1rem 0;
+}
+
+.LoginButton{
+  text-decoration: none;
+  padding: 1rem;
+  background-color: red;
+  color: white;
+}
+
+.LoginButton:hover{
+  background-color: firebrick;
+}
+
