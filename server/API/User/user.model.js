@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    enum: ['employee', 'admin']
+    default: 'Employee',
+    enum: ['Employee', 'Admin']
   },
   buzz: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Complaint'
   }]
-});
+}, {versionKey: false});
 
 const userModel = mongoose.model('User', userSchema);
 

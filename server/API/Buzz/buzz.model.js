@@ -20,7 +20,7 @@ const buzzSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-});
+}, {versionKey: false});
 
 const buzzModel = mongoose.model('Buzz', buzzSchema);
 
