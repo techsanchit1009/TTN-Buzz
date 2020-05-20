@@ -1,10 +1,16 @@
 const userService = require('./user.service');
 
-exports.addUser = (req, res) => {
+exports.addUser = async (req, res) => {
   let newUser = {
     email: req.body.email,
     name: req.body.name,
     userType: req.body.userType
   };
-  userService.addUser(newUser, res);
+  
+  try {
+    const user = await userService.addUser(newUser);
+    res.send(user);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 }

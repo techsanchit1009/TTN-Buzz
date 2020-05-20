@@ -41,8 +41,15 @@ const complaintSchema = new mongoose.Schema({
     type: Date,
     default: new Date()
   },
+  updatedOn: {
+    type: Date,
+    default: new Date()
+  }
 }, {versionKey: false});
 
+complaintSchema.pre('updateOne', function(){
+  this.set({ updatedOn: new Date() });
+});
 
 // some random IDs for now. will change it.
 complaintSchema.pre('save', function(){
@@ -55,7 +62,7 @@ complaintSchema.pre('save', function(){
   } else if(this.dept === 'Admin') {
     this.set({assignedTo: '5ec3e709552d0239263f94a4'});
   }
-})
+});
 
 const complaintModel = mongoose.model('Complaint', complaintSchema);
 

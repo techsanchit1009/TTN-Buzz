@@ -7,6 +7,7 @@ const buzzSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    required: true,
     enum: ['Activity', 'Lost & Found']
   },
   image: {
