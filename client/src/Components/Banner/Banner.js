@@ -1,5 +1,5 @@
 import React from 'react'
-import Container from '../../shared/Container/Container';
+import Container from '../UI/Container/Container';
 import classes from './Banner.module.css';
 
 const Banner = (props) => {

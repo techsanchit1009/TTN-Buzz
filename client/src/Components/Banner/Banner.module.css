@@ -1,8 +1,7 @@
 .BannerImage{
   background-image: url('../../assets/banner.jpg');
-  height: 50vh;
+  height: 45vh;
   background-size: cover;
-  background-position: center bottom;
   position: relative;
 }
 

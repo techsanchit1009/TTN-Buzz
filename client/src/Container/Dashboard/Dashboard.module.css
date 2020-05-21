@@ -1,0 +1,12 @@
+.Dashboard{ 
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.DashboardContent{
+  flex: 2;
+  margin: 0 1.5rem;
+  margin-right: 0;
+}

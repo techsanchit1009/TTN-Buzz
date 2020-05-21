@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './TopBar.module.css';
 import TTNLogo from '../../assets/ttn-logo.jpg'
 import { FiLogOut } from 'react-icons/fi'
-import Container from '../../shared/Container/Container';
+import Container from '../UI/Container/Container';
 
 const TopBar = () => {
   return (

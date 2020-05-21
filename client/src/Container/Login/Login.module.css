@@ -1,5 +1,5 @@
 .BGImage{
-  background: url('../assets/ttn.jpg') no-repeat;
+  background: url('../../assets/ttn.jpg') no-repeat;
   height: 100vh;
   filter: blur(5px);
   background-position: center;

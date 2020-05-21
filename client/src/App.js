@@ -1,14 +1,14 @@
 import React from "react";
-import Login from "./Login/Login";
+import Login from "./Container/Login/Login";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Dashboard from "./Container/Dashboard/Dashboard";
 import "./App.css";
-import Buzz from "./Container/Buzz/Buzz";
 
 function App() {
   const routes = (
     <Switch>
       <Route path="/" exact component={Login} />
-      <Route path="/buzz" component={Buzz} />
+      <Route path="/dashboard" component={Dashboard} />
     </Switch>
   );
   return (

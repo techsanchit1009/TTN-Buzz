@@ -1,5 +1,5 @@
 import React from "react";
-import TTNLogo from "../assets/ttn-logo.jpg";
+import TTNLogo from '../../assets/ttn-logo.jpg';
 import { FaGooglePlusG } from "react-icons/fa";
 import classes from "./Login.module.css";
 

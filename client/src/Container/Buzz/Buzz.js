@@ -1,16 +1,14 @@
-import React from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
-import Banner from '../../Components/Banner/Banner';
-
+import React from "react";
+import classes from "./Buzz.module.css";
+import NewBuzz from "./NewBuzz/NewBuzz";
 
 const Buzz = () => {
-  const bannerText = 'Creating Buzz around you never been so easy..'
   return (
-    <div>
-      <TopBar />
-      <Banner>{bannerText}</Banner>
+    <div className={classes.Buzz}>
+      <NewBuzz />
+      <div className={classes.RecentBuzz}>RecentBuzz</div>
     </div>
   );
-}
+};
 
 export default Buzz;
