@@ -10,7 +10,7 @@ exports.addComplaint = async (complaint) => {
 
   const respComplaint = await Complaint.create(newComplaint);
   user.complaints.push(respComplaint);
-  await user.save();
+  await user.save(); // adding complaint objectID in user complaints Array
   return respComplaint;
 };
 
