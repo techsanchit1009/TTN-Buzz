@@ -1,0 +1,23 @@
+.NavItem{
+  border: 1px solid #ddd;
+  background-color: white;
+  padding: 1rem;
+  text-transform: uppercase;
+}
+
+.NavItem a{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(138, 137, 137);
+  font-weight: bold;
+}
+
+
+.NavItem a:hover{
+  color: rgb(255, 115, 0);
+}
+
+.NavItem a.Active{
+  color: rgb(255, 115, 0);
+}

@@ -46,13 +46,17 @@
   margin-right: 1rem;
 }
 
+.ImageInput{
+  outline: none;
+}
+
 .ImageButton{
   font-size: 2rem;
   color: #aaa;
 }
 
 .ImageButton:hover{
-  color: black;
+  color: rgb(126, 122, 122);
   cursor: pointer;
 }
 

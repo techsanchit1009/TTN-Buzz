@@ -1,0 +1,7 @@
+.SideNav{
+  flex: 1;
+  margin: 0 1.5rem;
+  margin-left: 0;
+  align-self: flex-start;
+  box-shadow: 0 0 4px #ccc;
+}

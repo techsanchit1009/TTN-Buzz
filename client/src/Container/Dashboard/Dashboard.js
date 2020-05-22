@@ -1,10 +1,11 @@
 import React from 'react';
 import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
+import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
 import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
-import classes from './Dashboard.module.css';
 import Container from '../../Components/UI/Container/Container';
+import SideNav from '../../Components/SideNav/SideNav';
 
 const Dashboard = () => {
   const routes = (
@@ -22,9 +23,9 @@ const Dashboard = () => {
       <Banner>{bannerText}</Banner>
       <Container>
         <div className={classes.Dashboard}>
-          <div style={{flex: 1}}>SideDrawer</div> {/* flex: 1*/}   
+          <SideNav />
           <div className={classes.DashboardContent}>
-            {routes}    {/*flex: 3*/}
+            {routes}   
           </div>
         </div>
       </Container>

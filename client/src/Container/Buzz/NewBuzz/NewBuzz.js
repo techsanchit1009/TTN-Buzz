@@ -42,7 +42,7 @@ const NewBuzz = () => {
               />
             </div>
           </div>
-          <button type="submit" className={classes.SubmitButton}>
+          <button type="submit" className={classes.SubmitButton} title="Submit Buzz">
             <TiLocationArrow />
           </button>
         </div>
