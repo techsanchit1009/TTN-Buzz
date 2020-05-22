@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
+import Complaint from '../Complaint/Complaint';
 import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
@@ -11,7 +12,7 @@ const Dashboard = () => {
   const routes = (
     <Switch>
       <Route path="/dashboard/buzz" exact component={Buzz} />
-      <Route path="/dashboard/complaint" exact component={Buzz} />
+      <Route path="/dashboard/complaint" exact component={Complaint} />
       <Route path="/dashboard/resolve" exact component={Buzz} />
       <Redirect to="/dashboard/buzz" />
     </Switch>

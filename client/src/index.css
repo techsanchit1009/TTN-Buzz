@@ -17,6 +17,11 @@ a{
   text-decoration: none;
 }
 
+textarea{
+  height: 15vh;
+  resize: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
