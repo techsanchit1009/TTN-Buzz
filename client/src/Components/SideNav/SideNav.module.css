@@ -1,7 +1,26 @@
-.SideNav{
+aside{
   flex: 1;
   margin: 0 1.5rem;
   margin-left: 0;
-  align-self: flex-start;
+  font-size: 0.9rem;
+}
+.SideNav{
   box-shadow: 0 0 4px #ccc;
+}
+
+.SideNavFooter{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.FooterButton{
+  display: flex;
+  justify-content: space-between;
+}
+
+.FooterButton a{
+  color: blue;
+  margin: 0 0.5rem;
 }

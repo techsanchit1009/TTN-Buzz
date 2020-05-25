@@ -4,6 +4,7 @@
   box-shadow: 0 0 4px #ccc;
   background-color: white;
   font-size: 0.9rem;
+  margin-bottom: 2rem;
 }
 
 .Header{
@@ -48,6 +49,17 @@
 .ImageName{
   margin: 0 0.5rem;
   color: darkslategray;
+}
+
+.RemoveImage{
+  border-radius: 50%;
+  padding: 0 2px;
+}
+
+.RemoveImage:hover{
+  color: black;
+  background-color: #ccc;
+  cursor: pointer;
 }
 
 .SubmitRow{

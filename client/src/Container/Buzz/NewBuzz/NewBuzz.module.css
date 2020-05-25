@@ -39,8 +39,14 @@
 .Category{
   background: none;
   min-height: 1.5rem;
+  width: 10vw;
+  outline: none;
+  border: none;
   margin-right: 1rem;
 }
+
+
+
 
 .ImageButton{
   font-size: 2rem;
@@ -57,6 +63,17 @@
   color: darkslategray;
 }
 
+.RemoveImage{
+  border-radius: 50%;
+  padding: 0 2px;
+}
+
+.RemoveImage:hover{
+  color: black;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
 .SubmitButton {
   color: rgb(255, 115, 0);
   font-size: 2rem;
@@ -67,6 +84,6 @@
   cursor: pointer;
 }
 
-.SubmitButton:hover{
+.SubmitButton:hover, .SubmitButton:focus{
   color: orangered;
 }

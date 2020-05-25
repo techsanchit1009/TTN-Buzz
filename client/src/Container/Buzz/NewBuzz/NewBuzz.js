@@ -3,12 +3,34 @@ import { FaPencilAlt } from "react-icons/fa";
 import { TiLocationArrow } from "react-icons/ti";
 import { RiImageAddLine } from "react-icons/ri";
 import classes from './NewBuzz.module.css';
+import axios from 'axios';
 
 const NewBuzz = () => {
-  const [imageName, setImageName] = useState('');
+  const initialState = {
+    description: '',
+    category: '',
+    image: ''
+  };
+
+  const [buzzData, setBuzzData] = useState(initialState);
 
   const imageSelectHandler = (e) => {
-    setImageName(e.target.files[0].name);
+    setBuzzData({...buzzData, image: e.target.files[0]});
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData();  
+    Object.keys(buzzData).forEach(item => {
+      formData.append(item, buzzData[item]);
+    });
+
+    axios.post('http://localhost:5000/api/buzz', formData)
+          .then(resp => console.log(resp.data));
+  }
+
+  const removeImage = () => {
+    setBuzzData({...buzzData, image: ''})
   }
 
   return (
@@ -17,20 +39,23 @@ const NewBuzz = () => {
           <FaPencilAlt style={{ margin: "0 0.3rem" }} />
           Create Buzz
         </div>
+        <form onSubmit={(e) => submitHandler(e)}>
         <div>
           <textarea
             className={classes.Form}
             placeholder="Share your thoughts...."
+            value={buzzData.description}
+            onChange={ (e) => setBuzzData({...buzzData, description: e.target.value}) }
           ></textarea>
         </div>
         <div className={classes.FormFooter}>
           <div className={classes.FormOptions}>
-            <div>
-              <select className={classes.Category} defaultValue={"Category"}>
-                <option defaultValue="DEFAULT" disabled hidden>
-                  Category
-                </option>
-                <option value="Activity">Activity Buzz</option>
+            <div style={{position: 'relative'}}>
+              <select className={classes.Category} 
+                      onChange={(e) => setBuzzData({...buzzData, category: e.target.value})}
+                      defaultValue={"Category"}>
+                <option defaultValue="DEFAULT" hidden disabled>Category</option>
+                <option value="Activity">Activity Buzz </option>
                 <option value="Lost & Found">Lost & Found Buzz</option>
               </select>
             </div>
@@ -47,13 +72,17 @@ const NewBuzz = () => {
                 hidden
                 onChange={(e) => imageSelectHandler(e)}
               />
-              <p className={classes.ImageName}>{imageName}</p>
+              {buzzData.image.name && <p className={classes.ImageName}>
+                {buzzData.image.name} 
+                <span className={classes.RemoveImage} onClick={removeImage} title="Remove">&times;</span>
+              </p>}
             </div>
           </div>
-          <button type="submit" className={classes.SubmitButton} title="Submit Buzz">
+          <button className={classes.SubmitButton} title="Submit Buzz">
             <TiLocationArrow />
           </button>
         </div>
+        </form>
       </div>
   )
 }

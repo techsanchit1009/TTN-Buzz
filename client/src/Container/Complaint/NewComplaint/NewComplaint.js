@@ -2,45 +2,168 @@ import React, { useState } from "react";
 import classes from "./NewComplaint.module.css";
 import Input from "../../../Components/UI/Input/Input";
 import { RiImageAddLine } from "react-icons/ri";
+import axios from 'axios';
+
 
 const NewComplaint = () => {
-  const [imageName, setImageName] = useState("");
+  const initialFormData = {
+    name: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+      },
+      value: "",
+      validation: {
+        required: true,
+      },
+      valid: true,
+      touched: true,
+    },   
+    
+    title: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+      },
+      value: "",
+      validation: {
+        required: true,
+      },
+      valid: true,
+      touched: true,
+    },  
 
-  const options = [
-    { value: "IT", displayValue: "IT" },
-    { value: "Admin", displayValue: "Admin" },
-    { value: "HR", displayValue: "HR" },
-    { value: "Infra", displayValue: "Infra" },
-  ];
+    description: {
+      elementType: "textarea",
+      elementConfig: {},
+      value: "",
+      validation: {
+        required: true,
+      },
+      valid: true,
+      touched: true,
+    },  
 
-  const imageSelectHandler = (e) => {
-    setImageName(e.target.files[0].name);
+    email: {
+      elementType: "input",
+      elementConfig: {
+        type: "email",
+      },
+      value: "",
+      validation: {
+        required: true,
+        isEmail: true,
+      },
+      valid: true,
+      touched: true,
+    },
+
+    dept: {
+      elementType: "select",
+      elementConfig: {
+        options: [
+          { value: "IT", displayValue: "IT" },
+          { value: "Admin", displayValue: "Admin" },
+          { value: "HR", displayValue: "HR" },
+          { value: "Infra", displayValue: "Infra" },
+        ]
+      },
+      value: "",
+      validation: {},
+      valid: true,
+    },
+    image: {
+      elementType: 'file',
+      value: '',
+    }
   };
+  const [complaintData, setComplaintData] = useState(initialFormData);
 
-  const formSubmitHandler = (e) => {
-    // e.preventDefault(); 
-    // above line not letting add image
+  const inputChangeHandler = (event, inputIdentifier) => {
+    const updatedComplaintData = {
+      ...complaintData,
+    };
+    const updatedFormElement = {
+      ...updatedComplaintData[inputIdentifier],
+    };
+    if(inputIdentifier === 'image') {
+      updatedFormElement.value = event.target.files[0];
+    } else {
+      updatedFormElement.value = event.target.value;
+    }
+
+    // Form Validation 
+    //
+    //
+    // -----------
+
+    updatedComplaintData[inputIdentifier] = updatedFormElement;
+
+    setComplaintData(updatedComplaintData);
   }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData();  
+    Object.keys(complaintData).forEach(item => {
+      formData.append(item, complaintData[item].value);
+    });
+
+    axios.post('http://localhost:5000/api/complaint', formData)
+         .then(resp => {
+           setComplaintData(initialFormData);
+           console.log(resp.data);
+         });
+         
+    
+  }
+
+  const removeImage = () => {
+    setComplaintData({...complaintData, image: {...complaintData.image, value: '' }})
+    console.log(complaintData);
+  }
+
   return (
     <div className={classes.NewComplaint}>
       <div className={classes.Header}>Complaint Box</div>
 
-      <form onClick={(e) => formSubmitHandler(e)}>
+      <form onSubmit={(e) => submitHandler(e)}>
         <div className={classes.ComplaintBox}>
           <div className={classes.FormRow}>
             <Input
-              elementType="select"
-              options={options}
+              elementType={complaintData.dept.elementType}
+              options={complaintData.dept.elementConfig.options}
+              inputChangeHandler={(e) => inputChangeHandler(e, 'dept')}
               label="Select Department"
             />
-            <Input elementType="input" label="Issue Title" />
+            <Input 
+                elementType={complaintData.title.elementType} 
+                elementConfig={complaintData.title.elementConfig} 
+                value={complaintData.title.value}
+                inputChangeHandler={(e) => inputChangeHandler(e, 'title')}
+                label="Issue Title" 
+            />
           </div>
           <div className={classes.FormRow}>
-            <Input elementType="input" label="Your Name" />
-            <Input elementType="input" label="Email ID" />
+            <Input 
+                elementType={complaintData.name.elementType}
+                elementConfig={complaintData.name.elementConfig} 
+                value={complaintData.name.value}
+                inputChangeHandler={(e) => inputChangeHandler(e, 'name')}
+                label="Your Name" />
+            <Input 
+                elementType={complaintData.email.elementType}
+                elementConfig={complaintData.email.elementConfig}
+                value={complaintData.email.value}
+                inputChangeHandler={(e) => inputChangeHandler(e, 'email')}
+                label="Email ID" />
           </div>
           <div className={classes.TextAreaRow}>
-            <Input elementType="textarea" label="Your Concern" />
+            <Input 
+                elementType="textarea" 
+                value={complaintData.description.value} 
+                inputChangeHandler={(e) => inputChangeHandler(e, 'description')}
+                label="Your Concern" />
           </div>
           <div className={classes.ImageUploadRow}>
             <label htmlFor="image">
@@ -55,18 +178,20 @@ const NewComplaint = () => {
               className={classes.ImageInput}
               accept="image/*"
               hidden
-              onChange={(e) => imageSelectHandler(e)}
+              onChange={(e) => inputChangeHandler(e, 'image')}
             />
-            <p className={classes.ImageName}>
-              {!imageName ? "Attachment" : imageName}
-            </p>
+            <div className={classes.ImageName}>
+              {!complaintData.image.value.name ? "Attachment" : (
+                <p> 
+                <span className={classes.RemoveImage} onClick={removeImage} title="Remove">&times;</span>{complaintData.image.value.name}</p>
+              )}
+            </div>
           </div>
           <div className={classes.SubmitRow}>
             <button className={classes.SubmitButton}>Submit</button>
           </div>
         </div>
       </form>
-
     </div>
   );
 };

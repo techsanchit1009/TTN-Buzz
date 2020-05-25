@@ -1,4 +1,5 @@
 const complaintService = require('./complaint.service');
+const cloudinary = require('cloudinary');
 
 exports.addComplaint = async (req, res) => {
   let newComplaint = {
@@ -6,10 +7,16 @@ exports.addComplaint = async (req, res) => {
     name: req.body.name,
     title: req.body.title,
     dept: req.body.dept,
-    description: req.body.description,
-    status: req.body.status,
-    complaintBy: req.body.complaintBy
+    description: req.body.description
   };
+
+  if(req.file){
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    newComplaint = {
+      ...newComplaint,
+      image: result.secure_url
+    }
+  }
 
   try {
     const complaint = await complaintService.addComplaint(newComplaint);
