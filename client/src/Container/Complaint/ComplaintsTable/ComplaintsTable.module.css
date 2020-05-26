@@ -1,6 +1,7 @@
 .ComplaintsTable{
   background-color: white;
   text-align: center;
+  box-shadow: 0 0 5px #ccc;
 }
 
 .Header{

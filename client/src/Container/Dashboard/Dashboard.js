@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
@@ -7,13 +7,20 @@ import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
+import axios from 'axios';
 
 const Dashboard = () => {
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/auth/success', {withCredentials: true})
+        .then(resp => console.log(resp))
+  }, []);
+
   const routes = (
     <Switch>
-      <Route path="/dashboard/buzz" exact component={Buzz} />
-      <Route path="/dashboard/complaint" exact component={Complaint} />
-      <Route path="/dashboard/resolve" exact component={Buzz} />
+      <Route path="/dashboard/buzz" component={Buzz} />
+      <Route path="/dashboard/complaint" component={Complaint} />
+      <Route path="/dashboard/resolve" component={Buzz} />
       <Redirect to="/dashboard/buzz" />
     </Switch>
   );

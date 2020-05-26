@@ -6,6 +6,7 @@ const Buzz = () => {
   useEffect(() => {
     window.document.title = 'Buzz';
   }, []);
+
   return (
     <div className={classes.Buzz}>
       <NewBuzz />

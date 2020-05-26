@@ -17,6 +17,10 @@ a{
   text-decoration: none;
 }
 
+a:hover{
+  text-decoration: underline;
+}
+
 textarea{
   height: 15vh;
   resize: none;
