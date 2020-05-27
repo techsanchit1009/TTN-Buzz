@@ -2,6 +2,7 @@ const buzzService = require('./buzz.service');
 const cloudinary = require('cloudinary');
 
 exports.addBuzz = async (req, res) => { 
+  const userEmail = req.body.email;
   let newBuzz = {
     description: req.body.description,
     category: req.body.category,
@@ -15,7 +16,7 @@ exports.addBuzz = async (req, res) => {
   }
 
   try {
-    const buzz = await buzzService.addBuzz(newBuzz);
+    const buzz = await buzzService.addBuzz(newBuzz, userEmail);
     res.send(buzz);
   } catch (err) {
     res.status(400).send(err);

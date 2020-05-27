@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
 import Complaint from '../Complaint/Complaint';
@@ -7,14 +8,13 @@ import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
-import axios from 'axios';
+import * as userAction from '../../Store/Actions/index.actions';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
 
   useEffect(() => {
-    axios.get('http://localhost:5000/auth/success', {withCredentials: true})
-        .then(resp => console.log(resp))
-  }, []);
+    props.onFetchUser();
+  }, [props]);
 
   const routes = (
     <Switch>
@@ -26,7 +26,7 @@ const Dashboard = () => {
   );
   const bannerText = 'creating buzz around you never been so easy..';
   return (
-    <BrowserRouter>
+    <div>
       <TopBar />
       <Banner>{bannerText}</Banner>
       <Container>
@@ -37,7 +37,20 @@ const Dashboard = () => {
           </div>
         </div>
       </Container>
-    </BrowserRouter>
+    </div>
   )
 }
-export default Dashboard;
+
+const mapStateToProps = (state) => {
+  // console.log(state.userData);
+  return {
+    authenticated: state.userData.authenticated
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUser: () => dispatch(userAction.initFetchUser())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

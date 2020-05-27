@@ -4,12 +4,13 @@ import { TiLocationArrow } from "react-icons/ti";
 import { RiImageAddLine } from "react-icons/ri";
 import classes from './NewBuzz.module.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-const NewBuzz = () => {
+const NewBuzz = (props) => {
   const initialState = {
     description: '',
     category: '',
-    image: ''
+    image: '',
   };
 
   const [buzzData, setBuzzData] = useState(initialState);
@@ -24,6 +25,7 @@ const NewBuzz = () => {
     Object.keys(buzzData).forEach(item => {
       formData.append(item, buzzData[item]);
     });
+    formData.append('email', props.email);
 
     axios.post('http://localhost:5000/api/buzz', formData)
           .then(resp => console.log(resp.data));
@@ -87,4 +89,10 @@ const NewBuzz = () => {
   )
 }
 
-export default NewBuzz;
+const mapStateToProps = (state) => {
+  return{
+    email: state.userData.user.email
+  }
+}
+
+export default connect(mapStateToProps)(NewBuzz);
