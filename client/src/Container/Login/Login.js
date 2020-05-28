@@ -4,13 +4,12 @@ import TTNLogo from '../../assets/ttn-logo.jpg';
 import { FaGooglePlusG } from "react-icons/fa";
 import classes from "./Login.module.css";
 import { withRouter } from "react-router-dom";
-import axios from 'axios';
 
 const Login = (props) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    setErrorMsg(queryString.parse(props.location.search).error); 
+    setErrorMsg(queryString.parse(props.location.search).error);  // In case of access denied
   }, [props.location.search]);
 
   return (

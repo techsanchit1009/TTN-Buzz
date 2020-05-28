@@ -1,9 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const checkAuth = require('../../Middleware/checkAuth.midware');
-const userController = require('./user.controller');
 
-router.post('/auth/login', userController.addUser); 
 
 router.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email']

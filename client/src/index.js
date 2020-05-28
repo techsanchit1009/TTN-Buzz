@@ -5,12 +5,16 @@ import App from './App';
 import {Provider} from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import userReducer from './Store/Reducers/userReducer';
+import userReducer from './Store/Reducers/user.reducer';
+import complaintReducer from './Store/Reducers/complaint.reducer';
+import buzzReducer from './Store/Reducers/buzz.reducer';
 import * as serviceWorker from './serviceWorker';
 
 
 const rootReducer = combineReducers({
-  userData: userReducer
+  userData: userReducer,
+  complaintData: complaintReducer,
+  buzzData: buzzReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

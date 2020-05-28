@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {Route, BrowserRouter, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
@@ -8,13 +8,17 @@ import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
-import * as userAction from '../../Store/Actions/index.actions';
+import * as action from '../../Store/Actions/index.actions';
 
 const Dashboard = (props) => {
-
+  const {onFetchUser, userId, onFetchUserComplaints, onFetchBuzz} = props;
   useEffect(() => {
-    props.onFetchUser();
-  }, [props]);
+    onFetchUser();
+    onFetchBuzz();
+    if(userId){
+      onFetchUserComplaints(userId)
+    }
+  }, [onFetchUserComplaints, userId, onFetchUser, onFetchBuzz]);
 
   const routes = (
     <Switch>
@@ -42,15 +46,19 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state.userData);
+  // console.log(state.buzzData);
   return {
-    authenticated: state.userData.authenticated
+    authenticated: state.userData.authenticated,
+    userId: state.userData.user._id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchUser: () => dispatch(userAction.initFetchUser())
+    onFetchUser: () => dispatch(action.initFetchUser()),
+    onFetchUserComplaints: (userId) => dispatch(action.initFetchUserComplaints(userId)),
+    onFetchBuzz: () => dispatch(action.initFetchBuzz())
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

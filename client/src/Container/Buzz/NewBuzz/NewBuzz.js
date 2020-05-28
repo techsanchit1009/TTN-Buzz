@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { FaPencilAlt } from "react-icons/fa";
 import { TiLocationArrow } from "react-icons/ti";
 import { RiImageAddLine } from "react-icons/ri";
 import classes from './NewBuzz.module.css';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import * as buzzAction from '../../../Store/Actions/index.actions';
+
 
 const NewBuzz = (props) => {
   const initialState = {
@@ -27,8 +29,9 @@ const NewBuzz = (props) => {
     });
     formData.append('email', props.email);
 
-    axios.post('http://localhost:5000/api/buzz', formData)
-          .then(resp => console.log(resp.data));
+    // axios.post('http://localhost:5000/api/buzz', formData)
+    //       .then(resp => console.log(resp.data));
+    props.onAddBuzz(formData);
   }
 
   const removeImage = () => {
@@ -90,9 +93,16 @@ const NewBuzz = (props) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return{
     email: state.userData.user.email
   }
 }
 
-export default connect(mapStateToProps)(NewBuzz);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddBuzz: (buzzBody) => dispatch(buzzAction.initAddBuzz(buzzBody))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewBuzz);

@@ -40,7 +40,9 @@ tr:nth-child(even){
   color: red;
 }
 
-.Status:hover{
-  
+.NoComplaintText{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+  text-align: center;
 }
-

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import classes from "./NewComplaint.module.css";
 import Input from "../../../Components/UI/Input/Input";
 import { RiImageAddLine } from "react-icons/ri";
-import axios from 'axios';
+import * as complaintAction from '../../../Store/Actions/index.actions';
+import { connect } from "react-redux";
 
 
-const NewComplaint = () => {
+const NewComplaint = (props) => {
   const initialFormData = {
     name: {
       elementType: "input",
@@ -109,13 +110,7 @@ const NewComplaint = () => {
       formData.append(item, complaintData[item].value);
     });
 
-    axios.post('http://localhost:5000/api/complaint', formData)
-         .then(resp => {
-           setComplaintData(initialFormData);
-           console.log(resp.data);
-         });
-         
-    
+   props.onAddNewComplaint(formData);
   }
 
   const removeImage = () => {
@@ -196,4 +191,10 @@ const NewComplaint = () => {
   );
 };
 
-export default NewComplaint;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddNewComplaint: (complaintBody) => dispatch(complaintAction.initAddComplaint(complaintBody))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewComplaint);
