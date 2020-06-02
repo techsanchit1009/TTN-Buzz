@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {Provider} from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import userReducer from './Store/Reducers/user.reducer';
 import complaintReducer from './Store/Reducers/complaint.reducer';
 import buzzReducer from './Store/Reducers/buzz.reducer';
 import * as serviceWorker from './serviceWorker';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
 
 const rootReducer = combineReducers({
   userData: userReducer,
@@ -17,7 +18,7 @@ const rootReducer = combineReducers({
   buzzData: buzzReducer
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 const app = (
   <Provider store={store}>

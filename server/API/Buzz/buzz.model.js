@@ -13,6 +13,14 @@ const buzzSchema = new mongoose.Schema({
   image: {
     type: String
   },
+  likedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  dislikedBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   createdOn: {
     type: Date,
     default: new Date()

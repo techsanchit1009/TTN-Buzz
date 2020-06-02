@@ -21,7 +21,7 @@ exports.getUserComplaint = (id) => {
 
 // For Admin Route
 exports.getAllComplaints = () => {
-    const complaints = Complaint.find({}).sort({ createdOn: -1 });
+    const complaints = Complaint.find({}).populate('complaintBy').sort({ createdOn: -1 });
     return complaints;
 }
 

@@ -93,7 +93,6 @@ const NewBuzz = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return{
     email: state.userData.user.email
   }

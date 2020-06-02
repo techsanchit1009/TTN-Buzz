@@ -14,6 +14,6 @@ exports.addBuzz = async (buzz, userEmail) => {
 };
 
 exports.getAllBuzz = () => {
-  const allBuzz = Buzz.find({}).sort({ createdOn: -1 });
+  const allBuzz = Buzz.find({}).populate('createdBy').sort({ createdOn: -1 });
   return allBuzz;
 };

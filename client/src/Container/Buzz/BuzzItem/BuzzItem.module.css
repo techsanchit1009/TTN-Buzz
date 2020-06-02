@@ -1,0 +1,51 @@
+.BuzzItem{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-right: 0;
+  border-left: 0;
+}
+
+.Content{
+  display: flex;
+}
+
+.BuzzDate, .BuzzContent, .ActionsRow{
+  padding: 1rem;
+}
+
+
+.BuzzContent{
+  flex-basis: 100%;
+}
+
+.ImageBlock{
+  height: 35vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.ActionRow{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+}
+
+
+.ActionButton{
+  margin: 0 0.5rem;
+  color: #bbb;
+}
+
+.ActionIcon{
+  margin: 0 5px;
+}
+
+.ActionIcon:hover{
+  color: rgb(255, 115, 0);
+  cursor: pointer;
+}
