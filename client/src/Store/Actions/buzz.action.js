@@ -45,23 +45,8 @@ export const initAddBuzz = (buzzBody) => {
     axios.post('http://localhost:5000/api/buzz', buzzBody)
           .then(resp => {
             // console.log(resp.data); 
-            window.location.reload(false);
             dispatch(addBuzzSuccess(resp.data));
           });
-  }
-}
-
-export const likeBuzz = (buzzId) => {
-  return {
-    type: actionTypes.LIKE_BUZZ,
-    buzzId: buzzId
-  }
-}
-
-export const dislikeBuzz = (buzzId) => {
-  return {
-    type: actionTypes.DISLIKE_BUZZ,
-    buzzId: buzzId
   }
 }
 

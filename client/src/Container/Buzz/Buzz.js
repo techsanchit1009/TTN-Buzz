@@ -16,6 +16,14 @@ const Buzz = (props) => {
     props.onLikeDislikeBuzz(actionType, id, props.user.email);
   };
 
+  const checkSelected = (array, userId) => {
+    const element = array.find(elem => elem._id === userId);
+    if(!element){
+      return false;
+    }
+    return true;
+  }
+
   return (
     <div className={classes.Buzz}>
       <NewBuzz />
@@ -34,8 +42,8 @@ const Buzz = (props) => {
               imageUrl={buzz.image}
               likes={buzz.likes}
               dislikes={buzz.dislikes}
-              selectedLike={buzz.likedBy.includes(props.user._id)}
-              selectedDislike={buzz.dislikedBy.includes(props.user._id)}
+              selectedLike={checkSelected(buzz.likedBy, props.user._id)}
+              selectedDislike={checkSelected(buzz.dislikedBy, props.user._id)}
               likeDislikeHandler={likeDislikeHandler}
             />
           ))}

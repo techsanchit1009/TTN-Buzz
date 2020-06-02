@@ -16,7 +16,7 @@ exports.addBuzz = async (buzz, userEmail) => {
 exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {
   const user = await sharedService.getUser(userEmail);
   const buzzToUpdate = await Buzz.findById(buzzId);
-  
+
   if(action === 'like'){
     if(!buzzToUpdate.likedBy.includes(user._id) && !buzzToUpdate.dislikedBy.includes(user._id) ){
       buzzToUpdate.likedBy.push(user);  // Add to likes if not present anywhere
@@ -44,6 +44,10 @@ exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {
 }
 
 exports.getAllBuzz = () => {
-  const allBuzz = Buzz.find({}).populate('createdBy').sort({ createdOn: -1 });
+  const allBuzz = Buzz.find({})
+                  .populate('createdBy')
+                  .populate('likedBy', 'name')
+                  .populate('dislikedBy','name') 
+                  .sort({ createdOn: -1 });
   return allBuzz;
 };

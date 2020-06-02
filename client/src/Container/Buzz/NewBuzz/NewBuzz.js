@@ -28,9 +28,8 @@ const NewBuzz = (props) => {
     });
     formData.append('email', props.email);
 
-    // axios.post('http://localhost:5000/api/buzz', formData)
-    //       .then(resp => console.log(resp.data));
     props.onAddBuzz(formData);
+    setBuzzData(initialState);
   }
 
   const removeImage = () => {

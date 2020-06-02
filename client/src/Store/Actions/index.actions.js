@@ -12,6 +12,5 @@ export {
 export {
   initFetchBuzz,
   initAddBuzz,
-  likeBuzz,
   initLikeDislikeBuzz
 } from './buzz.action';
