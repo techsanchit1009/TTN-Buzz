@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BsChatQuoteFill } from "react-icons/bs";
 import classes from "./Buzz.module.css";
 import NewBuzz from "./NewBuzz/NewBuzz";
@@ -7,14 +7,13 @@ import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 
 const Buzz = (props) => {
-  const [likes, setLikes] = useState(0);
 
   useEffect(() => {
     window.document.title = "Buzz";
   }, []);
 
   const likeDislikeHandler = (id, actionType) => {
-    props.onLikeDislikeBuzz(actionType, id, props.email);
+    props.onLikeDislikeBuzz(actionType, id, props.user.email);
   };
 
   return (
@@ -35,6 +34,8 @@ const Buzz = (props) => {
               imageUrl={buzz.image}
               likes={buzz.likes}
               dislikes={buzz.dislikes}
+              selectedLike={buzz.likedBy.includes(props.user._id)}
+              selectedDislike={buzz.dislikedBy.includes(props.user._id)}
               likeDislikeHandler={likeDislikeHandler}
             />
           ))}
@@ -47,7 +48,7 @@ const Buzz = (props) => {
 const mapStateToProps = (state) => {
   return {
     buzzList: state.buzzData.buzzList,
-    email: state.userData.user.email
+    user: state.userData.user
   };
 };
 

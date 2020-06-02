@@ -12,7 +12,14 @@ const BuzzItem = (props) => {
     likes,
     dislikes,
     likeDislikeHandler,
+    selectedLike,
+    selectedDislike,
   } = props;
+
+  // let iconStyles = [classes.ActionIcon];
+  // if(selectedLike || selectedDislike){
+  //   iconStyles.push('classes.Selected');
+  // }
 
   return (
     <div className={classes.BuzzItem}>
@@ -37,7 +44,11 @@ const BuzzItem = (props) => {
           {likes}
           <FaThumbsUp
             onClick={() => likeDislikeHandler(buzzId, "like")}
-            className={classes.ActionIcon}
+            className={
+              selectedLike
+                ? [classes.ActionIcon, classes.Selected].join(" ")
+                : classes.ActionIcon
+            }
             title="Like"
           />
         </div>
@@ -45,7 +56,11 @@ const BuzzItem = (props) => {
           {dislikes}
           <FaThumbsDown
             onClick={() => likeDislikeHandler(buzzId, "dislike")}
-            className={classes.ActionIcon}
+            className={
+              selectedDislike
+                ? [classes.ActionIcon, classes.Selected].join(" ")
+                : classes.ActionIcon
+            }
             title="Dislike"
           />
         </div>
