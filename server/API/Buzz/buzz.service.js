@@ -13,6 +13,36 @@ exports.addBuzz = async (buzz, userEmail) => {
   return resBuzz;
 };
 
+exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {
+  const user = await sharedService.getUser(userEmail);
+  const buzzToUpdate = await Buzz.findById(buzzId);
+  
+  if(action === 'like'){
+    if(!buzzToUpdate.likedBy.includes(user._id) && !buzzToUpdate.dislikedBy.includes(user._id) ){
+      buzzToUpdate.likedBy.push(user);  // Add to likes if not present anywhere
+    } else if(buzzToUpdate.likedBy.includes(user._id)){
+      buzzToUpdate.likedBy.remove(user._id) // Remove ID if already present in Likes
+    } else if(buzzToUpdate.dislikedBy.includes(user._id)){
+      buzzToUpdate.dislikedBy.remove(user._id) // Remove ID if already present in Dislikes
+      buzzToUpdate.likedBy.push(user);
+    }
+  }
+
+  if(action === 'dislike'){
+    if(!buzzToUpdate.likedBy.includes(user._id) && !buzzToUpdate.dislikedBy.includes(user._id) ){
+      buzzToUpdate.dislikedBy.push(user);  // Add to likes if not present anywhere
+    } else if(buzzToUpdate.dislikedBy.includes(user._id)){
+      buzzToUpdate.dislikedBy.remove(user._id) // Remove ID if already present in Dislikes
+    } else if(buzzToUpdate.likedBy.includes(user._id)){
+      buzzToUpdate.likedBy.remove(user._id) // Remove ID if already present in Likes
+      buzzToUpdate.dislikedBy.push(user);
+    }
+  }
+
+  await buzzToUpdate.save();
+  return buzzToUpdate;
+}
+
 exports.getAllBuzz = () => {
   const allBuzz = Buzz.find({}).populate('createdBy').sort({ createdOn: -1 });
   return allBuzz;

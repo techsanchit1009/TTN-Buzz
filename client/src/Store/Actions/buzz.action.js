@@ -50,3 +50,39 @@ export const initAddBuzz = (buzzBody) => {
           });
   }
 }
+
+export const likeBuzz = (buzzId) => {
+  return {
+    type: actionTypes.LIKE_BUZZ,
+    buzzId: buzzId
+  }
+}
+
+export const dislikeBuzz = (buzzId) => {
+  return {
+    type: actionTypes.DISLIKE_BUZZ,
+    buzzId: buzzId
+  }
+}
+
+export const likeDislikeBuzz = (updatedBuzzList) => {
+  return {
+    type: actionTypes.LIKE_DISLIKE_BUZZ,
+    updatedBuzzList,
+  }
+}
+
+export const initLikeDislikeBuzz = (buttonType, buzzId, email) => {
+  return dispatch => {
+      const emailBody = {
+        email
+      };
+      axios.patch(`http://localhost:5000/api/buzz/${buttonType}/${buzzId}`, emailBody)
+          .then(resp => {
+            dispatch(likeDislikeBuzz(resp.data))
+          });
+  }
+}
+
+
+

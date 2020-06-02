@@ -17,8 +17,20 @@ exports.addBuzz = async (req, res) => {
 
   try {
     const buzz = await buzzService.addBuzz(newBuzz, userEmail);
-    res.send(buzz);
+    res.status(200).send(buzz);
   } catch (err) {
+    res.status(400).send(err);
+  }
+}
+
+exports.likeDislikeBuzz = async (req, res) => {
+  try {
+    const {action, buzzId} = req.params;
+    const userEmail = req.body.email;
+    await buzzService.likeDislikeBuzz(action, buzzId, userEmail);
+    const updatedBuzzList = await buzzService.getAllBuzz();
+    res.status(200).send(updatedBuzzList);
+  } catch(err) {
     res.status(400).send(err);
   }
 }
@@ -26,7 +38,7 @@ exports.addBuzz = async (req, res) => {
 exports.getAllBuzz = async (req, res) => {
   try {
     const allBuzz = await buzzService.getAllBuzz();
-    res.send(allBuzz);
+    res.status(200).send(allBuzz);
   } catch(err) {
     res.status(400).send(err);
   }

@@ -12,3 +12,8 @@ export const FETCH_BUZZ_START = 'FETCH_BUZZ_START';
 export const FETCH_BUZZ_SUCCESS = 'FETCH_BUZZ_SUCCESS';
 export const ADD_BUZZ_START = 'ADD_BUZZ_START';
 export const ADD_BUZZ_SUCCESS = 'ADD_BUZZ_SUCCESS';
+
+export const LIKE_BUZZ = 'LIKE_BUZZ';
+export const DISLIKE_BUZZ = 'DISLIKE_BUZZ';
+
+export const LIKE_DISLIKE_BUZZ = 'LIKE_DISLIKE_BUZZ';

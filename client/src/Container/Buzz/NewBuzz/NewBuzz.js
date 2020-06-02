@@ -4,7 +4,6 @@ import { FaPencilAlt } from "react-icons/fa";
 import { TiLocationArrow } from "react-icons/ti";
 import { RiImageAddLine } from "react-icons/ri";
 import classes from './NewBuzz.module.css';
-import axios from 'axios';
 import * as buzzAction from '../../../Store/Actions/index.actions';
 
 

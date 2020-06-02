@@ -17,6 +17,14 @@ const buzzSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
+  likes: {
+    type: Number,
+    default: 0
+  },
+  dislikes: {
+    type: Number,
+    default: 0
+  },
   dislikedBy: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -30,6 +38,10 @@ const buzzSchema = new mongoose.Schema({
     ref: 'User'
   }
 }, {versionKey: false});
+
+buzzSchema.pre('save', function(){
+  this.set({likes: this.likedBy.length, dislikes: this.dislikedBy.length})
+});
 
 const buzzModel = mongoose.model('Buzz', buzzSchema);
 

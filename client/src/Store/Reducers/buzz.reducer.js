@@ -14,9 +14,16 @@ const reducer = (state = initialState, action) => {
       }
     
     case actionTypes.FETCH_BUZZ_SUCCESS:
+      const buzzData = action.buzz.map(buzz => (
+        {
+          ...buzz,
+          likes: buzz.likedBy.length,
+          dislikes: buzz.dislikedBy.length
+        }
+      ));
       return{
         ...state,
-        buzzList: action.buzz,
+        buzzList: buzzData,
         loading: false
       }
 
@@ -33,6 +40,45 @@ const reducer = (state = initialState, action) => {
         buzzList: updatedBuzzList,
         loading: false
       };
+
+    case actionTypes.LIKE_BUZZ:
+      let buzzToUpdateIndex = state.buzzList.findIndex(buzz => buzz._id === action.buzzId);
+
+      const updatedBuzz = {
+        ...state.buzzList[buzzToUpdateIndex],
+        likes: state.buzzList[buzzToUpdateIndex].likes + 1
+      }
+      state.buzzList[buzzToUpdateIndex] = updatedBuzz;
+      return {
+        ...state,
+        buzzList: [
+          ...state.buzzList,
+        ]
+      }
+
+      // case actionTypes.DISLIKE_BUZZ:
+      //   let buzzToUpdateIndex = state.buzzList.findIndex(buzz => buzz._id === action.buzzId);
+
+      //   const updatedBuzz = {
+      //     ...state.buzzList[buzzToUpdateIndex],
+      //     likes: state.buzzList[buzzToUpdateIndex].dislikes + 1
+      //   }
+      //   state.buzzList[buzzToUpdateIndex] = updatedBuzz;
+      //   return {
+      //     ...state,
+      //     buzzList: [
+      //       ...state.buzzList,
+      //     ]
+      //   }
+
+
+      case actionTypes.LIKE_DISLIKE_BUZZ:
+
+        return{
+          ...state,
+          buzzList: action.updatedBuzzList
+        }
+
     
     default:
       return state;

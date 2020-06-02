@@ -1,36 +1,57 @@
-import React from 'react';
-import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
-import classes from './BuzzItem.module.css';
+import React from "react";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import classes from "./BuzzItem.module.css";
 
 const BuzzItem = (props) => {
-  let imgUrl = 'https://res.cloudinary.com/drsdmoshr/image/upload/v1590491986/pgj1ismv40gb8sqaalfl.jpg';
+  const {
+    buzzId,
+    creator,
+    imageUrl,
+    desc,
+    createdOn,
+    likes,
+    dislikes,
+    likeDislikeHandler,
+  } = props;
+
   return (
     <div className={classes.BuzzItem}>
       <div className={classes.Content}>
         <div className={classes.BuzzDate}>Date</div>
         <div className={classes.BuzzContent}>
-          {imgUrl && <a href={imgUrl} target="blank">
-            <div 
-              title="Click to enlarge"
-              className={classes.ImageBlock}
-              style={{backgroundImage: `url("${imgUrl}")`}}>
-          </div></a>}
-          <div className={classes.BuzzOwner}>
-            Random user
-          </div>
-          <div className={classes.Desciption}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea fugit quo sapiente ipsa expedita? Itaque aspernatur iusto maxime suscipit repellat.</div>
+          {imageUrl && (
+            <a href={imageUrl} target="blank">
+              <div
+                title="Click to enlarge"
+                className={classes.ImageBlock}
+                style={{ backgroundImage: `url("${imageUrl}")` }}
+              ></div>
+            </a>
+          )}
+          <div className={classes.BuzzOwner}>{creator}</div>
+          <div className={classes.Desciption}>{desc}</div>
         </div>
       </div>
       <div className={classes.ActionRow}>
         <div className={classes.ActionButton}>
-         0 <FaThumbsUp className={classes.ActionIcon} title="Like"/>
+          {likes}
+          <FaThumbsUp
+            onClick={() => likeDislikeHandler(buzzId, "like")}
+            className={classes.ActionIcon}
+            title="Like"
+          />
         </div>
         <div className={classes.ActionButton}>
-         0 <FaThumbsDown className={classes.ActionIcon} title="Dislike"/>
+          {dislikes}
+          <FaThumbsDown
+            onClick={() => likeDislikeHandler(buzzId, "dislike")}
+            className={classes.ActionIcon}
+            title="Dislike"
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default BuzzItem;
