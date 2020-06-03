@@ -1,9 +1,12 @@
 const checkAuth = (req, res, next) => {
+  // console.log(req.user);
   if(!req.user){
-    res.status(400).json({
+    // console.log('not validated');
+    res.status(401).json({
       authenticated: false,
     });
   } else {
+    // console.log('validated');
     next();
   }
 };

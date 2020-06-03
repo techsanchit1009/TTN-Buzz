@@ -3,6 +3,7 @@ import classes from "./NewComplaint.module.css";
 import Input from "../../../Components/UI/Input/Input";
 import { RiImageAddLine } from "react-icons/ri";
 import * as complaintAction from '../../../Store/Actions/index.actions';
+import BoxLayout from '../../../Components/UI/BoxLayout/BoxLayout';
 import { connect } from "react-redux";
 
 
@@ -119,9 +120,7 @@ const NewComplaint = (props) => {
   }
 
   return (
-    <div className={classes.NewComplaint}>
-      <div className={classes.Header}>Complaint Box</div>
-
+    <BoxLayout heading="Complaint Box">
       <form onSubmit={(e) => submitHandler(e)}>
         <div className={classes.ComplaintBox}>
           <div className={classes.FormRow}>
@@ -187,7 +186,7 @@ const NewComplaint = (props) => {
           </div>
         </div>
       </form>
-    </div>
+      </BoxLayout>
   );
 };
 

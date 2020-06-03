@@ -8,7 +8,7 @@ router.get('/auth/google', passport.authenticate('google', {
 }));
 
 router.get('/auth/google/redirect', passport.authenticate('google', {
-  successRedirect: 'http://localhost:3000/dashboard/buzz',
+  successRedirect: 'http://localhost:3000/auth/set-user',
   failureRedirect:'http://localhost:3000/?error=Access Denied'
 }));
 

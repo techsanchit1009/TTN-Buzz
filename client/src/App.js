@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Login from "./Container/Login/Login";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Dashboard from "./Container/Dashboard/Dashboard";
 import "./App.css";
 import { connect } from "react-redux";
-import axios from "axios";
+import * as action from './Store/Actions/index.actions';
+import SetUser from "./Components/SetUser/SetUser";
 
 function App(props) {
-  // const [isAuth, setIsAuth ] = useState(false);
 
-  // useEffect(() => {
-  //   axios.get('http://localhost:5000', {withCredentials: true})
-  //     .then(resp => setIsAuth(resp.data.authenticated));
-  //   console.log(isAuth);
-
-  // }, [isAuth]);
+  useEffect(() => {
+    props.onFetchUser();
+  }, [props.onFetchUser, props]);
 
   let routes = (
     <Switch>
-      <Route path="/" exact component={Login} />
       <Route path="/dashboard" component={Dashboard} />
-      <Redirect to="/" />
+      <Redirect to="/dashboard" />
     </Switch>
   );
-  // if(props.authenticated){
-  //   routes = (
-  //     <Switch>
-  //       {/* <Redirect to="/" /> */}
-  //     </Switch>
-  //   );
-  // }
+  
+  if(!props.authenticated){
+    routes = (
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/auth/set-user" component={SetUser} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
   return (
     <BrowserRouter>
       <div className="App">
@@ -45,4 +44,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchUser: () => dispatch(action.initFetchUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

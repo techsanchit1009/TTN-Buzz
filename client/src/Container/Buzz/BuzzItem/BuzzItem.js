@@ -1,11 +1,13 @@
 import React from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import moment from 'moment';
 import classes from "./BuzzItem.module.css";
 
 const BuzzItem = (props) => {
   const {
     buzzId,
-    creator,
+    creatorEmail,
+    creatorName,
     imageUrl,
     desc,
     createdOn,
@@ -16,15 +18,14 @@ const BuzzItem = (props) => {
     selectedDislike,
   } = props;
 
-  // let iconStyles = [classes.ActionIcon];
-  // if(selectedLike || selectedDislike){
-  //   iconStyles.push('classes.Selected');
-  // }
-
   return (
     <div className={classes.BuzzItem}>
       <div className={classes.Content}>
-        <div className={classes.BuzzDate}>Date</div>
+        <div className={classes.BuzzDate}>
+          <div className={classes.Date}>{moment(createdOn).format('DD')}</div>
+          <div className={classes.Month}>{moment(createdOn).format('MM')}</div>
+        </div>
+
         <div className={classes.BuzzContent}>
           {imageUrl && (
             <a href={imageUrl} target="blank">
@@ -35,8 +36,16 @@ const BuzzItem = (props) => {
               ></div>
             </a>
           )}
-          <div className={classes.BuzzOwner}>{creator}</div>
-          <div className={classes.Desciption}>{desc}</div>
+          <div className={classes.BuzzOwner}>
+            <span>
+              <span className={classes.CreatorName}>{creatorName && creatorName.split(' ')[0]}</span>
+              @{creatorEmail}
+            </span>
+            <span className={classes.CreatedTime}>{moment(createdOn).fromNow()}</span>
+          </div>
+          <div className={classes.Description}>
+            {desc.length < 500 ? desc : desc.substring(0, 500).concat('. . .')}
+          </div>
         </div>
       </div>
       <div className={classes.ActionRow}>

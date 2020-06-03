@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import classes from "./ComplaintsTable.module.css";
+import BoxLayout from '../../../Components/UI/BoxLayout/BoxLayout';
 import { connect } from "react-redux";
 
 const ComplaintsTable = (props) => {
@@ -26,7 +27,7 @@ const ComplaintsTable = (props) => {
           {complaints.map(complaint => (
             <tr key={complaint._id}>
               <td>{complaint.dept}</td>
-              <td>2</td>
+              <td>{complaint.issueId}</td>
               <td>{complaint.assignedTo}</td>
               {isAdmin ? <td className={classes.Status}>
               {complaint.status}
@@ -39,10 +40,10 @@ const ComplaintsTable = (props) => {
   );
   
   return (
-    <div className={classes.ComplaintsTable}>
-      <div className={classes.Header}>Your Complaints</div>
+    <BoxLayout heading="Your Complaints">
+      {/* <div className={classes.Header}>Your Complaints</div> */}
         {complaints.length ? complaintTable : <p className={classes.NoComplaintText}>No Complaints Found</p>}
-    </div>
+    </BoxLayout>
   );
 };
 

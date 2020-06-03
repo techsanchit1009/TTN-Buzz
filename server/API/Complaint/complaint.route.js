@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const uploadImage = require('../../Middleware/multer.midware');
 const complaintController = require('./complaint.controller');
+const checkAuth = require('../../Middleware/checkAuth.midware');
 
 router.get('/api/complaint', complaintController.getComplaints); 
 router.post('/api/complaint', uploadImage.single('image'), complaintController.addComplaint);

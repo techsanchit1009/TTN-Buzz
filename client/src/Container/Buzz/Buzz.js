@@ -3,6 +3,7 @@ import { BsChatQuoteFill } from "react-icons/bs";
 import classes from "./Buzz.module.css";
 import NewBuzz from "./NewBuzz/NewBuzz";
 import BuzzItem from "./BuzzItem/BuzzItem";
+import BoxLayout from '../../Components/UI/BoxLayout/BoxLayout';
 import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 
@@ -24,19 +25,20 @@ const Buzz = (props) => {
     return true;
   }
 
+  let headerIcon = <BsChatQuoteFill />;
+
   return (
     <div className={classes.Buzz}>
       <NewBuzz />
-      <div className={classes.RecentBuzz}>
-        <div className={classes.Header}>
-          <BsChatQuoteFill className={classes.Icon} /> Recent Buzz
-        </div>
+    
+      <BoxLayout heading="Recent Buzz" icon={headerIcon}>
         <div className={classes.List}>
           {props.buzzList.map((buzz) => (
             <BuzzItem
               key={buzz._id}
               buzzId={buzz._id}
-              creator={buzz.createdBy.email}
+              creatorEmail={buzz.createdBy.email}
+              creatorName={buzz.createdBy.name}
               desc={buzz.description}
               createdOn={buzz.createdOn}
               imageUrl={buzz.image}
@@ -48,7 +50,7 @@ const Buzz = (props) => {
             />
           ))}
         </div>
-      </div>
+      </BoxLayout>
     </div>
   );
 };
@@ -63,7 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLikeDislikeBuzz: (buttonType, buzzId, email) =>
-      dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId, email))
+      dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId, email)),
   };
 };
 

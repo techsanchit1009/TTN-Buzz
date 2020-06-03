@@ -31,7 +31,7 @@ const buzzSchema = new mongoose.Schema({
   }],
   createdOn: {
     type: Date,
-    default: new Date()
+    default: Date.now
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

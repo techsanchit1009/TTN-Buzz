@@ -11,14 +11,13 @@ import SideNav from '../../Components/SideNav/SideNav';
 import * as action from '../../Store/Actions/index.actions';
 
 const Dashboard = (props) => {
-  const {onFetchUser, userId, onFetchUserComplaints, onFetchBuzz} = props;
+  const {userId, onFetchUserComplaints, onFetchBuzz} = props;
   useEffect(() => {
-    onFetchUser();
     onFetchBuzz();
     if(userId){
       onFetchUserComplaints(userId)
     }
-  }, [onFetchUserComplaints, userId, onFetchUser, onFetchBuzz]);
+  }, [onFetchUserComplaints, userId, onFetchBuzz]);
 
   const routes = (
     <Switch>
@@ -55,7 +54,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchUser: () => dispatch(action.initFetchUser()),
     onFetchUserComplaints: (userId) => dispatch(action.initFetchUserComplaints(userId)),
     onFetchBuzz: () => dispatch(action.initFetchBuzz())
   }

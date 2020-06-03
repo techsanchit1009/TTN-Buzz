@@ -1,0 +1,21 @@
+.Box{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 4px #ccc;
+  background-color: white;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.Heading{
+  display: flex;
+  align-items: center;
+  background-color: #ddd;
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+}
+
+.Icon{
+  color: gray;
+  margin: 0 0.3rem;
+}

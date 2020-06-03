@@ -1,11 +1,21 @@
 const Complaint = require('./complaint.model');
 const sharedServices = require('../shared.service');
 
+const generateIssueId = () => {
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  for(let i=0; i<8; i++){
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result
+}
+
 exports.addComplaint = async (complaint) => {
   const user = await sharedServices.getUser(complaint.email);
   const newComplaint = {
     ...complaint,
-    complaintBy: user._id
+    complaintBy: user._id,
+    issueId: generateIssueId()
   }
 
   const respComplaint = await Complaint.create(newComplaint);

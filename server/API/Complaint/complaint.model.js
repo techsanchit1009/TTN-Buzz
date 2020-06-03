@@ -24,6 +24,9 @@ const complaintSchema = new mongoose.Schema({
   image: {
     type: String
   },
+  issueId: {
+    type: String
+  },
   status: {
     type: String,
     default: 'Open',
@@ -35,15 +38,15 @@ const complaintSchema = new mongoose.Schema({
   },
   assignedTo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
   },
   createdOn: {
     type: Date,
-    default: new Date()
+    default: Date.now
   },
   updatedOn: {
     type: Date,
-    default: new Date()
+    default: Date.now
   }
 }, {versionKey: false});
 
@@ -52,17 +55,17 @@ complaintSchema.pre('updateOne', function(){
 });
 
 // some random IDs for now. will change it.
-complaintSchema.pre('save', function(){
-  if(this.dept === 'HR'){
-    this.set({assignedTo: '5ec3e709552d0239263f94a1'});
-  } else if(this.dept === 'IT') {
-    this.set({assignedTo: '5ec3e709552d0239263f94a2'});
-  } else if(this.dept === 'Infra') {
-    this.set({assignedTo: '5ec3e709552d0239263f94a3'});
-  } else if(this.dept === 'Admin') {
-    this.set({assignedTo: '5ec3e709552d0239263f94a4'});
-  }
-});
+// complaintSchema.pre('save', function(){
+//   if(this.dept === 'HR'){
+//     this.set({assignedTo: '5ec3e709552d0239263f94a1'});
+//   } else if(this.dept === 'IT') {
+//     this.set({assignedTo: '5ec3e709552d0239263f94a2'});
+//   } else if(this.dept === 'Infra') {
+//     this.set({assignedTo: '5ec3e709552d0239263f94a3'});
+//   } else if(this.dept === 'Admin') {
+//     this.set({assignedTo: '5ec3e709552d0239263f94a4'});
+//   }
+// });
 
 const complaintModel = mongoose.model('Complaint', complaintSchema);
 
