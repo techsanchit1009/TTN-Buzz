@@ -8,13 +8,14 @@ import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 
 const Buzz = (props) => {
-
-  useEffect(() => {
+  const {onFetchBuzz, onLikeDislikeBuzz, buzzList, user } = props;
+   useEffect(() => {
     window.document.title = "Buzz";
-  }, []);
+    onFetchBuzz();
+  }, [onFetchBuzz]);
 
   const likeDislikeHandler = (id, actionType) => {
-    props.onLikeDislikeBuzz(actionType, id, props.user.email);
+    onLikeDislikeBuzz(actionType, id, user.email);
   };
 
   const checkSelected = (array, userId) => {
@@ -33,7 +34,7 @@ const Buzz = (props) => {
     
       <BoxLayout heading="Recent Buzz" icon={headerIcon}>
         <div className={classes.List}>
-          {props.buzzList.map((buzz) => (
+          {buzzList.map((buzz) => (
             <BuzzItem
               key={buzz._id}
               buzzId={buzz._id}
@@ -44,8 +45,8 @@ const Buzz = (props) => {
               imageUrl={buzz.image}
               likes={buzz.likes}
               dislikes={buzz.dislikes}
-              selectedLike={checkSelected(buzz.likedBy, props.user._id)}
-              selectedDislike={checkSelected(buzz.dislikedBy, props.user._id)}
+              selectedLike={checkSelected(buzz.likedBy, user._id)}
+              selectedDislike={checkSelected(buzz.dislikedBy, user._id)}
               likeDislikeHandler={likeDislikeHandler}
             />
           ))}
@@ -64,6 +65,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onFetchBuzz: () => dispatch(buzzActions.initFetchBuzz()),
     onLikeDislikeBuzz: (buttonType, buzzId, email) =>
       dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId, email)),
   };

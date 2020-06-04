@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
 import Complaint from '../Complaint/Complaint';
+import Resolve from '../Resolve/Resolve';
 import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
-import * as action from '../../Store/Actions/index.actions';
 
 const Dashboard = (props) => {
-  const {userId, onFetchUserComplaints, onFetchBuzz} = props;
-  useEffect(() => {
-    onFetchBuzz();
-    if(userId){
-      onFetchUserComplaints(userId)
-    }
-  }, [onFetchUserComplaints, userId, onFetchBuzz]);
+  const {user} = props;
 
   const routes = (
     <Switch>
       <Route path="/dashboard/buzz" component={Buzz} />
       <Route path="/dashboard/complaint" component={Complaint} />
-      <Route path="/dashboard/resolve" component={Buzz} />
+      {user.userType==='Admin' && <Route path="/dashboard/resolve" component={Resolve} />}
       <Redirect to="/dashboard/buzz" />
     </Switch>
   );
@@ -34,7 +28,7 @@ const Dashboard = (props) => {
       <Banner>{bannerText}</Banner>
       <Container>
         <div className={classes.Dashboard}>
-          <SideNav />
+          <SideNav userType={user.userType}/>
           <div className={classes.DashboardContent}>
             {routes}   
           </div>
@@ -45,18 +39,11 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state.buzzData);
   return {
     authenticated: state.userData.authenticated,
-    userId: state.userData.user._id
+    user: state.userData.user
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFetchUserComplaints: (userId) => dispatch(action.initFetchUserComplaints(userId)),
-    onFetchBuzz: () => dispatch(action.initFetchBuzz())
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

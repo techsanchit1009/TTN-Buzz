@@ -25,13 +25,18 @@ exports.addComplaint = async (complaint) => {
 };
 
 exports.getUserComplaint = (id) => {
-  const complaints = Complaint.find({complaintBy: id}).sort({ createdOn: -1 });
+  const complaints = Complaint.find({complaintBy: id})
+                              .populate('complaintBy','name email userType')
+                              .sort({ createdOn: -1 });
   return complaints;
 }
 
 // For Admin Route
 exports.getAllComplaints = () => {
-    const complaints = Complaint.find({}).populate('complaintBy').sort({ createdOn: -1 });
+    const complaints = Complaint.find({})
+                                .populate('complaintBy')
+                                .populate('complaintBy', 'name email userType')
+                                .sort({ createdOn: -1 });
     return complaints;
 }
 
