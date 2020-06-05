@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { toast } from "react-toastify";
+
 
 export const fetchComplaintStart = () => {
   return{
@@ -71,7 +73,8 @@ export const initUpdateComplaintStatus = (complaintId, updatedStatus) => {
     };
     axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
-            console.log(resp.data);
+            // console.log(resp.data);
+            toast.success(resp.data);
             dispatch(updateComplaint());
           });
   };
@@ -85,6 +88,7 @@ export const initUpdateComplaintAssignee = (complaintId, assignedTo) => {
     axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
             console.log(resp.data);
+            toast.success(`Complaint assigned to ${assignedTo}`);
             dispatch(updateComplaint());
           });
   }

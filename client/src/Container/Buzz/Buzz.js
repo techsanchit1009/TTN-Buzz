@@ -6,6 +6,8 @@ import BuzzItem from "./BuzzItem/BuzzItem";
 import BoxLayout from '../../Components/UI/BoxLayout/BoxLayout';
 import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Buzz = (props) => {
   const {onFetchBuzz, onLikeDislikeBuzz, buzzList, user } = props;
@@ -31,7 +33,7 @@ const Buzz = (props) => {
   return (
     <div className={classes.Buzz}>
       <NewBuzz />
-    
+      <ToastContainer autoClose={5000} transition={Slide}/>
       <BoxLayout heading="Recent Buzz" icon={headerIcon}>
         <div className={classes.List}>
           {buzzList.map((buzz) => (

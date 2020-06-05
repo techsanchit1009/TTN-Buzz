@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 export const fetchBuzzStart = () => {
   return {
@@ -32,6 +33,7 @@ export const addBuzzStart = () => {
 }
 
 export const addBuzzSuccess = (newBuzz) => {
+  toast.success('Buzz Added successfully');
   return{
     type: actionTypes.ADD_BUZZ_SUCCESS,
     newBuzz: newBuzz
@@ -44,7 +46,6 @@ export const initAddBuzz = (buzzBody) => {
 
     axios.post('http://localhost:5000/api/buzz', buzzBody)
           .then(resp => {
-            // console.log(resp.data); 
             dispatch(addBuzzSuccess(resp.data));
           });
   }
