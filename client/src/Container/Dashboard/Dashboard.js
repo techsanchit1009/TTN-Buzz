@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Dashboard.module.css';
 import Buzz from '../Buzz/Buzz';
@@ -11,7 +11,7 @@ import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
 
 const Dashboard = (props) => {
-  const {user} = props;
+  const {user, location} = props;
 
   const routes = (
     <Switch>
@@ -21,7 +21,11 @@ const Dashboard = (props) => {
       <Redirect to="/dashboard/buzz" />
     </Switch>
   );
-  const bannerText = 'creating buzz around you never been so easy..';
+  
+  let bannerText = 'creating buzz around you never been so easy..';
+  if(location.pathname === '/dashboard/complaint' || location.pathname === '/dashboard/resolve'){
+    bannerText = 'posting your thoughts never been so easy..';
+  }
   return (
     <div>
       <TopBar />
@@ -46,4 +50,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(withRouter(Dashboard));

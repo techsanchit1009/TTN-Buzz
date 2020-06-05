@@ -33,7 +33,7 @@ exports.getComplaints = async (req, res) => {
       const complaints = await complaintService.getUserComplaint(req.query.complaintBy);
       res.send(complaints);
     } else {
-      const complaints = await complaintService.getAllComplaints(res);  // For Admin
+      const complaints = await complaintService.getAllComplaints();  // For Admin
       res.send(complaints);
     }
   } catch (err) {
@@ -43,11 +43,18 @@ exports.getComplaints = async (req, res) => {
 
 
 // For Admin
-exports.updateComplaintStatus = async (req, res) => {
+exports.updateComplaint = async (req, res) => {
   try{
     if(req.query.complaintId){
-      const updatedStatus = req.body.status;
-      await complaintService.updateComplaintStatus(req.query.complaintId, updatedStatus, res);
+ 
+      if(req.body.status){
+        const updatedStatus = req.body.status;
+        await complaintService.updateComplaintStatus(req.query.complaintId, updatedStatus);
+      } else if(req.body.assignedTo) {
+        const assignedTo = req.body.assignedTo;
+        await complaintService.updateComplaintAssignedTo(req.query.complaintId, assignedTo);
+      }
+
       res.send('Updated Successfully');
     } else {
       res.send('Missing complaint id');

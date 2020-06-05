@@ -57,3 +57,35 @@ export const initAddComplaint = (complaintBody) => {
          });
   }
 }
+
+export const updateComplaint = () => {
+  return {
+    type: actionTypes.UPDATE_COMPLAINT
+  };
+}
+
+export const initUpdateComplaintStatus = (complaintId, updatedStatus) => {
+  return dispatch => {
+    const updateBody = {
+      status: updatedStatus,
+    };
+    axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
+          .then(resp => {
+            console.log(resp.data);
+            dispatch(updateComplaint());
+          });
+  };
+}
+
+export const initUpdateComplaintAssignee = (complaintId, assignedTo) => {
+  return dispatch => {
+    const updateBody = {
+      assignedTo: assignedTo
+    };
+    axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
+          .then(resp => {
+            console.log(resp.data);
+            dispatch(updateComplaint());
+          });
+  }
+}

@@ -14,18 +14,22 @@ tr:nth-child(even){
   background-color: #eee;
 }
 
-.Status{
+.Status, .Assigned{
   position: relative;
 }
+
 
 .Arrow{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 1rem;
+  right: 2rem;
+  /* padding: 10px; */
   font-size: 1rem;
   color: red;
+  pointer-events: none;
 }
+
 
 .NoComplaintText{
   font-size: 1rem;
@@ -34,15 +38,14 @@ tr:nth-child(even){
   text-align: center;
 }
 
-.StatusSelect{
-  position: relative;
+.Select{
   border: none;
   background: none;
   outline: none;
-  /* padding: 10px; */
+  padding: 0 1rem;
 }
 
-.StatusSelect option{
+.Select option{
   outline: none;
 }
 

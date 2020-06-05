@@ -41,6 +41,11 @@ exports.getAllComplaints = () => {
 }
 
 exports.updateComplaintStatus = (id, updatedStatus) => {
-  const data = Complaint.updateOne({_id: id}, { status: updatedStatus})
-  return data;
+  const updatedComplaint = Complaint.updateOne({_id: id}, {status: updatedStatus});
+  return updatedComplaint;
+}
+
+exports.updateComplaintAssignedTo = (id, assignedTo) => {
+  const updatedComplaint = Complaint.updateOne({ _id: id}, {assignedTo: assignedTo});
+  return updatedComplaint;
 }

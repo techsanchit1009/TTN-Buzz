@@ -33,6 +33,11 @@ const reducer = (state = initialState, action) => {
         loading: false,
         complaints: updatedComplaintsList
       } 
+
+    case actionTypes.UPDATE_COMPLAINT:
+      return {
+        ...state
+      };
     default:
       return state;
   }

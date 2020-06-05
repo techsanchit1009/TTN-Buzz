@@ -6,7 +6,9 @@ export {
 export {
   initFetchUserComplaints,
   initFetchAllComplaints,
-  initAddComplaint
+  initAddComplaint,
+  initUpdateComplaintStatus,
+  initUpdateComplaintAssignee
 } from './complaint.action';
 
 export {

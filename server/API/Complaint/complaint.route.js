@@ -5,7 +5,7 @@ const checkAuth = require('../../Middleware/checkAuth.midware');
 
 router.get('/api/complaint', complaintController.getComplaints); 
 router.post('/api/complaint', uploadImage.single('image'), complaintController.addComplaint);
-router.patch('/api/complaint', complaintController.updateComplaintStatus) 
+router.patch('/api/complaint', complaintController.updateComplaint); 
 
 
 module.exports = router;
