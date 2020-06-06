@@ -9,6 +9,7 @@ exports.addComplaint = async (req, res) => {
     dept: req.body.dept,
     description: req.body.description
   };
+  const creatorEmail = req.body.createdBy;
 
   if(req.file){
     const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -19,7 +20,7 @@ exports.addComplaint = async (req, res) => {
   }
 
   try {
-    const complaint = await complaintService.addComplaint(newComplaint);
+    const complaint = await complaintService.addComplaint(newComplaint, creatorEmail);
     res.send(complaint);
   } catch (err) {
     res.status(400).send(err);

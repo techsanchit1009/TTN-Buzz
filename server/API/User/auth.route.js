@@ -12,7 +12,7 @@ router.get('/auth/google/redirect', passport.authenticate('google', {
   failureRedirect:'http://localhost:3000/?error=Access Denied'
 }));
 
-router.get('/auth/success', checkAuth, (req, res) => {
+router.get('/auth/user', checkAuth, (req, res) => {
   res.status(200).json({
     authenticated: true,
     user: req.user,

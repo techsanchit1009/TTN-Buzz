@@ -3,8 +3,7 @@ import BoxLayout from "../../Components/UI/BoxLayout/BoxLayout";
 import ComplaintsTable from "../Complaint/ComplaintsTable/ComplaintsTable";
 import * as action from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
-import { ToastContainer, Slide } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 
 const Resolve = (props) => {
   const { 
@@ -30,7 +29,6 @@ const Resolve = (props) => {
 
   return (
     <BoxLayout heading="Complaints">
-      <ToastContainer autoClose={3000} transition={Slide}/>
       <ComplaintsTable
         userData={user}
         complaintData={complaints}

@@ -1,7 +1,7 @@
 const User = require('./user.model');
 
-exports.setAdmin = async (userId) => {
-  const user = await User.findById(userId);
+exports.setAdmin = async (email) => {
+  const user = await User.findOne({email : email});
   user.userType = 'Admin';
   await user.save();
   return user;

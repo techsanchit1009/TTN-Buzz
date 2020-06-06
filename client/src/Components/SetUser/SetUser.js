@@ -4,9 +4,10 @@ import {Redirect} from 'react-router-dom';
 import * as action from '../../Store/Actions/index.actions';
 
 const SetUser = (props) => {
+  const {onFetchUser} = props;
   useEffect(() => {
-    props.onFetchUser();
-  }, [props.onFetchUser, props]);
+    onFetchUser();
+  }, [onFetchUser]);
 
   return(
     <Redirect to="/dashboard" />

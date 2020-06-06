@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export const fetchBuzzStart = () => {
   return {
@@ -22,6 +22,9 @@ export const initFetchBuzz = () => {
     axios.get('/api/buzz')
         .then(resp => {
           dispatch(fetchBuzzSuccess(resp.data))
+        })
+        .catch(err => {
+          toast.error('Please login first');
         });
   }
 }
@@ -33,7 +36,6 @@ export const addBuzzStart = () => {
 }
 
 export const addBuzzSuccess = (newBuzz) => {
-  toast.success('Buzz Added successfully');
   return{
     type: actionTypes.ADD_BUZZ_SUCCESS,
     newBuzz: newBuzz
@@ -46,6 +48,7 @@ export const initAddBuzz = (buzzBody) => {
 
     axios.post('/api/buzz', buzzBody)
           .then(resp => {
+            toast.success('Buzz Added successfully');
             dispatch(addBuzzSuccess(resp.data));
           });
   }

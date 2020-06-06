@@ -10,8 +10,8 @@ const generateIssueId = () => {
   return result
 }
 
-exports.addComplaint = async (complaint) => {
-  const user = await sharedServices.getUser(complaint.email);
+exports.addComplaint = async (complaint, creatorEmail) => {
+  const user = await sharedServices.getUser(creatorEmail);
   const newComplaint = {
     ...complaint,
     complaintBy: user._id,

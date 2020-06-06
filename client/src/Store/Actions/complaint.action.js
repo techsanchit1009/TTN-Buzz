@@ -55,6 +55,8 @@ export const initAddComplaint = (complaintBody) => {
     dispatch(addComplaintStart());
     axios.post('/api/complaint', complaintBody)
          .then(resp => {
+          console.log(resp.data); 
+          toast.success(`Complaint registered! | ID: ${resp.data.issueId}`);
            dispatch(addComplaintSuccess(resp.data));
          });
   }
@@ -73,7 +75,6 @@ export const initUpdateComplaintStatus = (complaintId, updatedStatus) => {
     };
     axios.patch(`/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
-            // console.log(resp.data); 
             toast.success(resp.data);
             dispatch(updateComplaint());
           });
@@ -87,7 +88,6 @@ export const initUpdateComplaintAssignee = (complaintId, assignedTo) => {
     };
     axios.patch(`/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
-            console.log(resp.data);
             toast.success(`Complaint assigned to ${assignedTo}`);
             dispatch(updateComplaint());
           });
