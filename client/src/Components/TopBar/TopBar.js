@@ -4,22 +4,24 @@ import TTNLogo from "../../assets/ttn-logo.jpg";
 import { FiLogOut } from "react-icons/fi";
 import Container from "../UI/Container/Container";
 
-
-const TopBar = () => {
-
+const TopBar = (props) => {
+ 
   return (
     <div className={classes.TopBar}>
-      <Container>
-        <div className={classes.Logo}>
-          <img src={TTNLogo} alt="TTN-Logo" height="75rem" />
-        </div>
-        <div className={classes.TopBarContent}>
-          <a href="http://localhost:5000/auth/logout" className={classes.Logout}>
-            Logout <FiLogOut style={{ marginLeft: "0.8rem" }} />
-          </a>
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className={classes.Logo}>
+        <img src={TTNLogo} alt="TTN-Logo" height="75rem" />
+      </div>
+      <div className={classes.TopBarContent}>
+        <button
+          onClick={() => props.logoutHandler()}
+          className={classes.Logout}
+        >
+          Logout <FiLogOut style={{ marginLeft: "0.8rem" }} />
+        </button>
+      </div>
+    </Container>
+  </div>
   );
 };
 

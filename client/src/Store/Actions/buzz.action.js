@@ -19,7 +19,7 @@ export const initFetchBuzz = () => {
   return dispatch => {
     dispatch(fetchBuzzStart());
 
-    axios.get('http://localhost:5000/api/buzz')
+    axios.get('/api/buzz')
         .then(resp => {
           dispatch(fetchBuzzSuccess(resp.data))
         });
@@ -44,7 +44,7 @@ export const initAddBuzz = (buzzBody) => {
   return dispatch => {
     dispatch(addBuzzStart());
 
-    axios.post('http://localhost:5000/api/buzz', buzzBody)
+    axios.post('/api/buzz', buzzBody)
           .then(resp => {
             dispatch(addBuzzSuccess(resp.data));
           });
@@ -63,7 +63,7 @@ export const initLikeDislikeBuzz = (buttonType, buzzId, email) => {
       const emailBody = {
         email
       };
-      axios.patch(`http://localhost:5000/api/buzz/${buttonType}/${buzzId}`, emailBody)
+      axios.patch(`/api/buzz/${buttonType}/${buzzId}`, emailBody)
           .then(resp => {
             dispatch(likeDislikeBuzz(resp.data))
           });

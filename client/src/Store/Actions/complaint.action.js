@@ -19,17 +19,18 @@ export const fetchComplaintSuccess = (fetchedComplaints) => {
 export const initFetchUserComplaints = (id) => {
   return dispatch => {
     dispatch(fetchComplaintStart());
-    axios.get(`http://localhost:5000/api/complaint?complaintBy=${id}`)
+    axios.get(`/api/complaint?complaintBy=${id}`)
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
-        });
+        })
+        .catch(err => console.log(err.authenticated));
   }
 }
 
 export const initFetchAllComplaints = () => {
   return dispatch => {
     dispatch(fetchComplaintStart());
-    axios.get(`http://localhost:5000/api/complaint`)
+    axios.get(`/api/complaint`)
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
         });
@@ -52,9 +53,8 @@ export const addComplaintSuccess = (newComplaint) => {
 export const initAddComplaint = (complaintBody) => {
   return dispatch => {
     dispatch(addComplaintStart());
-    axios.post('http://localhost:5000/api/complaint', complaintBody)
+    axios.post('/api/complaint', complaintBody)
          .then(resp => {
-           window.location.reload(false);
            dispatch(addComplaintSuccess(resp.data));
          });
   }
@@ -71,9 +71,9 @@ export const initUpdateComplaintStatus = (complaintId, updatedStatus) => {
     const updateBody = {
       status: updatedStatus,
     };
-    axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
+    axios.patch(`/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
-            // console.log(resp.data);
+            // console.log(resp.data); 
             toast.success(resp.data);
             dispatch(updateComplaint());
           });
@@ -85,7 +85,7 @@ export const initUpdateComplaintAssignee = (complaintId, assignedTo) => {
     const updateBody = {
       assignedTo: assignedTo
     };
-    axios.patch(`http://localhost:5000/api/complaint?complaintId=${complaintId}`, updateBody)
+    axios.patch(`/api/complaint?complaintId=${complaintId}`, updateBody)
           .then(resp => {
             console.log(resp.data);
             toast.success(`Complaint assigned to ${assignedTo}`);

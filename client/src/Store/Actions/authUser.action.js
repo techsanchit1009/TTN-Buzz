@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const fetchUserStart = () => {
   return {
@@ -23,7 +24,7 @@ export const fetchUserFailed = () => {
 export const initFetchUser = () => {
   return dispatch => {
     dispatch(fetchUserStart());
-    axios.get('http://localhost:5000/auth/success', {withCredentials: true})
+    axios.get('/auth/success', {withCredentials: true})
         .then(resp => {
           dispatch(fetchUserSuccess(resp.data));
         })
@@ -33,8 +34,21 @@ export const initFetchUser = () => {
   };
 }
 
-export const userLogout = () => {
+export const userLogoutSuccess = () => {
   return {
-    type: actionTypes.USER_LOGOUT
+    type: actionTypes.USER_LOGOUT_SUCCESS
   };
+}
+
+export const initUserLogout = () => {
+  return dispatch => {
+    axios.get('/auth/logout')
+          .then(resp => {
+            toast.success(resp.data.message);
+            dispatch(userLogoutSuccess());
+          })
+          .catch(err => {
+            toast.error('Logout Failed');
+          });
+  }
 }

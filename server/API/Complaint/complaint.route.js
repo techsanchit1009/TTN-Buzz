@@ -3,9 +3,9 @@ const uploadImage = require('../../Middleware/multer.midware');
 const complaintController = require('./complaint.controller');
 const checkAuth = require('../../Middleware/checkAuth.midware');
 
-router.get('/api/complaint', complaintController.getComplaints); 
-router.post('/api/complaint', uploadImage.single('image'), complaintController.addComplaint);
-router.patch('/api/complaint', complaintController.updateComplaint); 
+router.get('/api/complaint', checkAuth, complaintController.getComplaints); 
+router.post('/api/complaint', checkAuth, uploadImage.single('image'), complaintController.addComplaint);
+router.patch('/api/complaint', checkAuth, complaintController.updateComplaint); 
 
 
 module.exports = router;

@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
 
-    case actionTypes.USER_LOGOUT:
+    case actionTypes.USER_LOGOUT_SUCCESS:
       return {
         ...state,
         user: {},

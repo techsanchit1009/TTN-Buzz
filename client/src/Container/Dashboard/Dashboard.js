@@ -9,9 +9,10 @@ import TopBar from '../../Components/TopBar/TopBar';
 import Banner from '../../Components/Banner/Banner';
 import Container from '../../Components/UI/Container/Container';
 import SideNav from '../../Components/SideNav/SideNav';
+import * as actions from '../../Store/Actions/index.actions';
 
 const Dashboard = (props) => {
-  const {user, location} = props;
+  const {user, location, onUserLogout} = props;
 
   const routes = (
     <Switch>
@@ -28,7 +29,7 @@ const Dashboard = (props) => {
   }
   return (
     <div>
-      <TopBar />
+      <TopBar logoutHandler={onUserLogout} />
       <Banner>{bannerText}</Banner>
       <Container>
         <div className={classes.Dashboard}>
@@ -49,5 +50,11 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUserLogout: () => dispatch(actions.initUserLogout()),
+  };
+};
 
-export default connect(mapStateToProps)(withRouter(Dashboard));
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));

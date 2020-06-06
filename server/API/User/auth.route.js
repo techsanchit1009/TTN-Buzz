@@ -23,7 +23,7 @@ router.get('/auth/success', checkAuth, (req, res) => {
 router.get('/auth/logout', (req, res) => {
   req.session = null; // For clearing the cookie session
   req.logout();  // Removes the user data
-  res.redirect('http://localhost:3000');
+  res.status(200).json({message: 'Logged Out successfully'});
 });
 
 

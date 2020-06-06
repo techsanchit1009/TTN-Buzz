@@ -1,6 +1,6 @@
 export {
   initFetchUser,
-  userLogout
+  initUserLogout
 } from './authUser.action';
 
 export {

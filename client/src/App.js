@@ -6,6 +6,9 @@ import "./App.css";
 import { connect } from "react-redux";
 import * as action from './Store/Actions/index.actions';
 import SetUser from "./Components/SetUser/SetUser";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App(props) {
 
@@ -32,6 +35,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
+        <ToastContainer transition={Slide}/>
         {routes}
       </div>
     </BrowserRouter>
