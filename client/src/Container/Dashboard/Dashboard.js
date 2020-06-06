@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Dashboard.module.css';
@@ -12,7 +12,11 @@ import SideNav from '../../Components/SideNav/SideNav';
 import * as actions from '../../Store/Actions/index.actions';
 
 const Dashboard = (props) => {
-  const {user, location, onUserLogout} = props;
+  const {user, location, onUserLogout, onFetchUser, authenticated} = props;
+
+  useEffect(() => {
+    onFetchUser();
+  }, [onFetchUser]);
 
   const routes = (
     <Switch>
@@ -27,9 +31,10 @@ const Dashboard = (props) => {
   if(location.pathname === '/dashboard/complaint' || location.pathname === '/dashboard/resolve'){
     bannerText = 'posting your thoughts never been so easy..';
   }
-  return (
-    <div>
-      <TopBar logoutHandler={onUserLogout} />
+
+  let view = (
+    <React.Fragment>
+      <TopBar logoutHandler={onUserLogout} authenticated={authenticated}/>
       <Banner>{bannerText}</Banner>
       <Container>
         <div className={classes.Dashboard}>
@@ -39,6 +44,15 @@ const Dashboard = (props) => {
           </div>
         </div>
       </Container>
+    </React.Fragment>
+  );
+
+  // if(!authenticated){
+  //   view = <Redirect to="/" />
+  // }
+  return (
+    <div>
+      {view}
     </div>
   )
 }
@@ -53,8 +67,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onUserLogout: () => dispatch(actions.initUserLogout()),
+    onFetchUser: () => dispatch(actions.initFetchUser())
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard));

@@ -5,7 +5,6 @@ import Dashboard from "./Container/Dashboard/Dashboard";
 import "./App.css";
 import { connect } from "react-redux";
 import * as action from './Store/Actions/index.actions';
-import SetUser from "./Components/SetUser/SetUser";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -27,7 +26,7 @@ function App(props) {
     routes = (
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/auth/set-user" component={SetUser} />
+        {/* <Route path="/auth/set-user" component={SetUser} /> */}
         <Redirect to="/" />
       </Switch>
     );

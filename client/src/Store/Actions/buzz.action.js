@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const fetchBuzzStart = () => {
   return {
