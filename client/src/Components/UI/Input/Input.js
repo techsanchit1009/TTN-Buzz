@@ -1,9 +1,18 @@
 import React from "react";
+import { IoIosArrowDown } from 'react-icons/io';
 import classes from './Input.module.css'
 
 const Input = props => {
   let inputElement = null;
   const inputClasses = [classes.InputElement];
+  let validationError = null;
+  
+  if(props.invalid && props.shouldValidate && props.touched){
+    inputClasses.push(classes.Invalid);
+    let errorMessage = '*Please enter a valid data!';
+    
+    validationError = <p className={classes.ErrorMessage}>{errorMessage}</p>;
+  }
 
   switch(props.elementType){
     case 'input' : 
@@ -16,7 +25,9 @@ const Input = props => {
         break;
     case 'select':
         inputElement = (
-          <select 
+         <div className={classes.SelectWrapper}>
+           <IoIosArrowDown className={classes.Arrow} />
+            <select 
             className={inputClasses.join(' ')}
             style={{backgroundColor: "white"}} 
             defaultValue=""
@@ -27,6 +38,7 @@ const Input = props => {
               <option key={option.value} value={option.value} className={classes.Option}>{option.displayValue}</option>
             ))}
           </select>
+         </div>
         );
         break;
     case 'textarea' :
@@ -47,6 +59,7 @@ const Input = props => {
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputElement}
+      {validationError}
     </div>
   );
 };

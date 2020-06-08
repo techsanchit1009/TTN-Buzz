@@ -67,3 +67,9 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.SubmitButton:disabled{
+  cursor: not-allowed;
+  background-color: #aaa;
+  content: 'not allowed';
+}

@@ -22,13 +22,34 @@
   align-items: center;
 }
 
+.SelectWrapper{
+  position: relative;
+}
+
 .Category{
   background: none;
-  min-height: 1.5rem;
-  width: 10vw;
   outline: none;
   border: none;
   margin-right: 1rem;
+  padding: 0.8rem;
+}
+
+.Category:hover, .Category:focus{
+  background-color: #eee;
+}
+
+.Category option{
+  font-size: 1rem;
+}
+
+.DownArrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  right: 1rem;
+  pointer-events: none;
+  color: gray;
 }
 
 

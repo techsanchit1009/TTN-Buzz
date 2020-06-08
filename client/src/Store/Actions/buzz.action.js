@@ -24,7 +24,8 @@ export const initFetchBuzz = () => {
           dispatch(fetchBuzzSuccess(resp.data))
         })
         .catch(err => {
-          toast.error('Please login first');
+          // console.log();
+          toast.error(err.response.data.message);
         });
   }
 }
@@ -50,6 +51,9 @@ export const initAddBuzz = (buzzBody) => {
           .then(resp => {
             toast.success('Buzz Added successfully');
             dispatch(addBuzzSuccess(resp.data));
+          })
+          .catch(err => {
+            toast.error(err.response.data.message);
           });
   }
 }
@@ -69,6 +73,9 @@ export const initLikeDislikeBuzz = (buttonType, buzzId, email) => {
       axios.patch(`/api/buzz/${buttonType}/${buzzId}`, emailBody)
           .then(resp => {
             dispatch(likeDislikeBuzz(resp.data))
+          })
+          .catch(err => {
+            toast.error(err.response.data.message);
           });
   }
 }

@@ -45,7 +45,7 @@ exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {
 
 exports.getAllBuzz = () => {
   const allBuzz = Buzz.find({})
-                  .populate('createdBy')
+                  .populate('createdBy','userType name email')
                   .populate('likedBy', 'name')
                   .populate('dislikedBy','name') 
                   .sort({ createdOn: -1 });

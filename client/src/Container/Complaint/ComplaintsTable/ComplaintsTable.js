@@ -5,7 +5,13 @@ import classes from "./ComplaintsTable.module.css";
 
 const ComplaintsTable = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const { userData, complaintData, location, updateStatusHandler, updateAssigneeHandler } = props;
+  const {
+    userData,
+    complaintData,
+    location,
+    updateStatusHandler,
+    updateAssigneeHandler,
+  } = props;
 
   useEffect(() => {
     if (
@@ -17,15 +23,14 @@ const ComplaintsTable = (props) => {
   }, [complaintData, userData.userType, location.pathname]);
 
   const complaintStatus = (status) => {
-    if(status === 'Open'){
-      return <span style={{color: 'red'}}>{status}</span>;
-    } else if (status === 'In-Progress'){
-      return <span style={{color: 'blue'}}>{status}</span>;
+    if (status === "Open") {
+      return <span style={{ color: "red" }}>{status}</span>;
+    } else if (status === "In-Progress") {
+      return <span style={{ color: "blue" }}>{status}</span>;
     } else {
-      return <span style={{color: 'green'}}>{status}</span>;
+      return <span style={{ color: "green" }}>{status}</span>;
     }
-  }
-
+  };
 
   let complaintTable = (
     <table className={classes.Table}>
@@ -47,26 +52,30 @@ const ComplaintsTable = (props) => {
 
             {isAdmin ? (
               <td className={classes.Assigned}>
-                  <IoIosArrowDown className={classes.Arrow} />
-                <select 
-                      defaultValue={complaint.assignedTo}
-                      onChange={(event) => updateAssigneeHandler(complaint._id, event.target.value)} 
-                      className={classes.Select}>
-                <option defaultValue="DEFAULT" hidden disabled>{complaint.assignedTo}</option>
-                  <optgroup label="Admin" disabled={ complaint.dept !== 'Admin' }>
+                <IoIosArrowDown className={classes.Arrow} />
+                <select
+                  defaultValue={complaint.assignedTo}
+                  onChange={(event) =>
+                    updateAssigneeHandler(complaint._id, event.target.value)
+                  }
+                  className={classes.Select}
+                >
+                  <option defaultValue="DEFAULT" hidden disabled>
+                    {complaint.assignedTo}
+                  </option>
+                  <optgroup label="Admin" disabled={complaint.dept !== "Admin"}>
                     <option value="Mukesh Mishra">Mukesh Mishra</option>
                   </optgroup>
-                  <optgroup label="HR" disabled={ complaint.dept !== 'HR' }>
-                      <option value="Shakshi Aggarwal">Shakshi Aggarwal</option>
+                  <optgroup label="HR" disabled={complaint.dept !== "HR"}>
+                    <option value="Shakshi Aggarwal">Shakshi Aggarwal</option>
                   </optgroup>
-                  <optgroup label="IT" disabled={ complaint.dept !== 'IT' }>
+                  <optgroup label="IT" disabled={complaint.dept !== "IT"}>
                     <option value="Abhishek Singh">Abhishek Singh</option>
                   </optgroup>
-                  <optgroup label="Infra" disabled={ complaint.dept !== 'Infra' }>
+                  <optgroup label="Infra" disabled={complaint.dept !== "Infra"}>
                     <option value="Rohit Kumar">Rohit Kumar</option>
                   </optgroup>
                 </select>
-               
               </td>
             ) : (
               <td>{complaint.assignedTo}</td>
@@ -74,16 +83,24 @@ const ComplaintsTable = (props) => {
 
             {isAdmin ? (
               <td className={classes.Status}>
-                  <IoIosArrowDown className={classes.Arrow} />
-                <select 
-                      defaultValue={complaint.status}
-                      onChange={(event) => updateStatusHandler(complaint._id, event.target.value)} 
-                      className={classes.Select}>
-                  <option value="Open" style={{color: 'red'}}>Open</option>
-                  <option value="In-Progress" style={{color: 'blue'}}>In-Progress</option>
-                  <option value="Resolved" style={{color: 'green'}}>Resolved</option>
+                <IoIosArrowDown className={classes.Arrow} />
+                <select
+                  defaultValue={complaint.status}
+                  onChange={(event) =>
+                    updateStatusHandler(complaint._id, event.target.value)
+                  }
+                  className={classes.Select}
+                >
+                  <option value="Open" style={{ color: "red" }}>
+                    Open
+                  </option>
+                  <option value="In-Progress" style={{ color: "blue" }}>
+                    In-Progress
+                  </option>
+                  <option value="Resolved" style={{ color: "green" }}>
+                    Resolved
+                  </option>
                 </select>
-               
               </td>
             ) : (
               <td>{complaintStatus(complaint.status)}</td>

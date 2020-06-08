@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { FaPencilAlt } from "react-icons/fa";
 import { TiLocationArrow } from "react-icons/ti";
 import { RiImageAddLine } from "react-icons/ri";
+import { BsFillCaretDownFill } from "react-icons/bs";
 import classes from "./NewBuzz.module.css";
 import BoxLayout from "../../../Components/UI/BoxLayout/BoxLayout";
+import Input from '../../../Components/UI/Input/Input';
 import * as buzzAction from "../../../Store/Actions/index.actions";
 
 const NewBuzz = (props) => {
@@ -52,21 +54,22 @@ const NewBuzz = (props) => {
         </div>
         <div className={classes.FormFooter}>
           <div className={classes.FormOptions}>
-            <div style={{ position: "relative" }}>
-              <select
-                className={classes.Category}
-                onChange={(e) =>
-                  setBuzzData({ ...buzzData, category: e.target.value })
-                }
-                defaultValue={"Category"}
-              >
-                <option defaultValue="DEFAULT" hidden disabled>
-                  Category
-                </option>
-                <option value="Activity">Activity Buzz </option>
-                <option value="Lost & Found">Lost & Found Buzz</option>
-              </select>
-            </div>
+             <div className={classes.SelectWrapper}>
+              <BsFillCaretDownFill className={classes.DownArrow} />
+                <select
+                  className={classes.Category}
+                  onChange={(e) =>
+                    setBuzzData({ ...buzzData, category: e.target.value })
+                  }
+                  defaultValue={"Category"}
+                >
+                  <option defaultValue="DEFAULT" hidden disabled>
+                    Category
+                  </option>
+                  <option value="Activity">Activity Buzz </option>
+                  <option value="Lost & Found">Lost & Found Buzz</option>
+                </select>
+             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
               <label htmlFor="image">
                 <RiImageAddLine

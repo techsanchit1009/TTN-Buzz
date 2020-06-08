@@ -10,10 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 function App(props) {
-
+  const {onFetchUser} = props;
   useEffect(() => {
-    props.onFetchUser();
-  }, [props.onFetchUser, props]);
+    onFetchUser();
+  }, [onFetchUser]);
 
   let routes = (
     <Switch>
@@ -26,7 +26,6 @@ function App(props) {
     routes = (
       <Switch>
         <Route path="/" exact component={Login} />
-        {/* <Route path="/auth/set-user" component={SetUser} /> */}
         <Redirect to="/" />
       </Switch>
     );
@@ -34,7 +33,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
-        <ToastContainer transition={Slide}/>
+        <ToastContainer autoClose={3000} transition={Slide}/>
         {routes}
       </div>
     </BrowserRouter>

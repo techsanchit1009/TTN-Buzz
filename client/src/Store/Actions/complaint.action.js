@@ -23,7 +23,7 @@ export const initFetchUserComplaints = (id) => {
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
         })
-        .catch(err => console.log(err.authenticated));
+        .catch(err => toast.error(err.response.data.message));
   }
 }
 
@@ -33,6 +33,9 @@ export const initFetchAllComplaints = () => {
     axios.get(`/api/complaint`)
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
+        })
+        .catch(err => {
+          toast.error(err.response.data.message);
         });
   }
 }
@@ -58,7 +61,8 @@ export const initAddComplaint = (complaintBody) => {
           console.log(resp.data); 
           toast.success(`Complaint registered! | ID: ${resp.data.issueId}`);
            dispatch(addComplaintSuccess(resp.data));
-         });
+         })
+        .catch(err => toast.error(err.response.data.message));
   }
 }
 
@@ -77,7 +81,8 @@ export const initUpdateComplaintStatus = (complaintId, updatedStatus) => {
           .then(resp => {
             toast.success(resp.data);
             dispatch(updateComplaint());
-          });
+          })
+          .catch(err => toast.error(err.response.data.message));
   };
 }
 
@@ -90,6 +95,8 @@ export const initUpdateComplaintAssignee = (complaintId, assignedTo) => {
           .then(resp => {
             toast.success(`Complaint assigned to ${assignedTo}`);
             dispatch(updateComplaint());
-          });
+          })
+          .catch(err => toast.error(err.response.data.message));
+
   }
 }

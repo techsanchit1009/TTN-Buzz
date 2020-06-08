@@ -32,8 +32,9 @@ const Dashboard = (props) => {
     bannerText = 'posting your thoughts never been so easy..';
   }
 
-  let view = (
-    <React.Fragment>
+
+  return (
+    <div>
       <TopBar logoutHandler={onUserLogout} authenticated={authenticated}/>
       <Banner>{bannerText}</Banner>
       <Container>
@@ -44,15 +45,6 @@ const Dashboard = (props) => {
           </div>
         </div>
       </Container>
-    </React.Fragment>
-  );
-
-  // if(!authenticated){
-  //   view = <Redirect to="/" />
-  // }
-  return (
-    <div>
-      {view}
     </div>
   )
 }

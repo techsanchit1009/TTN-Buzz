@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
   },
+  profilePic:{
+    type: String
+  },
   userType: {
     type: String,
     default: 'Employee',
