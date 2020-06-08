@@ -6,7 +6,7 @@ const Input = props => {
   let inputElement = null;
   const inputClasses = [classes.InputElement];
   let validationError = null;
-  
+
   if(props.invalid && props.shouldValidate && props.touched){
     inputClasses.push(classes.Invalid);
     let errorMessage = '*Please enter a valid data!';
@@ -43,6 +43,7 @@ const Input = props => {
         break;
     case 'textarea' :
         inputElement = <textarea 
+            {...props.elementConfig}  
             className={inputClasses.join(' ')} 
             value={props.value}
             onChange={props.inputChangeHandler}
@@ -57,7 +58,7 @@ const Input = props => {
 
   return (
     <div className={classes.Input}>
-      <label className={classes.Label}>{props.label}</label>
+      {props.label && <label className={classes.Label}>{props.label}</label> }
       {inputElement}
       {validationError}
     </div>
