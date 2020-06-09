@@ -9,6 +9,12 @@ export const fetchComplaintStart = () => {
   };
 }
 
+export const fetchComplaintFailed = () => {
+  return{
+    type: actionTypes.FETCH_COMPLAINT_FAILED
+  };
+}
+
 export const fetchComplaintSuccess = (fetchedComplaints) => {
   return {
     type: actionTypes.FETCH_COMPLIANT_SUCCESS,
@@ -23,7 +29,10 @@ export const initFetchUserComplaints = (id) => {
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
         })
-        .catch(err => toast.error(err.response.data.message));
+        .catch(err => {
+          toast.error(err.response.data.message);
+          dispatch(fetchComplaintFailed());
+        });
   }
 }
 
@@ -36,6 +45,7 @@ export const initFetchAllComplaints = () => {
         })
         .catch(err => {
           toast.error(err.response.data.message);
+          dispatch(fetchComplaintFailed());
         });
   }
 }
@@ -53,16 +63,28 @@ export const addComplaintSuccess = (newComplaint) => {
   };
 }
 
+export const addComplaintFailed = () => {
+  return {
+    type: actionTypes.ADD_COMPLAINT_FAILED
+  };
+}
+
 export const initAddComplaint = (complaintBody) => {
   return dispatch => {
     dispatch(addComplaintStart());
     axios.post('/api/complaint', complaintBody)
          .then(resp => {
-          console.log(resp.data); 
           toast.success(`Complaint registered! | ID: ${resp.data.issueId}`);
-           dispatch(addComplaintSuccess(resp.data));
+          dispatch(addComplaintSuccess(resp.data));
          })
-        .catch(err => toast.error(err.response.data.message));
+        .catch(err => {
+          if(Array.isArray(err.response.data)){
+            err.response.data.map(err => toast.error(err.message, {autoClose: 6000}));
+          } else {
+            toast.error(err.response.data.message)
+          }
+          dispatch(addComplaintFailed());
+        });
   }
 }
 

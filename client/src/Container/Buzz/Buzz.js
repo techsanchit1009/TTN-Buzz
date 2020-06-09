@@ -6,10 +6,11 @@ import BuzzItem from "./BuzzItem/BuzzItem";
 import BoxLayout from '../../Components/UI/BoxLayout/BoxLayout';
 import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 
 const Buzz = (props) => {
-  const {onFetchBuzz, onLikeDislikeBuzz, buzzList, user } = props;
+  const {onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz } = props;
    useEffect(() => {
     window.document.title = "Buzz";
     onFetchBuzz();
@@ -52,6 +53,7 @@ const Buzz = (props) => {
           ))}
         </div>
       </BoxLayout>
+      {loadingBuzz && <Spinner />}
     </div>
   );
 };
@@ -59,7 +61,8 @@ const Buzz = (props) => {
 const mapStateToProps = (state) => {
   return {
     buzzList: state.buzzData.buzzList,
-    user: state.userData.user
+    user: state.userData.user,
+    loadingBuzz: state.buzzData.loadingBuzz
   };
 };
 

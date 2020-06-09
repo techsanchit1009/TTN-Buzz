@@ -6,6 +6,7 @@ import * as complaintAction from "../../../Store/Actions/index.actions";
 import BoxLayout from "../../../Components/UI/BoxLayout/BoxLayout";
 import { connect } from "react-redux";
 import { checkValidity } from "../../../Shared/validation";
+import { withRouter } from "react-router-dom";
 
 const NewComplaint = (props) => {
   const initialFormData = {
@@ -250,4 +251,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewComplaint);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NewComplaint));

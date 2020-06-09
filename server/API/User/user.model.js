@@ -16,15 +16,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'Employee',
     enum: ['Employee', 'Admin']
-  },
-  buzz: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Buzz'
-  }],
-  complaints: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Complaint'
-  }]
+}
 }, {versionKey: false});
 
 const userModel = mongoose.model('User', userSchema);

@@ -8,12 +8,17 @@ import classes from "./NewBuzz.module.css";
 import BoxLayout from "../../../Components/UI/BoxLayout/BoxLayout";
 import * as buzzAction from "../../../Store/Actions/index.actions";
 import { checkValidity } from '../../../Shared/validation';
+import { withRouter } from "react-router-dom";
 
 const NewBuzz = (props) => {
   const initialFormData = {
     description: {
       elementType: "textarea",
-      elementConfig: {},
+      elementConfig: {
+        placeholder: "Please select a category first",
+        disabled: true,
+        title: 'Please select a category first'
+      },
       value: "",
       validation: {
         required: true,
@@ -30,7 +35,7 @@ const NewBuzz = (props) => {
           { value: "Lost & Found", displayValue: "Lost & Found Buzz" },
         ],
       },
-      value: "",
+      value: "Category",
       validation: {
         required: true,
       },
@@ -48,9 +53,6 @@ const NewBuzz = (props) => {
   const [buzzData, setBuzzData] = useState(initialFormData);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // const imageSelectHandler = (e) => {
-  //   setBuzzData({ ...buzzData, image: e.target.files[0] });
-  // };
 
   const inputChangeHandler = (event, inputIdentifier) => {
     const updatedBuzzData = {
@@ -68,10 +70,15 @@ const NewBuzz = (props) => {
         updatedFormElement.value,
         updatedFormElement.validation
       );
-  
+        
       updatedFormElement.touched = true;
     }
-
+    
+    if(inputIdentifier === 'category'){
+      buzzData.description.elementConfig.disabled=false;
+      buzzData.description.elementConfig.placeholder="Share your thoughts....";
+      buzzData.description.elementConfig.title="";
+    }
   
     let formIsValid = true;
     for (let inputIdentifier in updatedBuzzData) {
@@ -90,14 +97,17 @@ const NewBuzz = (props) => {
       formData.append(item, buzzData[item].value);
     });
     formData.append("email", props.email);
-    // console.log(buzzData);
     props.onAddBuzz(formData);
+    setBuzzData(initialFormData);
   };
 
   let errorMessage = <p className={classes.ErrorMessage}>*Please enter a valid data</p>
 
   const removeImage = () => {
-    setBuzzData({ ...buzzData, image: "" });
+    setBuzzData({
+      ...buzzData,
+      image: { ...buzzData.image, value: "" },
+    });
   };
 
   let headerIcon = <FaPencilAlt style={{ marginRight: "0.3rem" }} />;
@@ -107,7 +117,7 @@ const NewBuzz = (props) => {
         <div>
           <textarea
             className={classes.Form}
-            placeholder="Share your thoughts...."
+            {...buzzData.description.elementConfig}
             value={buzzData.description.value}
             onChange={(e) => inputChangeHandler(e, 'description')}
           ></textarea>
@@ -120,13 +130,12 @@ const NewBuzz = (props) => {
                 <select
                   className={classes.Category}
                   onChange={(e) => inputChangeHandler(e, 'category')}
-                  defaultValue={"Category"}
+                  defaultValue={buzzData.category.value}
                 >
-                  <option defaultValue="DEFAULT" hidden disabled>
-                    Category
-                  </option>
-                  <option value="Activity">Activity Buzz </option>
-                  <option value="Lost & Found">Lost & Found Buzz</option>
+                  <option disabled hidden>{buzzData.category.value}</option>
+                  {buzzData.category.elementConfig.options.map(option => (
+                    <option value={option.value} key={option.value}>{option.displayValue}</option>
+                  ))}
                 </select>
               {!buzzData.category.valid && buzzData.category.touched ? errorMessage : ''}
 
@@ -146,9 +155,9 @@ const NewBuzz = (props) => {
                 hidden
                 onChange={(e) => inputChangeHandler(e, 'image')}
               />
-              {buzzData.image.name && (
+              {buzzData.image.value && (
                 <p className={classes.ImageName}>
-                  {buzzData.image.name}
+                  {buzzData.image.value.name}
                   <span
                     className={classes.RemoveImage}
                     onClick={removeImage}
@@ -160,11 +169,11 @@ const NewBuzz = (props) => {
               )}
             </div>
           </div>
-          <button className={classes.SubmitButton} title="Submit Buzz" disabled={!formIsValid}>
+          <button className={classes.SubmitButton} title="Submit Buzz" disabled={!formIsValid} >
             <TiLocationArrow />
           </button>
         </div>
-      </form>
+    </form>
     </BoxLayout>
   );
 };
@@ -181,4 +190,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewBuzz);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NewBuzz));

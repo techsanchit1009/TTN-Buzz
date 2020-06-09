@@ -16,7 +16,6 @@ module.exports = (passport) => {
         if (subdomain !== "tothenew.com") {
           done(null, null);
         } else {
-          console.log(profile);
           User.findOne({ email: profile._json.email }).then((existingUser) => {
             if (existingUser) {
               done(null, existingUser);
@@ -27,7 +26,6 @@ module.exports = (passport) => {
                 profilePic: profile._json.picture
               });
               newUser.save().then((newUser) => {
-                console.log(newUser);
                 done(null, newUser);
               });
             }

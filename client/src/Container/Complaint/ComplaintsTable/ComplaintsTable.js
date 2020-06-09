@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import classes from "./ComplaintsTable.module.css";
+import Modal from "../../../Components/UI/Modal/Modal";
 
 const ComplaintsTable = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showComplaint, setShowComplaint] = useState(false);
   const {
     userData,
     complaintData,
@@ -21,6 +23,12 @@ const ComplaintsTable = (props) => {
       setIsAdmin(true);
     }
   }, [complaintData, userData.userType, location.pathname]);
+
+  const complaintDetails = (issueId) => {
+    return (
+      <p onClick={() => alert(issueId)}>{issueId}</p>
+    );
+  }
 
   const complaintStatus = (status) => {
     if (status === "Open") {
@@ -47,7 +55,7 @@ const ComplaintsTable = (props) => {
         {complaintData.map((complaint) => (
           <tr key={complaint._id}>
             <td>{complaint.dept}</td>
-            <td>{complaint.issueId}</td>
+            <td>{complaintDetails(complaint.issueId)}</td>
             {isAdmin && <td>{complaint.complaintBy.name}</td>}
 
             {isAdmin ? (

@@ -1,5 +1,6 @@
 const complaintService = require('./complaint.service');
 const cloudinary = require('cloudinary');
+const validator = require('../../Libs/validator.lib');
 
 exports.addComplaint = async (req, res) => {
   let newComplaint = {
@@ -20,6 +21,10 @@ exports.addComplaint = async (req, res) => {
   }
 
   try {
+    const errors = validator(req.body, 'complaint'); // Handling server side validation
+    if(errors.length){
+      return res.status(422).send(errors); // sending errorArray if validation failed
+    }
     const complaint = await complaintService.addComplaint(newComplaint, creatorEmail);
     res.send(complaint);
   } catch (err) {

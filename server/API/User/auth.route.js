@@ -16,7 +16,6 @@ router.get('/auth/user', checkAuth, (req, res) => {
   res.status(200).json({
     authenticated: true,
     user: req.user,
-    cookie: req.cookies
   })
 });
 

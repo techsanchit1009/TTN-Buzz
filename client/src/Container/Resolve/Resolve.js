@@ -3,6 +3,7 @@ import BoxLayout from "../../Components/UI/BoxLayout/BoxLayout";
 import ComplaintsTable from "../Complaint/ComplaintsTable/ComplaintsTable";
 import * as action from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 
 const Resolve = (props) => {
@@ -11,7 +12,8 @@ const Resolve = (props) => {
     complaints, 
     onFetchComplaints, 
     onInitUpdateComplaintStatus, 
-    onInitUpdateComplaintAssignee 
+    onInitUpdateComplaintAssignee,
+    loadingComplaints
   } = props;
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const Resolve = (props) => {
         updateStatusHandler={updateStatusHandler}
         updateAssigneeHandler={updateAssigneeHandler}
       />
+      {loadingComplaints && <Spinner />}
     </BoxLayout>
   );
 };
@@ -43,6 +46,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userData.user,
     complaints: state.complaintData.complaints,
+    loadingComplaints: state.complaintData.loadingComplaints
   };
 };
 

@@ -8,9 +8,8 @@ exports.addBuzz = async (buzz, userEmail) => {
     createdBy: user._id
   }
   const resBuzz = await Buzz.create(newBuzz);
-  user.buzz.push(resBuzz);
-  await user.save();  // adding complaint objectID in user buzz Array
-  return resBuzz;
+  let populatedResponse = resBuzz.populate('createdBy','name email').execPopulate();
+  return populatedResponse;
 };
 
 exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {

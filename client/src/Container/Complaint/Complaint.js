@@ -5,9 +5,10 @@ import ComplaintsTable from './ComplaintsTable/ComplaintsTable';
 import BoxLayout from '../../Components/UI/BoxLayout/BoxLayout';
 import * as action from '../../Store/Actions/index.actions';
 import { connect } from 'react-redux';
+import Spinner from '../../Components/UI/Spinner/Spinner';
 
 const Complaint = (props) => {
-  const {user, complaints, onFetchUserComplaints} = props;
+  const {user, complaints, onFetchUserComplaints, loadingComplaints} = props;
 
   useEffect(() => {
     window.document.title = 'Complaint';
@@ -21,6 +22,7 @@ const Complaint = (props) => {
       <BoxLayout heading="Your Complaints">
         <ComplaintsTable userData={user} complaintData={complaints}/>
       </BoxLayout>
+      {loadingComplaints && <Spinner />}
     </div>
   );
 }
@@ -29,7 +31,8 @@ const Complaint = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.userData.user,
-    complaints: state.complaintData.complaints
+    complaints: state.complaintData.complaints,
+    loadingComplaints: state.complaintData.loadingComplaints
   }
 }
 

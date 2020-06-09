@@ -2,7 +2,7 @@ import * as actionTypes from '../Actions/actionTypes';
 
 const initialState = {
   complaints: [],
-  loading: false
+  loadingComplaints: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,28 +10,43 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_COMPLIANT_START:
       return {
         ...state,
-        loading: true
+        loadingComplaints: true
       }
     
     case actionTypes.FETCH_COMPLIANT_SUCCESS:
       return {
         ...state,
         complaints: action.complaints,
-        loading: false
+        loadingComplaints: false
       }  
+
+    case actionTypes.FETCH_COMPLAINT_FAILED:
+      return {
+        ...state,
+        loadingComplaints: false
+      }
 
     case actionTypes.ADD_COMPLAINT_START:
       return{
         ...state,
-        loading: true
+        loadingComplaints: true
+      }
+
+    case actionTypes.ADD_COMPLAINT_FAILED:
+      return {
+        ...state,
+        loadingComplaints: false
       }
     
     case actionTypes.ADD_COMPLAINT_SUCCESS:
-      const updatedComplaintsList = state.complaints.concat(action.newComplaint)
+      const updatedComplaintsList = [
+        action.newComplaint,
+        ...state.complaints
+      ];
       return {
         ...state,
-        loading: false,
-        complaints: updatedComplaintsList
+        complaints: updatedComplaintsList,
+        loadingComplaints: false
       } 
 
     case actionTypes.UPDATE_COMPLAINT:

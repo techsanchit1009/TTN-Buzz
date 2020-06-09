@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const buzzSchema = new mongoose.Schema({
   description: {
     type: String,
-    required: true
+    required: [true, "Description cannot be empty!"]
   },
   category: {
     type: String,
