@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import classes from "./ComplaintsTable.module.css";
+import moment from "moment";
 import Modal from "../../../Components/UI/Modal/Modal";
 
 const ComplaintsTable = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [showComplaint, setShowComplaint] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
   const {
     userData,
     complaintData,
@@ -24,10 +25,12 @@ const ComplaintsTable = (props) => {
     }
   }, [complaintData, userData.userType, location.pathname]);
 
-  const complaintDetails = (issueId) => {
-    return (
-      <p onClick={() => alert(issueId)}>{issueId}</p>
-    );
+  const showModalHandler = (issueId) => {
+    setSelectedId(issueId);
+  }
+
+  const closeModalHandler = () => {
+    setSelectedId("");
   }
 
   const complaintStatus = (status) => {
@@ -39,6 +42,40 @@ const ComplaintsTable = (props) => {
       return <span style={{ color: "green" }}>{status}</span>;
     }
   };
+
+  let complaintModal = (
+    <Modal heading={`Issue ID: ${selectedId}`} closeModalHandler={closeModalHandler}>
+      <div className={classes.ComplaintModal}>
+        {complaintData
+          .filter((complaint) => complaint.issueId === selectedId)
+          .map((complaint) => (
+            <div>
+              <span className={classes.Label}>Title</span>
+              <span className={classes.Data}>{complaint.title}</span>
+              <span className={classes.Label}>Created By</span>
+              <span className={classes.Data}>{complaint.name}</span>
+              <span className={classes.Label}>Department</span>
+              <span className={classes.Data}>{complaint.dept}</span>
+              <span className={classes.Label}>Description</span>
+              <span className={classes.Data}>{complaint.description}</span>
+              {complaint.image && <span className={classes.Label}>Image</span>}
+              {complaint.image && (
+                <span className={classes.Data}>
+                  <span
+                    style={{ backgroundImage: `url("${complaint.image}")` }}
+                    className={classes.ImageBlock}
+                  ></span>
+                </span>
+              )}
+              <span className={classes.Label}>Created On</span>
+              <span className={classes.Data}>
+                {moment(complaint.createdOn).format("MMMM Do YYYY, h:mm A")}
+              </span>
+            </div>
+          ))}
+      </div>
+    </Modal>
+  );
 
   let complaintTable = (
     <table className={classes.Table}>
@@ -55,7 +92,11 @@ const ComplaintsTable = (props) => {
         {complaintData.map((complaint) => (
           <tr key={complaint._id}>
             <td>{complaint.dept}</td>
-            <td>{complaintDetails(complaint.issueId)}</td>
+            <td className={classes.IssueID}>
+              <span onClick={() => showModalHandler(complaint.issueId)} title="Show Details">
+                {complaint.issueId}
+              </span>
+            </td>
             {isAdmin && <td>{complaint.complaintBy.name}</td>}
 
             {isAdmin ? (
@@ -121,6 +162,7 @@ const ComplaintsTable = (props) => {
 
   return (
     <div>
+      {selectedId && complaintModal}
       {complaintData.length ? (
         complaintTable
       ) : (

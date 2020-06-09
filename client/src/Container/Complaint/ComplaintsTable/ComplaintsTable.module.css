@@ -38,6 +38,12 @@ tr:nth-child(even){
   text-align: center;
 }
 
+.IssueID{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .Select{
   border: none;
   background: none;
@@ -49,3 +55,31 @@ tr:nth-child(even){
   outline: none;
 }
 
+
+.ComplaintModal{
+  margin-top: 1rem;
+}
+
+.Label{
+  display: block;
+  font-weight: bold;
+  margin: 0.3rem 0;
+}
+
+.Data{
+  display: block;
+  margin-bottom: 1rem;
+  color: gray;
+  word-break: break-all;
+}
+
+.ImageBlock{
+  display: block;
+  height: 35vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
