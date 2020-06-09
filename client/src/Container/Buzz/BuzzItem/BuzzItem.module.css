@@ -97,3 +97,15 @@
 .Selected{
   color: rgb(255, 115, 0);
 }
+
+.Counter:hover{
+  color: gray;
+  cursor: pointer;
+}
+
+.UserName{
+  font-size: 1rem;
+  font-weight: bold;
+  color: darkslategray;
+  padding: 0.8rem 0;
+}

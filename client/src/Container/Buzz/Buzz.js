@@ -3,15 +3,14 @@ import { BsChatQuoteFill } from "react-icons/bs";
 import classes from "./Buzz.module.css";
 import NewBuzz from "./NewBuzz/NewBuzz";
 import BuzzItem from "./BuzzItem/BuzzItem";
-import BoxLayout from '../../Components/UI/BoxLayout/BoxLayout';
+import BoxLayout from "../../Components/UI/BoxLayout/BoxLayout";
 import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 
-
 const Buzz = (props) => {
-  const {onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz } = props;
-   useEffect(() => {
+  const { onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz } = props;
+  useEffect(() => {
     window.document.title = "Buzz";
     onFetchBuzz();
   }, [onFetchBuzz]);
@@ -20,13 +19,15 @@ const Buzz = (props) => {
     onLikeDislikeBuzz(actionType, id, user.email);
   };
 
-  const checkSelected = (array, userId) => {
-    const element = array.find(elem => elem._id === userId);
-    if(!element){
+
+  const checkSelected = (likedDislikedArray, userId) => {
+    const element = likedDislikedArray.find((elem) => elem._id === userId);
+    if (!element) {
       return false;
     }
     return true;
-  }
+  };
+
 
   let headerIcon = <BsChatQuoteFill />;
 
@@ -45,6 +46,8 @@ const Buzz = (props) => {
               createdOn={buzz.createdOn}
               imageUrl={buzz.image}
               likes={buzz.likes}
+              likedBy={buzz.likedBy}
+              dislikedBy={buzz.dislikedBy}
               dislikes={buzz.dislikes}
               selectedLike={checkSelected(buzz.likedBy, user._id)}
               selectedDislike={checkSelected(buzz.dislikedBy, user._id)}
@@ -62,7 +65,7 @@ const mapStateToProps = (state) => {
   return {
     buzzList: state.buzzData.buzzList,
     user: state.userData.user,
-    loadingBuzz: state.buzzData.loadingBuzz
+    loadingBuzz: state.buzzData.loadingBuzz,
   };
 };
 

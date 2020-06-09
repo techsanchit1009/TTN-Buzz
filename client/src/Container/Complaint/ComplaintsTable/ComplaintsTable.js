@@ -49,7 +49,7 @@ const ComplaintsTable = (props) => {
         {complaintData
           .filter((complaint) => complaint.issueId === selectedId)
           .map((complaint) => (
-            <div>
+            <div key={complaint._id}>
               <span className={classes.Label}>Title</span>
               <span className={classes.Data}>{complaint.title}</span>
               <span className={classes.Label}>Created By</span>
