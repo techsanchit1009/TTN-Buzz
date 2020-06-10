@@ -35,7 +35,7 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      <TopBar logoutHandler={onUserLogout} authenticated={authenticated}/>
+      <TopBar logoutHandler={onUserLogout} authenticated={authenticated} userData={user}/>
       <Banner>{bannerText}</Banner>
       <Container>
         <div className={classes.Dashboard}>

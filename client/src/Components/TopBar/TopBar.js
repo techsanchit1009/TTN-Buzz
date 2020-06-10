@@ -5,7 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import Container from "../UI/Container/Container";
 
 const TopBar = (props) => {
- 
+  const {userData} = props;
   return (
     <div className={classes.TopBar}>
     <Container>
@@ -13,12 +13,27 @@ const TopBar = (props) => {
         <img src={TTNLogo} alt="TTN-Logo" height="75rem" />
       </div>
       <div className={classes.TopBarContent}>
-        <button
-          onClick={() => props.logoutHandler()}
-          className={classes.Logout}
-        >
-          Logout <FiLogOut style={{ marginLeft: "0.8rem" }} />
-        </button>
+        <div className={classes.Dropdown}>
+          <div className={classes.UserName}>{userData.name}</div>
+          <div className={classes.DropdownContent}>
+            <div className={classes.Item}>
+              <a href={userData.profilePic} target="blank" >
+                <img src={userData.profilePic} className={classes.Image} alt={userData.name}/>
+              </a>
+            </div>
+            <div className={classes.Item}>
+              {userData.name}
+              <span className={classes.UserType}>({userData.userType})</span>
+            </div>
+            <div className={classes.Item}>
+              <button
+                onClick={() => props.logoutHandler()}
+                className={classes.Logout}>
+                Logout <FiLogOut style={{ marginLeft: "0.8rem" }} />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </Container>
   </div>

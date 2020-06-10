@@ -4,7 +4,9 @@
 
 .TopBarContent{
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  color: rgb(255, 115, 0);
 }
 
 .Logo{
@@ -19,7 +21,6 @@
   background: none;
   border: none;
   outline: none;
-  font-size: 1rem;
   display: flex;
   color: rgb(255, 115, 0);
   align-items: center;
@@ -28,4 +29,56 @@
 
 .Logout:hover{
   text-decoration: underline;
+}
+
+.Dropdown{
+  position: relative;
+  cursor: pointer;
+}
+
+.Dropdown:hover{
+  text-decoration: underline;
+}
+
+.DropdownContent{
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 10rem;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+  right: 0;
+  z-index: 1;
+}
+
+.Item{
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.Item:first-of-type{
+  align-self: center;
+  border-bottom: none;
+}
+
+.UserData{
+  margin: 0 1rem;
+}
+
+.Image{
+  height: 3rem;
+  border-radius: 50%;
+}
+
+
+.Dropdown:hover .DropdownContent{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.UserType{
+  display: block;
+  color: gray;
+  font-size: 0.8rem;
 }

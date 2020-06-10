@@ -48,7 +48,7 @@ tr:nth-child(even){
   border: none;
   background: none;
   outline: none;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .Select option{
