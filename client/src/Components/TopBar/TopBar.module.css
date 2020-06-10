@@ -9,6 +9,16 @@
   color: rgb(255, 115, 0);
 }
 
+.Bars{
+  display: none;
+  font-size: 1.2rem;
+}
+
+.Bars:hover{
+  color: rgb(202, 59, 6);
+  cursor: pointer;
+}
+
 .Logo{
   position: absolute;
   top: 0;
@@ -45,7 +55,8 @@
   position: absolute;
   background-color: #f1f1f1;
   min-width: 10rem;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 3px;
   font-size: 0.9rem;
   right: 0;
   z-index: 1;
@@ -81,4 +92,18 @@
   display: block;
   color: gray;
   font-size: 0.8rem;
+}
+
+@media (max-width: 600px){
+  .TopBarContent{
+    justify-content: space-between;
+  }
+  
+  .Logo{
+    display: none;
+  }
+  
+  .Bars{
+    display: block;
+  }
 }

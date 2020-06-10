@@ -24,3 +24,10 @@ aside{
   color: blue;
   margin: 0 0.5rem;
 }
+
+
+@media (max-width: 600px){
+  aside{
+    display: none;
+  }
+}

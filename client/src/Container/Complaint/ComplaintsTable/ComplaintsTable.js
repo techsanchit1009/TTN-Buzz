@@ -161,7 +161,7 @@ const ComplaintsTable = (props) => {
   );
 
   return (
-    <div>
+    <div className={classes.TableWrapper}>
       {selectedId && complaintModal}
       {complaintData.length ? (
         complaintTable

@@ -1,6 +1,7 @@
 .BannerImage{
   background-image: url('../../assets/banner.jpg');
   height: 45vh;
+  width: 100%;
   background-size: cover;
   position: relative;
 }
@@ -16,4 +17,15 @@
   transform: translateY(-50%);
   text-shadow: 2px 2px rgb(126, 125, 125);
   word-spacing: 10px;
+}
+
+@media (max-width: 600px){
+  .BannerImage{
+    height: 20vh;
+  }
+
+  .BannerText{
+    width: 80%;
+    font-size: 1rem;
+  }
 }

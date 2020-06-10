@@ -12,10 +12,41 @@
   align-items: center;
   background-color: #ddd;
   font-weight: bold;
+  justify-content: space-between;
   padding: 0.6rem 1rem;
 }
 
 .Icon{
   color: gray;
   margin: 0 0.3rem;
+}
+
+.SelectWrapper{
+  position: relative;
+}
+
+.FilterIcon{
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.FilterBy{
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin-right: 1rem;
+  padding: 0.3rem 1rem;
+  font-weight: bold;
+  color: darkslategray;
+}
+
+.FilterBy:hover, .FilterBy:focus{
+  background-color: #eee;
+}
+
+.FilterBy option{
+  font-size: 1rem;
 }

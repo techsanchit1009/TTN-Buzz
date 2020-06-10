@@ -1,0 +1,50 @@
+.SideDrawer{
+  position: fixed;
+  width: 50%;
+  max-width: 50%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  background-color: white;
+  padding: 1rem;
+  transition: transform 0.3s ease-out;
+  text-transform: uppercase;
+  color: rgb(138, 137, 137);
+}
+
+.SideDrawerNav a{
+  display: block;
+  color: rgb(138, 137, 137);
+  text-decoration: none;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+
+.SideDrawerNav a:hover{
+  color: rgb(255, 115, 0);
+}
+
+.SideDrawerNav a.Active{
+  color: rgb(255, 115, 0);
+}
+
+@media (min-width: 601px){
+  .SideDrawer{
+    display: none;
+  }
+}
+
+.Open {
+  transform: translateX(0);
+}
+
+.Close{
+  transform: translateX(-100%);
+}
+
+.Logo{
+  height: 10%;
+  margin-bottom: 32px;
+}

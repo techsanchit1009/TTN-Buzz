@@ -24,7 +24,6 @@ tr:nth-child(even){
   top: 50%;
   transform: translateY(-50%);
   right: 2rem;
-  /* padding: 10px; */
   font-size: 1rem;
   color: red;
   pointer-events: none;
@@ -82,4 +81,14 @@ tr:nth-child(even){
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 1rem;
+}
+
+
+@media (max-width: 600px){
+  .Table{
+    zoom: 0.5;
+  }
+  .TableWrapper{
+    overflow-x: auto;
+  }
 }

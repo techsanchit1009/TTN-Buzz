@@ -6,3 +6,9 @@
   height: 60vh;
   overflow-y: scroll;
 }
+
+@media (max-width: 600px){
+  .Buzz{
+    flex: 1;
+  }
+}

@@ -16,7 +16,7 @@ const Login = (props) => {
     <div className={classes.Login}>
       <div className={classes.BGImage}></div>
       <div className={classes.LoginBox}>
-        <img src={TTNLogo} alt="logo" />
+        <img src={TTNLogo} alt="logo" className={classes.Logo}/>
         <div className={classes.BuzzText}>Create Your Own Buzz</div>
         <a href="http://localhost:5000/auth/google" className={classes.LoginButton}>
           <FaGooglePlusG className={classes.GoogleLogo} />

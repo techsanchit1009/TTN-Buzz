@@ -10,3 +10,10 @@
   margin: 0 1.5rem;
   margin-right: 0;
 }
+
+@media (max-width: 600px){
+  .DashboardContent{
+    width: 100%;
+    margin: 0;
+  }
+}

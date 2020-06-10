@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BoxLayout from "../../Components/UI/BoxLayout/BoxLayout";
 import ComplaintsTable from "../Complaint/ComplaintsTable/ComplaintsTable";
 import * as action from "../../Store/Actions/index.actions";
@@ -16,10 +16,16 @@ const Resolve = (props) => {
     loadingComplaints
   } = props;
 
+  const [complaintList, setComplaintList] = useState([]);
+
   useEffect(() => {
     window.document.title = "Resolve";
     onFetchComplaints();
   }, [onFetchComplaints]);
+
+  useEffect(() => {
+    setComplaintList(complaints);
+  }, [complaints]);
 
   const updateStatusHandler = (complaintId, updatedStatus) => {
     onInitUpdateComplaintStatus(complaintId, updatedStatus);
@@ -29,11 +35,16 @@ const Resolve = (props) => {
     onInitUpdateComplaintAssignee(complaintId, assignedTo);
   }
 
+  const deptFilterHandler = (dept) => {
+    const filteredComplaints = complaints.filter(complaint => complaint.dept === dept);
+    setComplaintList(filteredComplaints);
+  }
+
   return (
-    <BoxLayout heading="Complaints">
+    <BoxLayout heading="Complaints" deptFilterHandler={deptFilterHandler}>
       <ComplaintsTable
         userData={user}
-        complaintData={complaints}
+        complaintData={complaintList}
         updateStatusHandler={updateStatusHandler}
         updateAssigneeHandler={updateAssigneeHandler}
       />

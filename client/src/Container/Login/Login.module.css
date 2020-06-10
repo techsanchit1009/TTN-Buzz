@@ -16,7 +16,8 @@
   padding: 1rem;
   background-color: white;
   opacity: 0.85;
-  width: 30vw;
+  font-size: 1rem;
+  width: 30%;
   align-items: center;
 }
 
@@ -34,11 +35,11 @@
 .LoginButton{
   display: flex;
   align-items: center;
-  padding: 0.6rem 0;
+  padding: 0.6rem 0.5rem;
   background-color: red;
   color: white;
   justify-content: center;
-  width: 20vw;
+  /* width: 20vw; */
 }
 
 .LoginButton:hover{
@@ -54,4 +55,15 @@
   color: red;
   border-radius: 5px;
   border: 1px solid red;
+}
+
+
+@media (max-width: 768px){
+  .LoginBox{
+    width: 60%;
+  }
+  
+  .Logo{
+    width: 50%;
+  }
 }
