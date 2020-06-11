@@ -70,15 +70,15 @@ const BuzzItem = (props) => {
             </a>
           )}
           <div className={classes.BuzzOwner}>
-            <span>
+            <div>
               <span className={classes.CreatorName}>
                 {creatorName && creatorName.split(" ")[0]}
               </span>
-              @{creatorEmail}
-            </span>
-            <span className={classes.CreatedTime}>
+              @{creatorEmail.split("@")[0]}
+            </div>
+            <div className={classes.CreatedTime}>
               {moment(createdOn).fromNow()}
-            </span>
+            </div>
           </div>
           <div className={classes.Description}>
             {desc.length < 500 ? desc : desc.substring(0, 500).concat(". . .")}

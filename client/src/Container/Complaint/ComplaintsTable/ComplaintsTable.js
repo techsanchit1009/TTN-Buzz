@@ -61,10 +61,12 @@ const ComplaintsTable = (props) => {
               {complaint.image && <span className={classes.Label}>Image</span>}
               {complaint.image && (
                 <span className={classes.Data}>
-                  <span
-                    style={{ backgroundImage: `url("${complaint.image}")` }}
-                    className={classes.ImageBlock}
-                  ></span>
+                  <a href={complaint.image} alt={complaint.issueId} target="blank">
+                    <span
+                      style={{ backgroundImage: `url("${complaint.image}")` }}
+                      className={classes.ImageBlock}
+                    ></span>
+                  </a>
                 </span>
               )}
               <span className={classes.Label}>Created On</span>

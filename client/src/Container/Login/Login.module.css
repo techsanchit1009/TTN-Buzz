@@ -39,7 +39,6 @@
   background-color: red;
   color: white;
   justify-content: center;
-  /* width: 20vw; */
 }
 
 .LoginButton:hover{
@@ -51,7 +50,7 @@
   padding: 0.8rem;
   font-size: 0.9rem;
   background-color: rgb(247, 176, 169);
-  width: 20vw;
+  width: 50%;
   color: red;
   border-radius: 5px;
   border: 1px solid red;
@@ -60,10 +59,14 @@
 
 @media (max-width: 768px){
   .LoginBox{
-    width: 60%;
+    width: 70%;
   }
   
   .Logo{
     width: 50%;
+  }
+
+  .ErrorBox{
+    width: 50vw;
   }
 }

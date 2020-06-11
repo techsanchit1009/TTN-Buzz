@@ -8,6 +8,11 @@
   font-size: 0.9rem;
 }
 
+.Form:disabled{
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
 .FormFooter{
   display: flex;
   justify-content: space-between;
@@ -52,6 +57,10 @@
   color: gray;
 }
 
+.ImageBtnWrapper{
+  display: flex;
+  align-items: center;
+}
 
 .ImageButton{
   font-size: 2rem;
@@ -103,4 +112,27 @@
   color: red;
   font-size: 0.75rem;
   font-weight: bold;
+}
+
+@media (max-width: 768px){
+  .Form{
+    height: 10vh;
+  }
+
+  .FormFooter {
+    padding-top: 0;
+  }
+
+  .FormOptions{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ImageButton{
+    font-size: 1.2rem;
+  }
+
+  .ImageBtnWrapper{
+    padding-left: 1rem;
+  }
 }

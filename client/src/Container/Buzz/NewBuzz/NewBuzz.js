@@ -111,6 +111,7 @@ const NewBuzz = (props) => {
   };
 
   let headerIcon = <FaPencilAlt style={{ marginRight: "0.3rem" }} />;
+
   return (
     <BoxLayout heading="Create Buzz" icon={headerIcon}>
       <form onSubmit={(e) => submitHandler(e)}>
@@ -140,7 +141,7 @@ const NewBuzz = (props) => {
               {!buzzData.category.valid && buzzData.category.touched ? errorMessage : ''}
 
              </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div className={classes.ImageBtnWrapper}>
               <label htmlFor="image">
                 <RiImageAddLine
                   className={classes.ImageButton}

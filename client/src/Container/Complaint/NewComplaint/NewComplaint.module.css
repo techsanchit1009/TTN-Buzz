@@ -73,3 +73,9 @@
   background-color: #aaa;
   content: 'not allowed';
 }
+
+@media (max-width: 768px){
+  .FormRow{
+    flex-direction: column;
+  }
+}

@@ -74,7 +74,7 @@ tr:nth-child(even){
 
 .ImageBlock{
   display: block;
-  height: 35vh;
+  min-height: 35vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -84,11 +84,11 @@ tr:nth-child(even){
 }
 
 
-@media (max-width: 600px){
-  .Table{
-    zoom: 0.5;
-  }
+@media (max-width: 768px){
   .TableWrapper{
     overflow-x: auto;
+  }
+  .ImageBlock{
+    min-height: 20vh ;
   }
 }

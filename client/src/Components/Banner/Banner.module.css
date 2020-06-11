@@ -19,7 +19,7 @@
   word-spacing: 10px;
 }
 
-@media (max-width: 600px){
+@media (max-width: 768px){
   .BannerImage{
     height: 20vh;
   }
