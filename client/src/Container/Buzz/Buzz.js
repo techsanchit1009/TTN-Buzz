@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsChatQuoteFill } from "react-icons/bs";
 import classes from "./Buzz.module.css";
 import NewBuzz from "./NewBuzz/NewBuzz";
@@ -10,14 +10,30 @@ import Spinner from "../../Components/UI/Spinner/Spinner";
 
 const Buzz = (props) => {
   const { onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz } = props;
+  const [buzzs, setBuzzs] = useState([]);
+
   useEffect(() => {
     window.document.title = "Buzz";
     onFetchBuzz();
   }, [onFetchBuzz]);
 
+  useEffect(() => {
+    setBuzzs(buzzList);
+  }, [buzzList]);
+
+  const filterOptions = [
+    {displayValue: "Activity Buzz", value: "Activity"},
+    {displayValue: "Lost & Found Buzz", value: "Lost & Found"}
+  ];
+
   const likeDislikeHandler = (id, actionType) => {
     onLikeDislikeBuzz(actionType, id, user.email);
   };
+
+  const filterHandler = (category) => {
+    const filteredBuzzs = buzzList.filter(buzz => buzz.category === category);
+    setBuzzs(filteredBuzzs);
+  }
 
 
   const checkSelected = (likedDislikedArray, userId) => {
@@ -34,9 +50,9 @@ const Buzz = (props) => {
   return (
     <div className={classes.Buzz}>
       <NewBuzz />
-      <BoxLayout heading="Recent Buzz" icon={headerIcon}>
+      <BoxLayout heading="Recent Buzz" icon={headerIcon} filterHandler={filterHandler} filters={filterOptions}>
         <div className={classes.List}>
-          {buzzList.map((buzz) => (
+          {buzzs.map((buzz) => (
             <BuzzItem
               key={buzz._id}
               buzzId={buzz._id}
@@ -45,6 +61,7 @@ const Buzz = (props) => {
               desc={buzz.description}
               createdOn={buzz.createdOn}
               imageUrl={buzz.image}
+              category={buzz.category}
               likes={buzz.likes}
               likedBy={buzz.likedBy}
               dislikedBy={buzz.dislikedBy}

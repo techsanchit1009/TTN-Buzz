@@ -25,6 +25,11 @@ aside{
   margin: 0 0.5rem;
 }
 
+.FooterButton a.ActiveSecondary{
+  color: rgb(255, 115, 0);
+  text-decoration: underline;
+}
+
 
 @media (max-width: 768px){
   aside{

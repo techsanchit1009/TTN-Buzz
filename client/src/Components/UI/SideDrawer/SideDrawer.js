@@ -20,6 +20,8 @@ const SideDrawer = props => {
           <NavLink to="/dashboard/buzz" activeClassName={classes.Active}>Buzz</NavLink>
           <NavLink to="/dashboard/complaint" activeClassName={classes.Active}>Complaint</NavLink>
           {props.userType === 'Admin' && <NavLink to="/dashboard/resolve" activeClassName={classes.Active}>Resolve</NavLink> }
+          <NavLink to="/dashboard/about" activeClassName={classes.Active}>About</NavLink>
+          <NavLink to="/dashboard/help" activeClassName={classes.Active}>Help</NavLink>
         </nav>
       </div>
     </React.Fragment>

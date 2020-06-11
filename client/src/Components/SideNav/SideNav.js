@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./SideNav.module.css";
 import NavItem from "./NavItem/NavItem";
+import { NavLink } from "react-router-dom";
 
 const SideNav = (props) => {
   return (
@@ -13,8 +14,9 @@ const SideNav = (props) => {
       <div className={classes.SideNavFooter}>
         <div style={{color: '#ccc'}}>&copy; To The New</div>
         <div className={classes.FooterButton}>
-          <a href="/">About</a>
-          <a href="/">Help</a>
+          <NavLink to="/dashboard/about" activeClassName={classes.ActiveSecondary}>About</NavLink>
+          <NavLink to="/dashboard/help" activeClassName={classes.ActiveSecondary}>Help</NavLink>
+
         </div>
       </div>
     </aside>

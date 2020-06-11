@@ -10,6 +10,8 @@ import Banner from "../../Components/Banner/Banner";
 import Container from "../../Components/UI/Container/Container";
 import SideNav from "../../Components/SideNav/SideNav";
 import SideDrawer from "../../Components/UI/SideDrawer/SideDrawer";
+import About from '../../Components/About/About';
+import Help from '../../Components/Help/Help';
 import * as actions from "../../Store/Actions/index.actions";
 
 const Dashboard = (props) => {
@@ -36,6 +38,8 @@ const Dashboard = (props) => {
       {user.userType === "Admin" && (
         <Route path="/dashboard/resolve" component={Resolve} />
       )}
+      <Route path="/dashboard/about" component={About} />
+      <Route path="/dashboard/help" component={Help} />
       <Redirect to="/dashboard/buzz" />
     </Switch>
   );

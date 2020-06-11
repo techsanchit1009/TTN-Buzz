@@ -18,6 +18,13 @@ const Resolve = (props) => {
 
   const [complaintList, setComplaintList] = useState([]);
 
+  const filterOptions = [
+    {displayValue: "HR", value: "HR"},
+    {displayValue: "Admin", value: "Admin"},
+    {displayValue: "IT", value: "IT"},
+    {displayValue: "Infra", value: "Infra"},
+  ];
+
   useEffect(() => {
     window.document.title = "Resolve";
     onFetchComplaints();
@@ -41,7 +48,7 @@ const Resolve = (props) => {
   }
 
   return (
-    <BoxLayout heading="Complaints" deptFilterHandler={deptFilterHandler}>
+    <BoxLayout heading="Complaints" filterHandler={deptFilterHandler} filters={filterOptions}>
       <ComplaintsTable
         userData={user}
         complaintData={complaintList}

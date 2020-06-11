@@ -1,0 +1,64 @@
+.Help{
+  padding: 1rem;
+}
+
+.Banner {
+  background-image: url('../../assets/ttn-team.jpg');
+  background-position: center;
+  border-radius: 10px;
+  height: 30vh;
+}
+
+.Tint {
+  background-color: rgba(0, 0, 0, 0.712);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.Tint h1 {
+  font-style: italic;
+  color: #fff;
+  padding: 0 1rem;
+}
+
+.Content {
+  display: flex;
+  margin: 3% 2%;
+  justify-content: space-between;
+}
+
+.Card {
+  flex-basis: 30%;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 5px 20px #1425401a;
+}
+
+.Card img {
+  margin: 2% 0;
+  width: 30%;
+  color: gray;
+}
+
+.Card p {
+  margin: 2% 0;
+}
+
+@media (max-width: 768px){
+  .Content{
+    flex-direction: column;
+  }
+
+  .Card{
+    margin: 1rem 0;
+  }
+
+  .Card img{
+    width: 10%;
+  }
+}

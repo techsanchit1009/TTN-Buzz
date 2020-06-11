@@ -13,13 +13,14 @@ const BuzzItem = (props) => {
     imageUrl,
     desc,
     createdOn,
+    category,
     likes,
     dislikes,
     likedBy,
     dislikedBy,
     likeDislikeHandler,
     selectedLike,
-    selectedDislike,
+    selectedDislike
   } = props;
 
   const showModalHandler = (modalType) => {
@@ -81,7 +82,7 @@ const BuzzItem = (props) => {
             </div>
           </div>
           <div className={classes.Description}>
-            {desc.length < 500 ? desc : desc.substring(0, 500).concat(". . .")}
+            <span>{category}</span>{desc.length < 500 ? desc : desc.substring(0, 500).concat(". . .")}
           </div>
         </div>
       </div>

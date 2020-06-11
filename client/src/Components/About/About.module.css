@@ -1,0 +1,75 @@
+.About{
+  padding: 1rem;
+}
+
+.About h2{
+  border-bottom: 4px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.AboutBody{
+  padding: 1rem 0;
+  line-height: 1.5rem;
+  text-align: justify;
+  color: rgb(110, 108, 108);
+}
+
+.AboutBody span{
+  font-weight: bold;
+}
+
+.AboutBody ul {
+  padding-left: 1rem;
+}
+
+.Component{
+  margin: 1rem;
+}
+
+.Component h3{
+  padding: 0.3rem 0;
+  color: black;
+  border-bottom: 2px solid #ccc;
+}
+
+.About h3{
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0.3rem;
+  margin: 0.8rem 0;
+}
+
+.AboutDev h3{
+  color: black;
+}
+
+.Data{
+  padding-right: 1rem;
+}
+
+.DevDetails{
+  display: flex;
+  justify-content: space-between;
+}
+
+.DevImage{
+  background: url('https://lh3.googleusercontent.com/a-/AOh14GgMbbhJZimWfnTsmwa-59kAJx885BJe2FnZl9eD');
+  width: 20vw;
+  height: 30vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px){
+  .DevDetails{
+    flex-direction: column;
+  }
+
+  .DevImage{
+    align-self: center;
+    width: 50vw;
+  }
+}
