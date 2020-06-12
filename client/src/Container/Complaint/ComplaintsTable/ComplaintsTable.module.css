@@ -91,4 +91,8 @@ tr:nth-child(even){
   .ImageBlock{
     min-height: 20vh ;
   }
+
+  .Arrow{
+    right: 1rem;
+  }
 }

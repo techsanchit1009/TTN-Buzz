@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import classes from "./Dashboard.module.css";
-import Buzz from "../Buzz/Buzz";
-import Complaint from "../Complaint/Complaint";
-import Resolve from "../Resolve/Resolve";
+// import Buzz from "../Buzz/Buzz";
+// import Complaint from "../Complaint/Complaint";
+// import Resolve from "../Resolve/Resolve";
 import TopBar from "../../Components/TopBar/TopBar";
 import Banner from "../../Components/Banner/Banner";
 import Container from "../../Components/UI/Container/Container";
@@ -13,6 +13,10 @@ import SideDrawer from "../../Components/UI/SideDrawer/SideDrawer";
 import About from '../../Components/About/About';
 import Help from '../../Components/Help/Help';
 import * as actions from "../../Store/Actions/index.actions";
+
+const Buzz = React.lazy(() => import('../Buzz/Buzz'));
+const Complaint = React.lazy(() => import('../Complaint/Complaint'));
+const Resolve = React.lazy(() => import('../Resolve/Resolve'));
 
 const Dashboard = (props) => {
   const { user, location, onUserLogout, onFetchUser, authenticated } = props;
@@ -33,10 +37,10 @@ const Dashboard = (props) => {
 
   const routes = (
     <Switch>
-      <Route path="/dashboard/buzz" component={Buzz} />
-      <Route path="/dashboard/complaint" component={Complaint} />
+      <Route path="/dashboard/buzz" render={() => <Buzz />} />
+      <Route path="/dashboard/complaint" render={() => <Complaint />} />
       {user.userType === "Admin" && (
-        <Route path="/dashboard/resolve" component={Resolve} />
+        <Route path="/dashboard/resolve" render={() => <Resolve />} />
       )}
       <Route path="/dashboard/about" component={About} />
       <Route path="/dashboard/help" component={Help} />
@@ -65,7 +69,9 @@ const Dashboard = (props) => {
       <Container>
         <div className={classes.Dashboard}>
           <SideNav userType={user.userType} />
-          <div className={classes.DashboardContent}>{routes}</div>
+          <div className={classes.DashboardContent}>
+            <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
+          </div>
         </div>
       </Container>
     </div>
