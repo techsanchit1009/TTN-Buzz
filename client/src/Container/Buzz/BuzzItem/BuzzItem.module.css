@@ -88,8 +88,25 @@
 
 .ActionRow{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0.5rem 1rem;
+}
+
+.LikeDislikeBlock{
+  display: flex;
+}
+
+.DeleteIcon{
+  font-size: 1.1rem;
+  padding: 0.1rem;
+}
+
+.DeleteIcon:hover{
+  background-color: #ccc;
+  border-radius: 5px;
+  color: rgb(255, 115, 0);
+  cursor: pointer;
+  transition: 0.2s ease-in;
 }
 
 

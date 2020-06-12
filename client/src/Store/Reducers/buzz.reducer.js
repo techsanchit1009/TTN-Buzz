@@ -49,13 +49,31 @@ const reducer = (state = initialState, action) => {
         loadingBuzz: false
       };
 
-      case actionTypes.LIKE_DISLIKE_BUZZ:
-
+    case actionTypes.LIKE_DISLIKE_BUZZ:
         return{
           ...state,
           buzzList: action.updatedBuzzList
         }
     
+    case actionTypes.DELETE_BUZZ_START:
+        return {
+          ...state,
+          loadingBuzz: true
+        }
+
+    case actionTypes.DELETE_BUZZ_FAILED:
+      return {
+        ...state,
+        loadingBuzz: false
+      }
+
+    case actionTypes.DELETE_BUZZ_SUCCESSS:
+      const buzzListAfterDelete = state.buzzList.filter(buzz => buzz._id !== action.buzzId )
+      return {
+        ...state,
+        buzzList: buzzListAfterDelete,
+        loadingBuzz: false
+      }
     default:
       return state;
   }

@@ -100,3 +100,39 @@ export const initLikeDislikeBuzz = (buttonType, buzzId, email) => {
       });
   };
 };
+
+export const deleteBuzzStart = () => {
+  return {
+    type: actionTypes.DELETE_BUZZ_START
+  };
+}
+
+export const deleteBuzzSuccess = (buzzId) => {
+  return {
+    type: actionTypes.DELETE_BUZZ_SUCCESSS,
+    buzzId: buzzId
+  };
+}
+
+export const deleteBuzzFailed = () => {
+  return {
+    type: actionTypes.DELETE_BUZZ_FAILED
+  };
+}
+
+export const initDeleteBuzz = (buzzId) => {
+  return dispatch => {
+    dispatch(deleteBuzzStart());
+    axios.delete(`/api/buzz/${buzzId}`)
+        .then(resp => {
+          console.log(resp.data);
+          toast.success(resp.data.message);
+          dispatch(deleteBuzzSuccess(buzzId));
+        })
+        .catch(err => {
+          console.log(err);
+          toast.error(err.response.data.message);
+          dispatch(deleteBuzzFailed());
+        })
+  }
+}

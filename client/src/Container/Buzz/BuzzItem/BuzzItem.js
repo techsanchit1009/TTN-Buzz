@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import moment from "moment";
 import classes from "./BuzzItem.module.css";
 import Modal from "../../../Components/UI/Modal/Modal";
@@ -12,6 +13,7 @@ const BuzzItem = (props) => {
     creatorName,
     imageUrl,
     desc,
+    loggedInEmail,
     createdOn,
     category,
     likes,
@@ -20,7 +22,8 @@ const BuzzItem = (props) => {
     dislikedBy,
     likeDislikeHandler,
     selectedLike,
-    selectedDislike
+    selectedDislike,
+    deleteBuzzHandler
   } = props;
 
   const showModalHandler = (modalType) => {
@@ -29,27 +32,46 @@ const BuzzItem = (props) => {
 
   const closeModalHandler = () => {
     setModalType("");
-  }
+  };
+
+  const showDelete = (creatorEmail) => {
+    if (creatorEmail === loggedInEmail) {
+      return true;
+    }
+    return false;
+  };
 
   const likeDislikeModal = (modalType) => {
-    if(modalType === 'likedBy'){
+    if (modalType === "likedBy") {
       return (
         <Modal heading="Liked By" closeModalHandler={closeModalHandler}>
-          {likedBy.length ? likedBy.map(user => (
-            <div className={classes.UserName} key={user._id}>{user.name}</div>
-          )) : <span style={{fontSize: '1rem'}}>No Likes Found</span>}
+          {likedBy.length ? (
+            likedBy.map((user) => (
+              <div className={classes.UserName} key={user._id}>
+                {user.name}
+              </div>
+            ))
+          ) : (
+            <span style={{ fontSize: "1rem" }}>No Likes Found</span>
+          )}
         </Modal>
-      )
+      );
     } else {
       return (
         <Modal heading="Disliked By" closeModalHandler={closeModalHandler}>
-          {dislikedBy.length ? dislikedBy.map(user => (
-            <div className={classes.UserName} key={user._id}>{user.name}</div>
-          )): <span style={{fontSize: '1rem'}}>No Dislikes Found</span>}
+          {dislikedBy.length ? (
+            dislikedBy.map((user) => (
+              <div className={classes.UserName} key={user._id}>
+                {user.name}
+              </div>
+            ))
+          ) : (
+            <span style={{ fontSize: "1rem" }}>No Dislikes Found</span>
+          )}
         </Modal>
-      )
+      );
     }
-  }
+  };
 
   return (
     <div className={classes.BuzzItem}>
@@ -82,34 +104,50 @@ const BuzzItem = (props) => {
             </div>
           </div>
           <div className={classes.Description}>
-            <span>{category}</span>{desc.length < 500 ? desc : desc.substring(0, 500).concat(". . .")}
+            <span>{category}</span>
+            {desc.length < 500 ? desc : desc.substring(0, 500).concat(". . .")}
           </div>
         </div>
       </div>
       <div className={classes.ActionRow}>
-        <div className={classes.ActionButton}>
-          <span className={classes.Counter} onClick={() => showModalHandler("likedBy")}>{likes}</span>
-          <FaThumbsUp
-            onClick={() => likeDislikeHandler(buzzId, "like")}
-            className={
-              selectedLike
-                ? [classes.ActionIcon, classes.Selected].join(" ")
-                : classes.ActionIcon
-            }
-            title="Like"
-          />
+        <div className={classes.DeleteIcon} onClick={() => deleteBuzzHandler(buzzId)}>
+          {showDelete(creatorEmail) && <MdDeleteForever title="Delete" />}
         </div>
-        <div className={classes.ActionButton}>
-          <span className={classes.Counter} onClick={() => showModalHandler("dislikedBy")}>{dislikes}</span>
-          <FaThumbsDown
-            onClick={() => likeDislikeHandler(buzzId, "dislike")}
-            className={
-              selectedDislike
-                ? [classes.ActionIcon, classes.Selected].join(" ")
-                : classes.ActionIcon
-            }
-            title="Dislike"
-          />
+        <div className={classes.LikeDislikeBlock}>
+          <div className={classes.ActionButton}>
+            <span
+              className={classes.Counter}
+              onClick={() => showModalHandler("likedBy")}
+            >
+              {likes}
+            </span>
+            <FaThumbsUp
+              onClick={() => likeDislikeHandler(buzzId, "like")}
+              className={
+                selectedLike
+                  ? [classes.ActionIcon, classes.Selected].join(" ")
+                  : classes.ActionIcon
+              }
+              title="Like"
+            />
+          </div>
+          <div className={classes.ActionButton}>
+            <span
+              className={classes.Counter}
+              onClick={() => showModalHandler("dislikedBy")}
+            >
+              {dislikes}
+            </span>
+            <FaThumbsDown
+              onClick={() => likeDislikeHandler(buzzId, "dislike")}
+              className={
+                selectedDislike
+                  ? [classes.ActionIcon, classes.Selected].join(" ")
+                  : classes.ActionIcon
+              }
+              title="Dislike"
+            />
+          </div>
         </div>
       </div>
     </div>

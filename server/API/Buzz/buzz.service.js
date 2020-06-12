@@ -50,3 +50,7 @@ exports.getAllBuzz = () => {
                   .sort({ createdOn: -1 });
   return allBuzz;
 };
+
+exports.deleteBuzz = async (buzzId) => {
+  await Buzz.deleteOne({_id: buzzId}); 
+}

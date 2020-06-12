@@ -49,3 +49,13 @@ exports.getAllBuzz = async (req, res) => {
     res.status(400).send(err);
   }
 };
+
+exports.deleteBuzz = async (req, res) => {
+  try {
+    const { buzzId } = req.params;
+    await buzzService.deleteBuzz(buzzId);
+    res.status(200).send({message: 'Buzz Deleted Successfully!'});
+  } catch(err) {
+    res.status(400).send({message: 'Some Error occurred!'});
+  }
+}

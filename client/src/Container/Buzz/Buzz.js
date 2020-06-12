@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 
 const Buzz = (props) => {
-  const { onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz } = props;
+  const { onFetchBuzz, onLikeDislikeBuzz, buzzList, user, loadingBuzz, onDeleteBuzz } = props;
   const [buzzs, setBuzzs] = useState([]);
 
   useEffect(() => {
@@ -57,6 +57,7 @@ const Buzz = (props) => {
               key={buzz._id}
               buzzId={buzz._id}
               creatorEmail={buzz.createdBy.email}
+              loggedInEmail={user.email}
               creatorName={buzz.createdBy.name}
               desc={buzz.description}
               createdOn={buzz.createdOn}
@@ -69,6 +70,7 @@ const Buzz = (props) => {
               selectedLike={checkSelected(buzz.likedBy, user._id)}
               selectedDislike={checkSelected(buzz.dislikedBy, user._id)}
               likeDislikeHandler={likeDislikeHandler}
+              deleteBuzzHandler={onDeleteBuzz}
             />
           ))}
         </div>
@@ -91,6 +93,7 @@ const mapDispatchToProps = (dispatch) => {
     onFetchBuzz: () => dispatch(buzzActions.initFetchBuzz()),
     onLikeDislikeBuzz: (buttonType, buzzId, email) =>
       dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId, email)),
+    onDeleteBuzz: (buzzId) => dispatch(buzzActions.initDeleteBuzz(buzzId))
   };
 };
 
