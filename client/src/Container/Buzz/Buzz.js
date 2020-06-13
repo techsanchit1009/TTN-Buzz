@@ -52,7 +52,7 @@ const Buzz = (props) => {
       <NewBuzz />
       <BoxLayout heading="Recent Buzz" icon={headerIcon} filterHandler={filterHandler} filters={filterOptions}>
         <div className={classes.List}>
-          {buzzs.map((buzz) => (
+          {buzzs.length ? buzzs.map((buzz) => (
             <BuzzItem
               key={buzz._id}
               buzzId={buzz._id}
@@ -72,7 +72,7 @@ const Buzz = (props) => {
               likeDislikeHandler={likeDislikeHandler}
               deleteBuzzHandler={onDeleteBuzz}
             />
-          ))}
+          )): <p className={classes.NoResultText}>No Buzz Found!</p>}
         </div>
       </BoxLayout>
       {loadingBuzz && <Spinner />}

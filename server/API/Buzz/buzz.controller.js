@@ -18,7 +18,6 @@ exports.addBuzz = async (req, res) => {
 
   try {
     const errors = validator(req.body, 'buzz');
-    console.log(errors);
     if(errors.length){
       return res.status(422).send(errors); // sending errorArray if validation failed
     }

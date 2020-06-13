@@ -7,6 +7,14 @@
   overflow-y: scroll;
 }
 
+.NoResultText{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+  text-align: center;
+}
+
+
 @media (max-width: 768px){
   .Buzz{
     flex: 1;
