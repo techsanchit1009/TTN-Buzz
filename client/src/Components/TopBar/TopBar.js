@@ -4,6 +4,7 @@ import TTNLogo from "../../assets/ttn-logo.jpg";
 import { FiLogOut } from "react-icons/fi";
 import { FaBars } from 'react-icons/fa';
 import Container from "../UI/Container/Container";
+import { Link } from "react-router-dom";
 
 const TopBar = (props) => {
   const {userData} = props;
@@ -24,7 +25,7 @@ const TopBar = (props) => {
               </a>
             </div>
             <div className={classes.Item}>
-              {userData.name}
+              <Link to="/dashboard/about"> {userData.name} </Link>
               <span className={classes.UserType}>({userData.userType})</span>
             </div>
             <div className={classes.Item}>

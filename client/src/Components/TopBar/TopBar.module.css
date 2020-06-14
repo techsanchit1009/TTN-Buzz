@@ -73,6 +73,10 @@
   padding-top: 1.2rem;
 }
 
+.Item a{
+  color: rgb(255, 115, 0);
+}
+
 .UserData{
   margin: 0 1rem;
 }

@@ -13,6 +13,7 @@ import SideDrawer from "../../Components/UI/SideDrawer/SideDrawer";
 import About from '../../Components/About/About';
 import Help from '../../Components/Help/Help';
 import * as actions from "../../Store/Actions/index.actions";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 const Buzz = React.lazy(() => import('../Buzz/Buzz'));
 const Complaint = React.lazy(() => import('../Complaint/Complaint'));
@@ -70,7 +71,7 @@ const Dashboard = (props) => {
         <div className={classes.Dashboard}>
           <SideNav userType={user.userType} />
           <div className={classes.DashboardContent}>
-            <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
+            <Suspense fallback={<Spinner />}>{routes}</Suspense>
           </div>
         </div>
       </Container>
