@@ -31,8 +31,7 @@ export const initFetchBuzz = () => {
         dispatch(fetchBuzzSuccess(resp.data));
       })
       .catch((err) => {
-        // console.log();
-        dispatch(addBuzzFailed());
+        dispatch(fetchBuzzFailed());
         toast.error(err.response.data.message);
       });
   };

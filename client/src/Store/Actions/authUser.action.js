@@ -24,7 +24,7 @@ export const fetchUserFailed = () => {
 export const initFetchUser = () => {
   return dispatch => {
     dispatch(fetchUserStart());
-    axios.get('/auth/user', {withCredentials: true})
+    axios.get('/auth/user')
         .then(resp => {
           if(resp.data.authenticated){
             dispatch(fetchUserSuccess(resp.data));

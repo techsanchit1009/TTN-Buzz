@@ -3,7 +3,6 @@ const cloudinary = require('cloudinary');
 const validator = require('../../Libs/validator.lib');
 
 exports.addBuzz = async (req, res) => { 
-  const userEmail = req.user.email;
   let newBuzz = {
     description: req.body.description,
     category: req.body.category,
@@ -22,7 +21,7 @@ exports.addBuzz = async (req, res) => {
     if(errors.length){
       return res.status(422).send(errors); // sending errorArray if validation failed
     }
-    const buzz = await buzzService.addBuzz(newBuzz, userEmail);
+    const buzz = await buzzService.addBuzz(newBuzz);
     res.status(200).send(buzz);
   } catch (err) {
     res.status(400).send(err);

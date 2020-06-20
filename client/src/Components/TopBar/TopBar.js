@@ -7,17 +7,11 @@ import Container from "../UI/Container/Container";
 import { Link } from "react-router-dom";
 
 const TopBar = (props) => {
-  const {userData} = props;
-  return (
-    <div className={classes.TopBar}>
-    <Container>
-      <div className={classes.Logo}>
-        <img src={TTNLogo} alt="TTN-Logo" height="75rem" />
-      </div>
-      <div className={classes.TopBarContent}>
-      <div className={classes.Bars}><FaBars onClick={props.show} /></div>
-        <div className={classes.Dropdown}>
-          <div className={classes.UserName}>{userData.name}</div>
+  const {userData, show, logoutHandler, authenticated} = props;
+  
+  let topbarData = (
+    <div className={classes.Dropdown}>
+        <div className={classes.UserName}>{userData.name}</div>
           <div className={classes.DropdownContent}>
             <div className={classes.Item}>
               <a href={userData.profilePic} target="blank" >
@@ -30,13 +24,28 @@ const TopBar = (props) => {
             </div>
             <div className={classes.Item}>
               <button
-                onClick={() => props.logoutHandler()}
+                onClick={() => logoutHandler()}
                 className={classes.Logout}>
                 Logout <FiLogOut style={{ marginLeft: "0.8rem" }} />
               </button>
             </div>
           </div>
         </div>
+  );
+
+  if(!authenticated){
+    topbarData = <Link to="/">Login</Link>
+  }
+
+  return (
+    <div className={classes.TopBar}>
+    <Container>
+      <div className={classes.Logo}>
+        <img src={TTNLogo} alt="TTN-Logo" height="75rem" />
+      </div>
+      <div className={classes.TopBarContent}>
+      <div className={classes.Bars}><FaBars onClick={show} /></div>
+        {topbarData}
       </div>
     </Container>
   </div>

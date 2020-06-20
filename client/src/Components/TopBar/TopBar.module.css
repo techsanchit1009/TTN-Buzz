@@ -9,6 +9,10 @@
   color: rgb(255, 115, 0);
 }
 
+.TopBarContent a{
+  color: rgb(255, 115, 0);
+}
+
 .Bars{
   display: none;
   font-size: 1.2rem;
