@@ -27,7 +27,7 @@ const Buzz = (props) => {
   ];
 
   const likeDislikeHandler = (id, actionType) => {
-    onLikeDislikeBuzz(actionType, id, user.email);
+    onLikeDislikeBuzz(actionType, id);
   };
 
   const filterHandler = (category) => {
@@ -91,8 +91,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchBuzz: () => dispatch(buzzActions.initFetchBuzz()),
-    onLikeDislikeBuzz: (buttonType, buzzId, email) =>
-      dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId, email)),
+    onLikeDislikeBuzz: (buttonType, buzzId) =>
+      dispatch(buzzActions.initLikeDislikeBuzz(buttonType, buzzId)),
     onDeleteBuzz: (buzzId) => dispatch(buzzActions.initDeleteBuzz(buzzId))
   };
 };

@@ -1,5 +1,4 @@
 const Complaint = require('./complaint.model');
-const sharedServices = require('../shared.service');
 
 const generateIssueId = () => {
   let result = '';
@@ -10,11 +9,9 @@ const generateIssueId = () => {
   return result
 }
 
-exports.addComplaint = async (complaint, creatorEmail) => {
-  const user = await sharedServices.getUser(creatorEmail);
+exports.addComplaint = async (complaint) => {
   const newComplaint = {
     ...complaint,
-    complaintBy: user._id,
     issueId: generateIssueId()
   }
 

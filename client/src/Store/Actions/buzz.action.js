@@ -85,13 +85,10 @@ export const likeDislikeBuzz = (updatedBuzzList) => {
   };
 };
 
-export const initLikeDislikeBuzz = (buttonType, buzzId, email) => {
+export const initLikeDislikeBuzz = (buttonType, buzzId) => {
   return (dispatch) => {
-    const emailBody = {
-      email,
-    };
     axios
-      .patch(`/api/buzz/${buttonType}/${buzzId}`, emailBody)
+      .patch(`/api/buzz/${buttonType}/${buzzId}`)
       .then((resp) => {
         dispatch(likeDislikeBuzz(resp.data));
       })

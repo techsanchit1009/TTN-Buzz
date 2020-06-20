@@ -1,19 +1,12 @@
 const Buzz = require('./buzz.model');
-const sharedService = require('../shared.service');
 
-exports.addBuzz = async (buzz, userEmail) => {
-  const user = await sharedService.getUser(userEmail);
-  const newBuzz = {
-    ...buzz,
-    createdBy: user._id
-  }
+exports.addBuzz = async (newBuzz) => {
   const resBuzz = await Buzz.create(newBuzz);
   let populatedResponse = resBuzz.populate('createdBy','name email').execPopulate();
   return populatedResponse;
 };
 
-exports.likeDislikeBuzz = async (action, buzzId, userEmail) => {
-  const user = await sharedService.getUser(userEmail);
+exports.likeDislikeBuzz = async (action, buzzId, user) => {
   const buzzToUpdate = await Buzz.findById(buzzId);
 
   if(action === 'like'){

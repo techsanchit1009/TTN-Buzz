@@ -12,7 +12,7 @@ const routes = require('./Routes/routes');
 require('./db.connection'); // DB connection
 require('./Config/cloudinary.config'); // Cloudinary Config
 
-let headers = {
+const headers = {
   origin: 'http://localhost:3000',
   methods: 'OPTIONS,GET,HEAD,PUT,PATCH,POST,DELETE',
   optionsSuccessStatus: 200,

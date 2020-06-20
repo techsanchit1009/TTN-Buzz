@@ -2,7 +2,6 @@ import * as actionTypes from '../Actions/actionTypes';
 
 const initialState = {
   user: {},
-  sessionData: {},
   loading: false,
   authenticated: false
 };
@@ -19,7 +18,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.userData.user,
-        sessionData: action.userData.cookie,
         authenticated: action.userData.authenticated,
         loading: false,
       };
@@ -29,7 +27,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: {},
         authenticated: false,
-        sessionData: {}
       } 
     default:
       return state;

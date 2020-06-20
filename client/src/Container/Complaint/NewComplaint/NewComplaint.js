@@ -127,7 +127,6 @@ const NewComplaint = (props) => {
     Object.keys(complaintData).forEach((item) => {
       formData.append(item, complaintData[item].value);
     });
-    formData.append("createdBy", props.email);
     props.onAddNewComplaint(formData);
     setComplaintData(initialFormData);
   };
@@ -238,12 +237,6 @@ const NewComplaint = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    email: state.userData.user.email,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddNewComplaint: (complaintBody) =>
@@ -251,4 +244,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NewComplaint));
+export default connect(null, mapDispatchToProps)(withRouter(NewComplaint));

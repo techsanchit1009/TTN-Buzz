@@ -3,10 +3,11 @@ const cloudinary = require('cloudinary');
 const validator = require('../../Libs/validator.lib');
 
 exports.addBuzz = async (req, res) => { 
-  const userEmail = req.body.email;
+  const userEmail = req.user.email;
   let newBuzz = {
     description: req.body.description,
     category: req.body.category,
+    createdBy: req.user._id
   };
   if(req.file){
     const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -31,8 +32,8 @@ exports.addBuzz = async (req, res) => {
 exports.likeDislikeBuzz = async (req, res) => {
   try {
     const {action, buzzId} = req.params;
-    const userEmail = req.body.email;
-    await buzzService.likeDislikeBuzz(action, buzzId, userEmail);
+    const user = req.user;
+    await buzzService.likeDislikeBuzz(action, buzzId, user);
     const updatedBuzzList = await buzzService.getAllBuzz();
     res.status(200).send(updatedBuzzList);
   } catch(err) {

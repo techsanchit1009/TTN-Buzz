@@ -8,9 +8,9 @@ exports.addComplaint = async (req, res) => {
     name: req.body.name,
     title: req.body.title,
     dept: req.body.dept,
-    description: req.body.description
+    description: req.body.description,
+    complaintBy: req.user._id
   };
-  const creatorEmail = req.body.createdBy;
 
   if(req.file){
     const result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -25,7 +25,7 @@ exports.addComplaint = async (req, res) => {
     if(errors.length){
       return res.status(422).send(errors); // sending errorArray if validation failed
     }
-    const complaint = await complaintService.addComplaint(newComplaint, creatorEmail);
+    const complaint = await complaintService.addComplaint(newComplaint);
     res.send(complaint);
   } catch (err) {
     res.status(400).send(err);

@@ -96,7 +96,6 @@ const NewBuzz = (props) => {
     Object.keys(buzzData).forEach((item) => {
       formData.append(item, buzzData[item].value);
     });
-    formData.append("email", props.email);
     props.onAddBuzz(formData);
     setBuzzData(initialFormData);
   };
