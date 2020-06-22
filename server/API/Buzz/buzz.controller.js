@@ -22,7 +22,7 @@ exports.addBuzz = async (req, res) => {
       return res.status(422).send(errors); // sending errorArray if validation failed
     }
     const buzz = await buzzService.addBuzz(newBuzz);
-    res.status(200).send(buzz);
+    res.status(201).send(buzz);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -34,7 +34,7 @@ exports.likeDislikeBuzz = async (req, res) => {
     const user = req.user;
     await buzzService.likeDislikeBuzz(action, buzzId, user);
     const updatedBuzzList = await buzzService.getAllBuzz();
-    res.status(200).send(updatedBuzzList);
+    res.status(201).send(updatedBuzzList);
   } catch(err) {
     res.status(400).send(err);
   }

@@ -3,24 +3,24 @@ const mongoose = require('mongoose');
 const complaintSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: [true, "Email cannot be empty!"]
+    required:true,
   },
   name: {
     type: String,
-    required: [true, "Name cannot be empty!"]
+    required:true,
   },
   title: {
     type: String,
-    required: [true, "Issue Title cannot be empty!"]
+    required:true,
   },
   dept: {
     type: String,
-    required: [true, "Select a valid department type"],
+    required:true,
     enum: ['Admin', 'IT', 'Infra', 'HR']
   },
   description: {
     type: String,
-    required: [true, "Description cannot be empty!"]
+    required:true,
   },
   image: {
     type: String
@@ -52,7 +52,7 @@ const complaintSchema = new mongoose.Schema({
 }, {versionKey: false});
 
 complaintSchema.pre('updateOne', function(){
-  this.set({ updatedOn: new Date() });
+  this.set({ updatedOn: Date.now() });
 });
 
 const complaintModel = mongoose.model('Complaint', complaintSchema);

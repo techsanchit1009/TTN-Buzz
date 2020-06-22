@@ -1,4 +1,5 @@
 const Buzz = require('./buzz.model');
+// const Comment = require('../Comment/comment.model');
 
 exports.addBuzz = async (newBuzz) => {
   const resBuzz = await Buzz.create(newBuzz);
@@ -35,7 +36,26 @@ exports.likeDislikeBuzz = async (action, buzzId, user) => {
   return buzzToUpdate;
 }
 
-exports.getAllBuzz = () => {
+exports.getAllBuzz = async () => {
+  // const x = await Buzz.aggregate([
+  //   {$lookup: {
+  //     from: "Comments",
+  //     let: {buzzId: "$_id"},
+  //     pipeline: [
+  //       { $match: {
+  //           $expr: {
+  //             $eq: ["$buzzId", "$$buzzId"]
+  //           }
+  //       },
+  //     },
+  //     {$count: "comments"},
+  //     {$project: {comments: 1}}
+  //     ],
+  //     as: "data"
+  //   },
+  // }
+  // ]);
+  // console.log(x);
   const allBuzz = Buzz.find({})
                   .populate('createdBy','userType name email')
                   .populate('likedBy', 'name')
@@ -45,5 +65,5 @@ exports.getAllBuzz = () => {
 };
 
 exports.deleteBuzz = async (buzzId) => {
-  await Buzz.deleteOne({_id: buzzId}); 
+  await Buzz.findByIdAndDelete(buzzId);
 }

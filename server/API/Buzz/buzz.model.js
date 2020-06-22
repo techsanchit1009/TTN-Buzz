@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const buzzSchema = new mongoose.Schema({
   description: {
     type: String,
-    required: [true, "Description cannot be empty!"]
+    required: true
   },
   category: {
     type: String,
@@ -12,6 +12,10 @@ const buzzSchema = new mongoose.Schema({
   },
   image: {
     type: String
+  },
+  comments: {
+    type: Number,
+    default: 0
   },
   likedBy: [{
     type: mongoose.Schema.Types.ObjectId,
