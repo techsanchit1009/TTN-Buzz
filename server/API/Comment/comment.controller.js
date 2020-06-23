@@ -8,6 +8,7 @@ exports.addComment = async (req, res) => {
   let newComment = {
     content: req.body.comment,
     buzzId: buzzId,
+    contentType: 'Comment',
     commentedBy: "5ee89464acc2582a9a53a2d4" // "5ee89464acc2582a9a53a2d4" for testing
   }
 
@@ -30,8 +31,9 @@ exports.addComment = async (req, res) => {
 
 exports.getComments = async (req, res) => {
   try{
+    const page = +req.query.page;
     const { buzzId } = req.params;
-    const comments = await commentService.getComments(buzzId);
+    const comments = await commentService.getComments(buzzId, page);
     res.status(200).send(comments);
   } catch(err) {
     res.status(400).send(err);
@@ -41,8 +43,12 @@ exports.getComments = async (req, res) => {
 exports.deleteComment = async (req, res) => {
   try{
     const { commentId } = req.params;
-    await commentService.deleteComment(commentId);
-    res.status(200).send({message: 'Comment Removed Successfully!'});
+    const result = await commentService.deleteComment(commentId);
+    if(result.ok && result.deletedCount > 0){
+      res.status(200).send({message: 'Comment Removed Successfully!'});
+    } else {
+      res.status(200).send({message: 'No such comment found'});
+    }
   } catch(err) {
     res.status(400).send(err);
   }
@@ -57,6 +63,7 @@ exports.addReply = async (req, res) => {
     content: req.body.reply,
     parentComment: commentId,
     buzzId: buzzId,
+    contentType: 'Reply',
     commentedBy: "5ee89464acc2582a9a53a2d4" // "5ee89464acc2582a9a53a2d4" for testing
   }
 
@@ -78,8 +85,9 @@ exports.addReply = async (req, res) => {
 
 exports.getReplies = async (req, res) => {
   try{
+    const page = +req.query.page;
     const { commentId } = req.params;
-    const replies = await commentService.getReplies(commentId);
+    const replies = await commentService.getReplies(commentId, page);
     res.status(200).send(replies);
   } catch(err) {
     res.status(400).send(err);

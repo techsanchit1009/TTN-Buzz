@@ -12,6 +12,10 @@ const commentSchema = new mongoose.Schema({
   image:{
     type: String
   },
+  contentType: {
+    type: String,
+    enum: ['Comment', 'Reply']
+  },
   parentComment: { // In case of Replies. ID of comment on which reply is at
     type: mongoose.Schema.Types.ObjectId
   },
