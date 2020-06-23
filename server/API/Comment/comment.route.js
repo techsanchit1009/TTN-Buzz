@@ -11,6 +11,7 @@ router.get( // Get comments linked to buzzId
 
 router.post(
   "/api/comment/:buzzId",
+  checkAuth,
   uploadImage.single("image"),
   commentController.addComment
 );

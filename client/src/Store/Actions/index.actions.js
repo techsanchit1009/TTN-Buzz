@@ -19,5 +19,7 @@ export {
 } from './buzz.action';
 
 export {
-  initFetchComments
+  initFetchComments,
+  initAddComment,
+  initDeleteComment
 } from './comment.action';

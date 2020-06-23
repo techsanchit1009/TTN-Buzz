@@ -9,7 +9,7 @@ exports.addComment = async (req, res) => {
     content: req.body.comment,
     buzzId: buzzId,
     contentType: 'Comment',
-    commentedBy: "5ee89464acc2582a9a53a2d4" // "5ee89464acc2582a9a53a2d4" for testing
+    commentedBy: req.user._id // "5ee89464acc2582a9a53a2d4" for testing
   }
 
   if(req.file){
@@ -64,7 +64,7 @@ exports.addReply = async (req, res) => {
     parentComment: commentId,
     buzzId: buzzId,
     contentType: 'Reply',
-    commentedBy: "5ee89464acc2582a9a53a2d4" // "5ee89464acc2582a9a53a2d4" for testing
+    commentedBy: req.user._id // "5ee89464acc2582a9a53a2d4" for testing
   }
 
   if(req.file){

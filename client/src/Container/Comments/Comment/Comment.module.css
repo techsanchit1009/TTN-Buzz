@@ -8,4 +8,43 @@
 .Image{
   height: 2.5rem;
   border-radius: 50%;
+  margin-right: 0.7rem;
+}
+
+
+.UserName{
+  font-weight: bold;
+  color: darkslategray;
+  cursor: default;
+}
+
+.Content{
+  color: rgb(68, 64, 64);
+  font-size: 0.85rem;
+  padding: 0.3rem;
+}
+
+.Details{
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+}
+
+.TimeStamp{
+  font-size: 0.7rem;
+}
+
+.Actions{
+  display: flex;
+}
+
+.Actions p{
+  color: blue;
+  margin: 0 10px;
+}
+
+.Actions p:hover{
+  text-decoration: underline;
+  color: rgb(255, 115, 0);
+  cursor: pointer;
 }

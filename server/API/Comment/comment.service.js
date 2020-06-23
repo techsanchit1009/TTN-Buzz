@@ -7,7 +7,7 @@ exports.addComment = async (newComment, buzzId) => {
   buzz.comments++; // updating the comments count
   await buzz.save();
   let populatedResponse = addedComment
-    .populate("commentedBy", "name email")
+    .populate("commentedBy", "name email profilePic")
     .execPopulate();
   return populatedResponse;
 };

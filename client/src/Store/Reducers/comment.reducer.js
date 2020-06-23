@@ -26,6 +26,51 @@ const reducer = (state = initialState, action) => {
         loadingComments: false
       };
 
+    
+    case actionTypes.ADD_COMMENT_START:
+      return{
+        ...state,
+        loadingComments: true
+      };
+
+    case actionTypes.ADD_COMMENT_SUCCESS:
+      const updatedCommentsList = [
+        action.newComment,
+        ...state.comments
+      ];
+      return {
+        ...state,
+        comments: updatedCommentsList,
+        loadingComments: false
+      }
+
+    case actionTypes.ADD_COMPLAINT_FAILED:
+      return {
+        ...state,
+        loadingComments: false
+      }
+
+
+    case actionTypes.DELETE_COMMENT_START:
+      return {
+        ...state,
+        loadingComments: true
+      }
+
+    case actionTypes.DELETE_COMMENT_SUCCESS:
+      const commentListAfterDelete = state.comments.filter(comment => comment._id !== action.commentId);
+      return{
+        ...state,
+        comments: commentListAfterDelete,
+        loadingComments: false
+      };
+
+    case actionTypes.DELETE_COMMENT_FAILED:
+      return{
+        ...state,
+        loadingComments: false
+      }
+
     default:
       return state;
   }

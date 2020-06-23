@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {TiLocationArrow} from 'react-icons/ti'
 import { RiImageAddLine } from 'react-icons/ri';
 import { checkValidity } from '../../Shared/validation';
@@ -34,7 +34,7 @@ const Comments = (props) => {
   const [commentData, setCommentData] = useState(initialFormData);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const {onFetchComments, buzzId, comments, loading} = props;
+  const {onFetchComments, buzzId, comments, loading, loggedInUser, onDeleteComment} = props;
 
   useEffect(() => {
     onFetchComments(buzzId);
@@ -86,20 +86,21 @@ const Comments = (props) => {
     Object.keys(commentData).forEach((item) => {
       formData.append(item, commentData[item].value);
     });
-    // props.onAddBuzz(formData);
+    props.onAddComment(buzzId, formData);
     setCommentData(initialFormData);
   };
 
   return (
     <div>
         <div className={classes.CommentList}>
-          { 
-            useMemo(() => comments.map(comment => (
+          { loading ? <Spinner /> :comments.map(comment => (
                   <Comment 
                     key={comment._id} 
                     comment={comment}
-                    userData={comment.commentedBy}/>)
-            ), [comments])}
+                    userData={comment.commentedBy}
+                    loggedInUser={loggedInUser}
+                    commentDeleteHandler={onDeleteComment}/>)
+            )}
         </div>
         <form onSubmit={e => submitHandler(e)}>
           <div className={classes.FormRow}>
@@ -150,13 +151,16 @@ const Comments = (props) => {
 const mapStateToProps = state => {
   return {
     comments: state.commentData.comments,
-    loading: state.commentData.loadingComments
+    loading: state.commentData.loadingComments,
+    loggedInUser: state.userData.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchComments: (buzzId) => dispatch(commentActions.initFetchComments(buzzId))
+    onFetchComments: (buzzId) => dispatch(commentActions.initFetchComments(buzzId)),
+    onAddComment: (buzzId, commentBody) => dispatch(commentActions.initAddComment(buzzId, commentBody)),
+    onDeleteComment: (commentId) => dispatch(commentActions.initDeleteComment(commentId))
   }
 }
 
