@@ -16,7 +16,7 @@ exports.getComments = (buzzId, page) => {
   const allComments = Comment.find({ buzzId: buzzId, contentType: "Comment" }) // show only the comments
     .skip(10 * (page - 1))
     .limit(10) // 10 items to display
-    .populate("commentedBy", "name email")
+    .populate("commentedBy", "name email profilePic")
     .sort({ createdAt: -1 });
   return allComments;
 };
@@ -25,7 +25,7 @@ exports.getReplies = (commentId, page) => {
   const allReplies = Comment.find({ parentComment: commentId })
     .skip(10 * (page - 1))
     .limit(10) // 10 items to display
-    .populate("commentedBy", "name email")
+    .populate("commentedBy", "name email profilePic")
     .sort({ createdAt: -1 });
 
   return allReplies;

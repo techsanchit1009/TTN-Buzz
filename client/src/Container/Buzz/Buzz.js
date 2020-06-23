@@ -63,6 +63,7 @@ const Buzz = (props) => {
               createdOn={buzz.createdOn}
               imageUrl={buzz.image}
               category={buzz.category}
+              comments={buzz.comments} // no. of comments
               likes={buzz.likes}
               likedBy={buzz.likedBy}
               dislikedBy={buzz.dislikedBy}

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import classes from "./ComplaintsTable.module.css";
-import moment from "moment";
-import Modal from "../../../Components/UI/Modal/Modal";
+import ComplaintModal from '../ComplaintModal/ComplaintModal';
 
 const ComplaintsTable = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -42,42 +41,6 @@ const ComplaintsTable = (props) => {
       return <span style={{ color: "green" }}>{status}</span>;
     }
   };
-
-  let complaintModal = (
-    <Modal heading={`Issue ID: ${selectedId}`} closeModalHandler={closeModalHandler}>
-      <div className={classes.ComplaintModal}>
-        {complaintData
-          .filter((complaint) => complaint.issueId === selectedId)
-          .map((complaint) => (
-            <div key={complaint._id}>
-              <span className={classes.Label}>Title</span>
-              <span className={classes.Data}>{complaint.title}</span>
-              <span className={classes.Label}>Created By</span>
-              <span className={classes.Data}>{complaint.name}</span>
-              <span className={classes.Label}>Department</span>
-              <span className={classes.Data}>{complaint.dept}</span>
-              <span className={classes.Label}>Description</span>
-              <span className={classes.Data}>{complaint.description}</span>
-              {complaint.image && <span className={classes.Label}>Image</span>}
-              {complaint.image && (
-                <span className={classes.Data}>
-                  <a href={complaint.image} alt={complaint.issueId} target="blank">
-                    <span
-                      style={{ backgroundImage: `url("${complaint.image}")` }}
-                      className={classes.ImageBlock}
-                    ></span>
-                  </a>
-                </span>
-              )}
-              <span className={classes.Label}>Created On</span>
-              <span className={classes.Data}>
-                {moment(complaint.createdOn).format("MMMM Do YYYY, h:mm A")}
-              </span>
-            </div>
-          ))}
-      </div>
-    </Modal>
-  );
 
   let complaintTable = (
     <table className={classes.Table}>
@@ -164,7 +127,13 @@ const ComplaintsTable = (props) => {
 
   return (
     <div className={classes.TableWrapper}>
-      {selectedId && complaintModal}
+      {selectedId && (
+        <ComplaintModal
+          selectedId={selectedId}
+          complaintData={complaintData}
+          closeModalHandler={closeModalHandler}
+        />
+      )}
       {complaintData.length ? (
         complaintTable
       ) : (

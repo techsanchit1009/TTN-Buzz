@@ -17,3 +17,7 @@ export {
   initLikeDislikeBuzz,
   initDeleteBuzz
 } from './buzz.action';
+
+export {
+  initFetchComments
+} from './comment.action';
