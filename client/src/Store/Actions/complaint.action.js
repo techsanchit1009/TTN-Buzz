@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 export const fetchComplaintStart = () => {
   return{
-    type: actionTypes.FETCH_COMPLIANT_START
+    type: actionTypes.FETCH_COMPLAINT_START
   };
 }
 
@@ -15,17 +15,18 @@ export const fetchComplaintFailed = () => {
   };
 }
 
-export const fetchComplaintSuccess = (fetchedComplaints) => {
+export const fetchComplaintSuccess = (complaintData) => {
   return {
-    type: actionTypes.FETCH_COMPLIANT_SUCCESS,
-    complaints: fetchedComplaints
+    type: actionTypes.FETCH_COMPLAINT_SUCCESS,
+    complaints: complaintData.complaints,
+    totalComplaints: complaintData.totalComplaints
   };
 }
 
-export const initFetchUserComplaints = (id) => {
+export const initFetchUserComplaints = (id, page) => {
   return dispatch => {
     dispatch(fetchComplaintStart());
-    axios.get(`/api/complaint?complaintBy=${id}`)
+    axios.get(`/api/complaint?complaintBy=${id}&page=${page}`)
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
         })
@@ -36,10 +37,10 @@ export const initFetchUserComplaints = (id) => {
   }
 }
 
-export const initFetchAllComplaints = () => {
+export const initFetchAllComplaints = (page) => {
   return dispatch => {
     dispatch(fetchComplaintStart());
-    axios.get(`/api/complaint`)
+    axios.get(`/api/complaint?page=${page}`)
         .then(resp => {
           dispatch(fetchComplaintSuccess(resp.data));
         })

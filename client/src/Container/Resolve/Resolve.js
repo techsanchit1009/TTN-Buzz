@@ -4,6 +4,7 @@ import ComplaintsTable from "../Complaint/ComplaintsTable/ComplaintsTable";
 import * as action from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 import Spinner from "../../Components/UI/Spinner/Spinner";
+import PaginationNav from '../../Components/PaginationNav/PaginationNav';
 
 
 const Resolve = (props) => {
@@ -13,7 +14,8 @@ const Resolve = (props) => {
     onFetchComplaints, 
     onInitUpdateComplaintStatus, 
     onInitUpdateComplaintAssignee,
-    loadingComplaints
+    loadingComplaints,
+    totalComplaints
   } = props;
 
   const [complaintList, setComplaintList] = useState([]);
@@ -55,6 +57,7 @@ const Resolve = (props) => {
         updateStatusHandler={updateStatusHandler}
         updateAssigneeHandler={updateAssigneeHandler}
       />
+      <PaginationNav totalItems={totalComplaints} fetchItems={onFetchComplaints}/>
       {loadingComplaints && <Spinner />}
     </BoxLayout>
   );
@@ -64,13 +67,14 @@ const mapStateToProps = (state) => {
   return {
     user: state.userData.user,
     complaints: state.complaintData.complaints,
+    totalComplaints: state.complaintData.totalComplaints,
     loadingComplaints: state.complaintData.loadingComplaints
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchComplaints: () => dispatch(action.initFetchAllComplaints()),
+    onFetchComplaints: (pageNo) => dispatch(action.initFetchAllComplaints(pageNo)),
     onInitUpdateComplaintStatus: (complaintId, updatedStatus) =>
       dispatch(action.initUpdateComplaintStatus(complaintId, updatedStatus)),
     onInitUpdateComplaintAssignee: (complaintId, assignedTo) =>

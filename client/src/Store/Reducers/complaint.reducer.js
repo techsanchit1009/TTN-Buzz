@@ -2,22 +2,24 @@ import * as actionTypes from '../Actions/actionTypes';
 
 const initialState = {
   complaints: [],
-  loadingComplaints: false
+  loadingComplaints: false,
+  totalComplaints: 0
 }
 
 const reducer = (state = initialState, action) => {
   switch(action.type){
-    case actionTypes.FETCH_COMPLIANT_START:
+    case actionTypes.FETCH_COMPLAINT_START:
       return {
         ...state,
         loadingComplaints: true
       }
     
-    case actionTypes.FETCH_COMPLIANT_SUCCESS:
+    case actionTypes.FETCH_COMPLAINT_SUCCESS:
       return {
         ...state,
         complaints: action.complaints,
-        loadingComplaints: false
+        loadingComplaints: false,
+        totalComplaints: action.totalComplaints
       }  
 
     case actionTypes.FETCH_COMPLAINT_FAILED:

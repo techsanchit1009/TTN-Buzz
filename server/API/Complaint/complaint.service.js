@@ -19,20 +19,26 @@ exports.addComplaint = async (complaint) => {
   return respComplaint;
 };
 
-exports.getUserComplaint = (id) => {
-  const complaints = Complaint.find({complaintBy: id})
+exports.getUserComplaint = async (id, pageNo) => {
+  const totalComplaints = await Complaint.find({complaintBy: id}).countDocuments();
+  const complaints = await Complaint.find({complaintBy: id})
+                              .skip(10 * (pageNo - 1))
+                              .limit(10) // 10 items to display
                               .populate('complaintBy','name email userType')
                               .sort({ createdOn: -1 });
-  return complaints;
+  return {complaints, totalComplaints};
 }
 
 // For Admin Route
-exports.getAllComplaints = () => {
-    const complaints = Complaint.find({})
-                                .populate('complaintBy')
-                                .populate('complaintBy', 'name email userType')
-                                .sort({ createdOn: -1 });
-    return complaints;
+exports.getAllComplaints = async (pageNo) => {
+  const totalComplaints = await Complaint.countDocuments();
+  const complaints = await Complaint.find({})
+                              .skip(2 * (pageNo - 1))
+                              .limit(2) // 10 items to display
+                              .populate('complaintBy')
+                              .populate('complaintBy', 'name email userType')
+                              .sort({ createdOn: -1 });
+  return {complaints, totalComplaints};
 }
 
 exports.updateComplaintStatus = (id, updatedStatus) => {

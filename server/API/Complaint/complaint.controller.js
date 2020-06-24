@@ -35,12 +35,13 @@ exports.addComplaint = async (req, res) => {
 
 exports.getComplaints = async (req, res) => {
   try {
+    const pageNo = req.query.page;
     if(req.query.complaintBy){
-      const complaints = await complaintService.getUserComplaint(req.query.complaintBy);
-      res.send(complaints);
+      const {complaints, totalComplaints} = await complaintService.getUserComplaint(req.query.complaintBy, pageNo);
+      res.send({complaints, totalComplaints});
     } else {
-      const complaints = await complaintService.getAllComplaints();  // For Admin
-      res.send(complaints);
+      const {complaints, totalComplaints} = await complaintService.getAllComplaints(pageNo);  // For Admin
+      res.send({complaints, totalComplaints});
     }
   } catch (err) {
     res.status(400).send(err);

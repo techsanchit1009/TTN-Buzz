@@ -20,6 +20,15 @@ const Comment = (props) => {
       <div className={classes.CommentDetails}>
         <div className={classes.UserName} title={userData.email}>{userData.name}</div>
         <div className={classes.Content}>{comment.content}</div>
+        {comment.image && (
+            <a href={comment.image} target="blank">
+              <div
+                title="Click to enlarge"
+                className={classes.CommentImage}
+                style={{ backgroundImage: `url("${comment.image}")` }}
+              ></div>
+            </a>
+          )}
         <div className={`${classes.Details} ${classes.Content}`}>
           <div className={classes.TimeStamp}>{moment(comment.createdAt).fromNow()}</div>
           <div className={classes.Actions}>
