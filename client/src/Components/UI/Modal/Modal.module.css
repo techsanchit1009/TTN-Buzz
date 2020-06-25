@@ -8,6 +8,11 @@
   border-radius: 5px;
 }
 
+.BigModal{
+  width: 60vw;
+  min-height: 80vh;
+}
+
 .ModalHeading{
   font-size: 1.1rem;
   font-weight: bold;

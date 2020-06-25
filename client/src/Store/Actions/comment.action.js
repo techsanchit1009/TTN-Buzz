@@ -8,10 +8,11 @@ export const fetchCommentsStart = () => {
   };
 }
 
-export const fetchCommentsSuccess = (comments) => {
+export const fetchCommentsSuccess = (commentsData) => {
   return {
     type: actionTypes.FETCH_COMMENTS_SUCCESS,
-    comments: comments
+    comments: commentsData.comments,
+    totalComments: commentsData.totalComments
   };
 }
 
@@ -31,6 +32,39 @@ export const initFetchComments = (buzzId) => {
         .catch(err => {
           dispatch(fetchCommentsFailed());
         });
+  }
+}
+
+export const loadMoreCommentsStart = () => {
+  return {
+    type: actionTypes.LOAD_MORE_COMMENTS_START
+  };
+}
+
+export const loadMoreCommentsSuccess = (commentsData) => {
+  return {
+    type: actionTypes.LOAD_MORE_COMMENTS_SUCCESS,
+    comments: commentsData.comments,
+    totalComments: commentsData.totalComments
+  };
+}
+
+export const loadMoreCommentsFailed = () => {
+  return {
+    type: actionTypes.LOAD_MORE_COMMENTS_FAILED
+  };
+}
+
+export const initLoadMoreComments = (buzzId, pageNo) => {
+  return dispatch => {
+    dispatch(loadMoreCommentsStart());
+    axios.get(`/api/comment/${buzzId}/?page=${pageNo}`)
+          .then(resp => {
+            dispatch(loadMoreCommentsSuccess(resp.data))
+          })
+          .catch(err => {
+            dispatch(loadMoreCommentsFailed());
+          });
   }
 }
 

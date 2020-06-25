@@ -1,0 +1,35 @@
+.Reply{
+  width: 100%;
+  /* border: 1px solid black; */
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.UserName{
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: darkslategray;
+  cursor: default;
+}
+
+.ReplyImage{
+  height: 30vh;
+  width: 20vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+
+.ReplyContent{
+  padding: 0.3rem 0;
+  margin-left: 2rem;
+}
+
+.TimeStamp{
+  margin-top: 0.7rem;
+  font-size: 0.7rem;
+}
+

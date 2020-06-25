@@ -42,8 +42,9 @@ exports.likeDislikeBuzz = async (req, res) => {
 
 exports.getAllBuzz = async (req, res) => {
   try {
-    const allBuzz = await buzzService.getAllBuzz();
-    res.status(200).send(allBuzz);
+    const page = req.query.page;
+    const {allBuzz, totalBuzzCount} = await buzzService.getAllBuzz(page);
+    res.status(200).send({buzzs: allBuzz, totalBuzzCount});
   } catch(err) {
     res.status(400).send(err);
   }

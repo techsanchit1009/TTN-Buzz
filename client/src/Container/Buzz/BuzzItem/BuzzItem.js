@@ -78,8 +78,8 @@ const BuzzItem = (props) => {
       );
     } else {
       return (
-        <Modal heading="Comments" closeModalHandler={closeModalHandler}>
-          <Comments buzzId={selectedBuzzId} />
+        <Modal heading="Comments" size="large" closeModalHandler={closeModalHandler}>
+          <Comments buzzId={selectedBuzzId}/>
         </Modal>
       )
     }

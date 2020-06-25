@@ -43,6 +43,7 @@
 
 .LoginButton:hover{
   background-color: firebrick;
+  color: white;
 }
 
 .ErrorBox{

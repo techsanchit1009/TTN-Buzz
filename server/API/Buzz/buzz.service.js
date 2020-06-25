@@ -36,32 +36,17 @@ exports.likeDislikeBuzz = async (action, buzzId, user) => {
   return buzzToUpdate;
 }
 
-exports.getAllBuzz = async () => {
-  // const x = await Buzz.aggregate([
-  //   {$lookup: {
-  //     from: "Comments",
-  //     let: {buzzId: "$_id"},
-  //     pipeline: [
-  //       { $match: {
-  //           $expr: {
-  //             $eq: ["$buzzId", "$$buzzId"]
-  //           }
-  //       },
-  //     },
-  //     {$count: "comments"},
-  //     {$project: {comments: 1}}
-  //     ],
-  //     as: "data"
-  //   },
-  // }
-  // ]);
-  // console.log(x);
-  const allBuzz = Buzz.find({})
+exports.getAllBuzz = async (page) => {
+  const totalBuzzCount = await Buzz.countDocuments(); 
+  const allBuzz = await Buzz.find({})
+                  .skip(1 * (page -1))
+                  .limit(1) // 10 items to display
                   .populate('createdBy','userType name email')
                   .populate('likedBy', 'name')
                   .populate('dislikedBy','name') 
                   .sort({ createdOn: -1 });
-  return allBuzz;
+                  
+  return {allBuzz, totalBuzzCount};
 };
 
 exports.deleteBuzz = async (buzzId) => {

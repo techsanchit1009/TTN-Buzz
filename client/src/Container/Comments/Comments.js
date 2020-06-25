@@ -33,8 +33,19 @@ const Comments = (props) => {
 
   const [commentData, setCommentData] = useState(initialFormData);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [pageNo, setPageNo] = useState(1);
 
-  const {onFetchComments, buzzId, comments, loading, loggedInUser, onDeleteComment} = props;
+  const {
+    onFetchComments,
+    onLoadMoreComments,
+    onAddComment,
+    buzzId,
+    comments,
+    loading,
+    loggedInUser,
+    onDeleteComment,
+    totalComments,
+  } = props;
 
   useEffect(() => {
     onFetchComments(buzzId);
@@ -86,21 +97,27 @@ const Comments = (props) => {
     Object.keys(commentData).forEach((item) => {
       formData.append(item, commentData[item].value);
     });
-    props.onAddComment(buzzId, formData);
+    onAddComment(buzzId, formData);
     setCommentData(initialFormData);
   };
 
+  const loadMore = () => {
+    setPageNo(pageNo + 1);
+    onLoadMoreComments(buzzId, pageNo + 1);
+  }
+
   return (
-    <div>
+    <div style={{minHeight: '100%'}}>
         <div className={classes.CommentList}>
-          { loading ? <Spinner /> :comments.map(comment => (
+          { loading ? <Spinner /> : comments.length ? (comments.map(comment => 
                   <Comment 
                     key={comment._id} 
                     comment={comment}
                     userData={comment.commentedBy}
                     loggedInUser={loggedInUser}
-                    commentDeleteHandler={onDeleteComment}/>)
-            )}
+                    commentDeleteHandler={onDeleteComment}/>
+          )) : <p className={classes.NoResultText}>No Comments Found</p>}
+          {totalComments !== comments.length && <button onClick={() => loadMore()}>LoadMore</button>}
         </div>
         <form onSubmit={e => submitHandler(e)}>
           <div className={classes.FormRow}>
@@ -152,16 +169,25 @@ const mapStateToProps = state => {
   return {
     comments: state.commentData.comments,
     loading: state.commentData.loadingComments,
-    loggedInUser: state.userData.user
+    loggedInUser: state.userData.user,
+    totalComments: state.commentData.totalComments
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchComments: (buzzId) => dispatch(commentActions.initFetchComments(buzzId)),
-    onAddComment: (buzzId, commentBody) => dispatch(commentActions.initAddComment(buzzId, commentBody)),
-    onDeleteComment: (commentId) => dispatch(commentActions.initDeleteComment(commentId))
-  }
+    onFetchComments: (buzzId) =>
+      dispatch(commentActions.initFetchComments(buzzId)),
+
+    onLoadMoreComments: (buzzId, pageNo) =>
+      dispatch(commentActions.initLoadMoreComments(buzzId, pageNo)),
+
+    onAddComment: (buzzId, commentBody) =>
+      dispatch(commentActions.initAddComment(buzzId, commentBody)),
+
+    onDeleteComment: (commentId) =>
+      dispatch(commentActions.initDeleteComment(commentId)),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comments);

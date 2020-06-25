@@ -9,6 +9,8 @@ import userReducer from './Store/Reducers/user.reducer';
 import complaintReducer from './Store/Reducers/complaint.reducer';
 import buzzReducer from './Store/Reducers/buzz.reducer';
 import commentReducer from './Store/Reducers/comment.reducer';
+import replyReducer from './Store/Reducers/reply.reducer';
+
 import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
@@ -17,7 +19,8 @@ const rootReducer = combineReducers({
   userData: userReducer,
   complaintData: complaintReducer,
   buzzData: buzzReducer,
-  commentData: commentReducer
+  commentData: commentReducer,
+  replyData: replyReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));

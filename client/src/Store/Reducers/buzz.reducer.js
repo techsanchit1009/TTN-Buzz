@@ -2,7 +2,8 @@ import * as actionTypes from '../Actions/actionTypes';
 
 const initialState = {
   buzzList: [],
-  loadingBuzz: false
+  loadingBuzz: false,
+  totalBuzzCount: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,13 +18,34 @@ const reducer = (state = initialState, action) => {
       return{
         ...state,
         buzzList: action.buzz,
-        loadingBuzz: false
+        loadingBuzz: false,
+        totalBuzzCount: action.totalBuzzCount
       }
 
     case actionTypes.FETCH_BUZZ_FAILED:
       return{
         ...state,
         loadingBuzz:false
+      }
+
+    case actionTypes.LOAD_MORE_BUZZ_START:
+      return{
+        ...state,
+        loadingBuzz: true
+      }
+    
+    case actionTypes.LOAD_MORE_BUZZ_SUCCESS:
+      return {
+        ...state,
+        buzzList: [...state.buzzList, ...action.buzz],
+        totalBuzzCount: action.totalBuzzCount,
+        loadingBuzz: false
+      }
+    
+    case actionTypes.LOAD_MORE_BUZZ_FAILED:
+      return{
+        ...state,
+        loadingBuzz: false
       }
 
     case actionTypes.ADD_BUZZ_START:

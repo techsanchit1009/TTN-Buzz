@@ -4,7 +4,6 @@ const cloudinary = require('cloudinary');
 
 exports.addComment = async (req, res) => {
   const { buzzId } = req.params;
-
   let newComment = {
     content: req.body.comment,
     buzzId: buzzId,
@@ -33,8 +32,8 @@ exports.getComments = async (req, res) => {
   try{
     const page = +req.query.page;
     const { buzzId } = req.params;
-    const comments = await commentService.getComments(buzzId, page);
-    res.status(200).send(comments);
+    const {allComments, totalComments} = await commentService.getComments(buzzId, page);
+    res.status(200).send({comments: allComments, totalComments});
   } catch(err) {
     res.status(400).send(err);
   }
@@ -58,7 +57,6 @@ exports.deleteComment = async (req, res) => {
 
 exports.addReply = async (req, res) => {
   const { commentId, buzzId } = req.params;
-
   let newReply = {
     content: req.body.reply,
     parentComment: commentId,
@@ -87,8 +85,8 @@ exports.getReplies = async (req, res) => {
   try{
     const page = +req.query.page;
     const { commentId } = req.params;
-    const replies = await commentService.getReplies(commentId, page);
-    res.status(200).send(replies);
+    const {allReplies, totalReplies} = await commentService.getReplies(commentId, page);
+    res.status(200).send({replies: allReplies, totalReplies});
   } catch(err) {
     res.status(400).send(err);
   }

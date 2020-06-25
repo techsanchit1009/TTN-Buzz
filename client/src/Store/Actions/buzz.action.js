@@ -8,10 +8,11 @@ export const fetchBuzzStart = () => {
   };
 };
 
-export const fetchBuzzSuccess = (buzz) => {
+export const fetchBuzzSuccess = (buzzData) => {
   return {
     type: actionTypes.FETCH_BUZZ_SUCCESS,
-    buzz: buzz,
+    buzz: buzzData.buzzs,
+    totalBuzzCount: buzzData.totalBuzzCount
   };
 };
 
@@ -21,12 +22,12 @@ export const fetchBuzzFailed = () => {
   };
 };
 
-export const initFetchBuzz = () => {
+export const initFetchBuzz = (pageNo = 1) => {
   return (dispatch) => {
     dispatch(fetchBuzzStart());
 
     axios
-      .get("/api/buzz")
+      .get(`/api/buzz?page=${pageNo}`)
       .then((resp) => {
         dispatch(fetchBuzzSuccess(resp.data));
       })
@@ -36,6 +37,40 @@ export const initFetchBuzz = () => {
       });
   };
 };
+
+export const loadMoreBuzzStart = () => {
+  return {
+    type: actionTypes.LOAD_MORE_BUZZ_START
+  };
+}
+
+export const loadMoreBuzzSuccess = (buzzData) => {
+  return {
+    type: actionTypes.LOAD_MORE_BUZZ_SUCCESS,
+    buzz: buzzData.buzzs,
+    totalBuzzCount: buzzData.totalBuzzCount
+  };
+}
+
+export const loadMoreBuzzFailed = () => {
+  return {
+    type: actionTypes.LOAD_MORE_BUZZ_FAILED
+  };
+}
+
+export const initLoadMoreBuzz = (pageNo) => {
+  return dispatch => {
+    dispatch(loadMoreBuzzStart());
+    axios.get(`/api/buzz?page=${pageNo}`)
+          .then(resp => {
+            dispatch(loadMoreBuzzSuccess(resp.data))
+          })
+          .catch(err => {
+            dispatch(loadMoreBuzzFailed());
+            toast.error(err.response.data.message);
+          });
+  }
+}
 
 export const addBuzzStart = () => {
   return {

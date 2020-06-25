@@ -31,6 +31,7 @@ router.get(
 router.post(
   "/api/commentReply/:commentId/:buzzId", 
   checkAuth,
+  uploadImage.single("image"),
   commentController.addReply
 );
 

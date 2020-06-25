@@ -36,6 +36,7 @@ const NewBuzz = (props) => {
         ],
       },
       value: "Category",
+      displayValue: 'Category',
       validation: {
         required: true,
       },
@@ -98,6 +99,7 @@ const NewBuzz = (props) => {
     });
     props.onAddBuzz(formData);
     setBuzzData(initialFormData);
+    setFormIsValid(false);
   };
 
   let errorMessage = <p className={classes.ErrorMessage}>*Please enter a valid data</p>
@@ -132,7 +134,7 @@ const NewBuzz = (props) => {
                   onChange={(e) => inputChangeHandler(e, 'category')}
                   defaultValue={buzzData.category.value}
                 >
-                  <option disabled hidden>{buzzData.category.value}</option>
+                  <option disabled hidden>{buzzData.category.displayValue}</option>
                   {buzzData.category.elementConfig.options.map(option => (
                     <option value={option.value} key={option.value}>{option.displayValue}</option>
                   ))}

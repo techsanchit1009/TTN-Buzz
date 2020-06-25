@@ -100,7 +100,9 @@
 
 .SubmitButton:hover, .SubmitButton:focus{
   color: orangered;
+  outline: none;
 }
+
 
 .SubmitButton:disabled{
   color: rgb(92, 81, 77);

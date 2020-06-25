@@ -9,6 +9,7 @@ const ComplaintModal = (props) => {
     <Modal
       heading={`Issue ID: ${selectedId}`}
       closeModalHandler={closeModalHandler}
+      size="large"
     >
       <div className={classes.ComplaintModal}>
         {complaintData

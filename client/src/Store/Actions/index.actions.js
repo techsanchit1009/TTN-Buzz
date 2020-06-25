@@ -13,6 +13,7 @@ export {
 
 export {
   initFetchBuzz,
+  initLoadMoreBuzz,
   initAddBuzz,
   initLikeDislikeBuzz,
   initDeleteBuzz
@@ -20,6 +21,13 @@ export {
 
 export {
   initFetchComments,
+  initLoadMoreComments,
   initAddComment,
   initDeleteComment
 } from './comment.action';
+
+export {
+  initFetchReplies,
+  initAddReply,
+  initLoadMoreReplies
+} from './reply.action';

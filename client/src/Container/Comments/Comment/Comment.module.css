@@ -25,7 +25,8 @@
 }
 
 .CommentImage{
-  height: 20vh;
+  height: 30vh;
+  width: 20vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -56,4 +57,11 @@
   text-decoration: underline;
   color: rgb(255, 115, 0);
   cursor: pointer;
+}
+
+.Replies {
+  background-color: #eee;
+  border-radius: 5px;
+  width: 45vw;
+  padding: 0.5rem;
 }

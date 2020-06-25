@@ -17,7 +17,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loadingComments: false,
-        comments: action.comments
+        comments: action.comments,
+        totalComments: action.totalComments
       };
 
     case actionTypes.FETCH_COMMENTS_FAILED:
@@ -26,6 +27,24 @@ const reducer = (state = initialState, action) => {
         loadingComments: false
       };
 
+    case actionTypes.LOAD_MORE_COMMENTS_START:
+      return {
+        ...state,
+        loadingComments: true
+      }
+
+    case actionTypes.LOAD_MORE_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: [...state.comments, ...action.comments],
+        loadingComments: false
+      }
+
+    case actionTypes.LOAD_MORE_COMMENTS_FAILED:
+      return {
+        ...state,
+        loadingComments: false
+      };
     
     case actionTypes.ADD_COMMENT_START:
       return{
