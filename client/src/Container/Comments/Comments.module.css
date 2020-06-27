@@ -26,27 +26,6 @@
   border-radius: 5px;
 }
 
-.SubmitButton {
-  color: rgb(255, 115, 0);
-  font-size: 2rem;
-  transform: rotate(45deg);
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.SubmitButton:hover, .SubmitButton:focus{
-  color: orangered;
-  outline: none;
-}
-
-.SubmitButton:disabled{
-  color: rgb(92, 81, 77);
-  cursor: not-allowed;
-}
-
-
 .ImageButton{
   font-size: 2rem;
   color: #aaa;

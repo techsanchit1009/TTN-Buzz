@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import { toast } from "react-toastify";
-import { loadMoreBuzzStart } from './buzz.action';
 
 export const fetchRepliesStart = () => {
   return {

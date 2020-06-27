@@ -8,6 +8,7 @@ import * as buzzActions from "../../Store/Actions/index.actions";
 import { connect } from "react-redux";
 import Spinner from "../../Components/UI/Spinner/Spinner";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Button from "../../Components/UI/Button/Button";
 
 const Buzz = (props) => {
   const {
@@ -66,19 +67,20 @@ const Buzz = (props) => {
   return (
     <div className={classes.Buzz}>
       <NewBuzz />
-      <BoxLayout 
-          heading="Recent Buzz" 
-          icon={headerIcon} 
-          filterHandler={filterHandler} 
-          filters={filterOptions}>
-
+      <BoxLayout
+        heading="Recent Buzz"
+        icon={headerIcon}
+        filterHandler={filterHandler}
+        filters={filterOptions}
+      >
         <div className={classes.List}>
           {/* <InfiniteScroll
               dataLength={totalBuzzCount}
               next={() => loadMore()}
               hasMore={totalBuzzCount !== pageNo}
               loader={<h4>Loading...</h4>}> */}
-            {buzzs.length ? buzzs.map((buzz) => (
+          {buzzs.length ? (
+            buzzs.map((buzz) => (
               <BuzzItem
                 key={buzz._id}
                 buzzId={buzz._id}
@@ -99,8 +101,13 @@ const Buzz = (props) => {
                 likeDislikeHandler={likeDislikeHandler}
                 deleteBuzzHandler={onDeleteBuzz}
               />
-            )): <p className={classes.NoResultText}>No Buzz Found!</p>}
-          {totalBuzzCount !== buzzs.length && <button onClick ={() => loadMore()}>LoadMore</button>}
+            ))
+          ) : (
+            <p className={classes.NoResultText}>No Buzz Found!</p>
+          )}
+          {totalBuzzCount !== buzzs.length && (
+            <Button btnType="LoadMore" onClick={() => loadMore()}>Load More</Button>
+          )}
           {/* </InfiniteScroll> */}
         </div>
       </BoxLayout>

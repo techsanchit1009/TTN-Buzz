@@ -8,6 +8,7 @@ import Comment from './Comment/Comment';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../../Components/UI/Spinner/Spinner';
+import Button from '../../Components/UI/Button/Button';
 
 const Comments = (props) => {
   const initialFormData = {
@@ -127,9 +128,9 @@ const Comments = (props) => {
               value={commentData.comment.value}
               onChange={(e) => inputChangeHandler(e, 'comment')}
             ></textarea>
-            <button className={classes.SubmitButton} title="Add Comment" disabled={!formIsValid}>
+            <Button btnType="Arrow" title="Add Comment" isDisabled={!formIsValid}>
               <TiLocationArrow />
-            </button>
+            </Button>
           </div>
             {!commentData.comment.valid && commentData.comment.touched ? errorMessage : ''}
           <div className={classes.FormRow}>

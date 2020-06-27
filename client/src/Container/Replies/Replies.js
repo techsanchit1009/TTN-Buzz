@@ -6,6 +6,8 @@ import { checkValidity } from '../../Shared/validation';
 import { connect } from 'react-redux';
 import * as replyActions from '../../Store/Actions/index.actions';
 import Reply from './Reply/Reply';
+import Spinner from '../../Components/UI/Spinner/Spinner';
+import Button from '../../Components/UI/Button/Button';
 
 const Replies = (props) => {
   const initialFormData = {
@@ -36,6 +38,7 @@ const Replies = (props) => {
     onLoadMoreReplies,
     replies,
     totalReplies,
+    loading
   } = props;
 
   const [replyData, setReplyData] = useState(initialFormData);
@@ -103,10 +106,18 @@ const Replies = (props) => {
   return (
     <div className={classes.Replies}>
       <div className={classes.RepliesList}>
-        {replies.length ? replies.map(reply => (
-          <Reply key={reply._id} reply={reply}/>
-        )) : <p className={classes.NoResultText}>No Comments Found</p>}
-      {totalReplies !== replies.length && <button onClick={() => loadMore()}>LoadMore</button>}  
+        {loading ? (
+          <Spinner />
+        ) : replies.length ? (
+          replies.map((reply) => <Reply key={reply._id} reply={reply} />)
+        ) : (
+          <p className={classes.NoResultText}>No Replies Found</p>
+        )}
+        {totalReplies !== replies.length && (
+          <Button btnType="LoadMore" onClick={() => loadMore()}>
+            Load More
+          </Button>
+        )}
       </div>
       <form onSubmit={(e) => submitHandler(e)}>
         <div className={classes.FormRow}>
@@ -115,41 +126,38 @@ const Replies = (props) => {
             type={replyData.reply.elementType}
             {...replyData.reply.elementConfig}
             value={replyData.reply.value}
-            onChange={(e) => inputChangeHandler(e, 'reply')}
+            onChange={(e) => inputChangeHandler(e, "reply")}
           />
-          <button className={classes.SubmitButton} title="Add Reply" disabled={!formIsValid}>
-              <TiLocationArrow />
-          </button>
+          <Button btnType="Arrow" isDisabled={!formIsValid} title="Add Reply">
+            <TiLocationArrow />
+          </Button>
         </div>
-        {!replyData.reply.valid && replyData.reply.touched ? errorMessage : ''}
+        {!replyData.reply.valid && replyData.reply.touched ? errorMessage : ""}
         <div className={classes.FormRow}>
-              <label htmlFor="image_reply">
-                <RiImageAddLine
-                  className={classes.ImageButton}
-                  title="Add Image"
-                />
-              </label>
-              <input
-                id="image_reply"
-                type="file"
-                className={classes.ImageInput}
-                accept="image/*"
-                hidden
-                onChange={(e) => inputChangeHandler(e, 'image')}
-              />
-              {replyData.image.value && (
-                <p className={classes.ImageName}>
-                  {replyData.image.value.name}
-                  <span
-                    className={classes.RemoveImage}
-                    onClick={removeImage}
-                    title="Remove"
-                  >
-                    &times;
-                  </span>
-                </p>
-              )}
-            </div>
+          <label htmlFor="image_reply">
+            <RiImageAddLine className={classes.ImageButton} title="Add Image" />
+          </label>
+          <input
+            id="image_reply"
+            type="file"
+            className={classes.ImageInput}
+            accept="image/*"
+            hidden
+            onChange={(e) => inputChangeHandler(e, "image")}
+          />
+          {replyData.image.value && (
+            <p className={classes.ImageName}>
+              {replyData.image.value.name}
+              <span
+                className={classes.RemoveImage}
+                onClick={removeImage}
+                title="Remove"
+              >
+                &times;
+              </span>
+            </p>
+          )}
+        </div>
       </form>
     </div>
   );
@@ -158,7 +166,8 @@ const Replies = (props) => {
 const mapStateToProps = state => {
   return {
     replies: state.replyData.replies,
-    totalReplies: state.replyData.totalReplies
+    totalReplies: state.replyData.totalReplies,
+    loading: state.replyData.loadingReplies
   }
 }
 

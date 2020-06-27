@@ -9,6 +9,7 @@ import BoxLayout from "../../../Components/UI/BoxLayout/BoxLayout";
 import * as buzzAction from "../../../Store/Actions/index.actions";
 import { checkValidity } from '../../../Shared/validation';
 import { withRouter } from "react-router-dom";
+import Button from "../../../Components/UI/Button/Button";
 
 const NewBuzz = (props) => {
   const initialFormData = {
@@ -171,9 +172,9 @@ const NewBuzz = (props) => {
               )}
             </div>
           </div>
-          <button className={classes.SubmitButton} title="Submit Buzz" disabled={!formIsValid} >
+          <Button btnType="Arrow" title="Submit Buzz" isDisabled={!formIsValid} >
             <TiLocationArrow />
-          </button>
+          </Button>
         </div>
     </form>
     </BoxLayout>
