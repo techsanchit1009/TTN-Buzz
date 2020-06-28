@@ -1,4 +1,5 @@
 const Complaint = require('./complaint.model');
+const emailNotification = require('../../Libs/nodeMailer.lib');
 
 const generateIssueId = () => {
   let result = '';
@@ -41,12 +42,36 @@ exports.getAllComplaints = async (pageNo) => {
   return {complaints, totalComplaints};
 }
 
-exports.updateComplaintStatus = (id, updatedStatus) => {
-  const updatedComplaint = Complaint.updateOne({_id: id}, {status: updatedStatus});
-  return updatedComplaint;
+exports.updateComplaintStatus = async (id, updatedStatus) => {
+  const complaintData = await Complaint.findById(id)
+    .populate("complaintBy", "email name -_id")
+    .select("issueId -_id");
+  const updateResponse = await Complaint.updateOne({_id: id}, {status: updatedStatus});
+  
+  if(updateResponse.ok && updateResponse.nModified > 0){
+    let recipientEmail = complaintData.complaintBy.email;
+    let subject = `Status Update! ( ${complaintData.issueId} )`;
+    let body = `Hello ${complaintData.complaintBy.name}, Status of your complaint with ID: ${complaintData.issueId} is changed to - ${updatedStatus}.`;
+
+    emailNotification(recipientEmail, subject, body); // Sending the mail
+  }
+
+  return updateResponse;
 }
 
-exports.updateComplaintAssignedTo = (id, assignedTo) => {
-  const updatedComplaint = Complaint.updateOne({ _id: id}, {assignedTo: assignedTo});
-  return updatedComplaint;
+exports.updateComplaintAssignedTo = async (id, assignedTo) => {
+  const complaintData = await Complaint.findById(id)
+    .populate("complaintBy", "email name -_id")
+    .select("issueId -_id");
+  const updateResponse = await Complaint.updateOne({ _id: id}, {assignedTo: assignedTo});
+
+  if(updateResponse.ok && updateResponse.nModified > 0){
+    let recipientEmail = complaintData.complaintBy.email;
+    let subject = `Complaint Assigned! ( ${complaintData.issueId} )`;
+    let body = `Hello ${complaintData.complaintBy.name}, Your complaint  with ID: ${complaintData.issueId} is Assigned to - ${assignedTo}.`;
+
+    emailNotification(recipientEmail, subject, body); // Sending the mail
+  }
+
+  return updateResponse;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Button.module.css';
 
 const Button = (props) => {
-  const {btnType, children, isDisabled } = props;
+  const {btnType, children, title, isDisabled } = props;
 
   const btnClass = [];
   if(btnType === 'Arrow'){
@@ -12,8 +12,8 @@ const Button = (props) => {
   }
 
   return (
-    <div className={btnType==='LoadMore' && classes.ButtonWrapper}>
-      <button className={btnClass} {...props} disabled={isDisabled}>{children}</button>
+    <div className={btnType==='LoadMore' ? classes.ButtonWrapper : ''}>
+      <button className={btnClass.join(' ')} title={title} disabled={isDisabled}>{children}</button>
     </div>
   )
 }
